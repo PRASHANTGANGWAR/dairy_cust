@@ -9,7 +9,7 @@
 
 <ion-content>
 	<div class="logo">
-		<img src="assets/img/drawable-port-xxxhdpi-screen.png" alt="Ionic logo">
+		<img src="assets/img/Dairylaclogo.png" alt="Ionic logo">
 	</div>
 
 	<form #loginForm="ngForm" novalidate>
@@ -32,14 +32,6 @@
 			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
 				Password is required
 			</p>
-			<ion-item [hidden]="!flag">
-				<ion-label stacked color="primary">Enter Your Registered E-mail Address for password reset</ion-label>
-				<ion-input [(ngModel)]="login.regEmail" name="password" type="password" #password="ngModel" required>
-				</ion-input>
-			</ion-item>
-			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
-				Password is required
-			</p>
 
 		</ion-list>
 
@@ -47,17 +39,17 @@
 			<ion-col>
 				<button ion-button (click)="onLogin(loginForm)" type="submit" [hidden]="flag" block>Login</button>
 			</ion-col>
-			<ion-col>
+			<!-- <ion-col>
 				<button ion-button (click)="onSignup()" color="light" [hidden]="flag" block>Signup</button>
-			</ion-col>
+			</ion-col> -->
 		</ion-row>
-		<ion-row responsive-sm>
+		<!-- <ion-row responsive-sm>
 			<ion-col>
 				<button ion-button full color="light" (click)="forgotPassword()" [hidden]="flag">Forgot password?</button>
 				<button ion-button clear (click)="scan()" style="text-transform: none;" [hidden]="flag"><ion-icon name="aperture"></ion-icon>Do you have a boucher with a QR code?</button>
 				<button ion-button full color="light" class="LoginView-submit" (click)="resetPassword()" [hidden]="!flag">Reset password</button>
 			</ion-col>
-		</ion-row>
+		</ion-row> -->
 	</form>
 
 </ion-content>

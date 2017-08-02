@@ -19,7 +19,6 @@ import { MapPage } from '../pages/map/map';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
-import { SignupPage } from '../pages/signup/signup';
 import { SpeakerDetailPage } from '../pages/speaker-detail/speaker-detail';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
@@ -28,6 +27,7 @@ import { SupportPage } from '../pages/support/support';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
+
 
 
 @NgModule({
@@ -41,7 +41,6 @@ import { UserData } from '../providers/user-data';
     SchedulePage,
     ScheduleFilterPage,
     SessionDetailPage,
-    SignupPage,
     SpeakerDetailPage,
     SpeakerListPage,
     TabsPage,
@@ -64,8 +63,7 @@ import { UserData } from '../providers/user-data';
         { component: TutorialPage, name: 'Tutorial', segment: 'tutorial' },
         { component: SupportPage, name: 'SupportPage', segment: 'support' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
-        { component: AccountPage, name: 'AccountPage', segment: 'account' },
-        { component: SignupPage, name: 'SignupPage', segment: 'signup' }
+        { component: AccountPage, name: 'AccountPage', segment: 'account' }
       ]
     }),
     IonicStorageModule.forRoot()
@@ -81,7 +79,6 @@ import { UserData } from '../providers/user-data';
     SchedulePage,
     ScheduleFilterPage,
     SessionDetailPage,
-    SignupPage,
     SpeakerDetailPage,
     SpeakerListPage,
     TabsPage,
