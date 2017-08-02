@@ -30,16 +30,17 @@ export class LoginPage {
 
   onLogin(form: NgForm) {
     this.submitted = true;
-
+    debugger;
     if (form.valid) {
       this.showLoader();
       this.userData.login(this.login.username,this.login.password).then(results=>{
       debugger;
-        this.hideLoader();
+          console.log(results);
           let resultData : any ={};
            resultData = results;
           if(resultData.user.authentication_token){
-            this.navCtrl.setRoot(TabsPage);
+            //this.navCtrl.setRoot(TabsPage);
+            this.device_deliveries();
           } else{
             form.resetForm();
             this.doAlert('Error','Invalid username/password. Please try again.');
@@ -48,6 +49,23 @@ export class LoginPage {
     }
   }
 
+   device_deliveries() {
+    debugger;
+      //this.showLoader();
+      this.userData.device_deliverie().then(results=>{
+      debugger;
+        this.hideLoader();
+          let resultData : any ={};
+           resultData = results;
+          if(resultData.deliveries && resultData.product_quantities){
+            //this.navCtrl.setRoot(TabsPage);
+            //this.doAlert('Success','Delivery details have been come !!');
+            this.navCtrl.setRoot(TabsPage);
+          } else{
+            this.doAlert('Error','Invalid username/password. Please try again.');
+          }
+      });
+  }
 
   forgotPassword() {
     this.flag = true;
