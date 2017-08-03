@@ -1,366 +1,110 @@
-<!-- <ion-tabs [selectedIndex]="mySelectedIndex" name="conference">
-  <ion-tab [root]="tab1Root" tabTitle="Schedule" tabIcon="calendar" tabUrlPath="conference-schedule"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Speakers" tabIcon="contacts"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Map" tabIcon="map"></ion-tab>
-  <ion-tab [root]="tab4Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
-</ion-tabs> -->
-<!-- <ion-content padding>
-
-
-<ion-item>
-<ion-input type="text" [(ngModel)]="username" placeholder="Enter Username"></ion-input>
-</ion-item>
-
-<button ion-button color="danger" (click)="save()" > Save </button>
-
-<ion-list>
-
-<ion-item href="#" *ngFor="let x of items" >
-{{x.name}}
-</ion-item>
-
-</ion-list>
-
-</ion-content> -->
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle="left" style="display: inline-block !important;">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Akash</ion-title>
+    <ion-title>Deliveries</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="OrganizationsView" padding>
-  
-<ion-card>
-    <ion-item item-start style="background: #2c6ead;">
-    <ion-row>
-      <ion-col>
-        <ion-icon name="time" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-      <ion-col>
-        <h1 style="color:#ffffff !important;">1 hour 13 minutes</h1>
-      </ion-col>
-      <ion-col (click)="toggle('hide-show2')">
-        <ion-icon name="md-arrow-dropdown" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-  </ion-row>
-   </ion-item>
 
+<ion-slides>
+  <ion-slide>
+    <ion-card>
+  <ion-item>
+    <div>
+        
+        <ion-item>
+          <h2>Mobile: Ram Gopal Verma</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Address: 53/13, Karolbagh</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Box Details: 100</h2>
+        </ion-item>
+      </div>
+			<button ion-button small>Box Req.</button>
+			
+  </ion-item>
+  <ion-card>
+<ion-item style="background-color: #af0e94;text-align:center;" >
+					
+	 <div class="col" >
+		  <h2 style="color:#fff;">Desi Cow milk</h2>
+		</div>
+	 <div class="col" >
+		  <h2 style="color:#fff;">Quantity: 3</h2>
+		</div>
+    </ion-item>
+    </ion-card>
+</ion-card>
+
+  </ion-slide>
+  <ion-slide>
+    <ion-card>
   <ion-item>
     <div class="row">
-        <div class="col-10">
-          <ion-avatar item-start>
-            <img src="http://www.greenend.org.uk/rjk/junk/avatar%20small.png">
-          </ion-avatar>
+        
+        <div class="col">
+          <h2>Mobile: Ram Gopal Verma</h2>
         </div>
-        <div class="col" style="margin-left: 10px;">
-          <h2>Flexon-MR</h2>
-           <p>The dose at a time of: 0.25 pill</p>
+        <div class="col">
+          <h2>Address: 53/13, Karolbagh, New Delhi 95</h2>
         </div>
-      </div>
-      <div id="hide-show2" style="display: block;">
-        <div class="row inline-all">
-            <div class = "col inline" style="color:green;"><ion-icon name="checkmark"></ion-icon></div>
-            <div class = "col inline"><p>For today adopted: 1 of 10</p></div>
-        </div>
-        <div class="row inline-all">
-           <div class = "col inline" style="color:#f53d3d;"><ion-icon name="close"></ion-icon></div>
-           <div class = "col inline"><p>For today missing: 1</p></div>
-        </div>
-        <div class="row inline-new">
-          <div class="col border-right"><p>Getting admission:</p>
-          22.05.17</div>
-          <div class="col"><p>Deadline:</p>13.07.17</div>
-        </div>
-        <div class="row inline-inst">
-           <div><p>Instructions for use:</p>Drink plenty of water</div>
+        <div class="col">
+          <h2>Box Details: 100</h2>
         </div>
       </div>
+			<button ion-button small>Box Req.</button>
+			
   </ion-item>
-
-  <ion-row style="margin-left: 50px;">
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>MISS</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>POSTPONE</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>ACCEPT</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
+  <ion-card>
+<ion-item style="background-color: #af0e94;text-align:center;" >
+					
+	 <div class="col" >
+		  <h2 style="color:#fff;">Desi Cow milk</h2>
+		</div>
+	 <div class="col" >
+		  <h2 style="color:#fff;">Quantity: 3</h2>
+		</div>
+    </ion-item>
+    </ion-card>
 </ion-card>
-<ion-card>
-    <ion-item item-start style="background: #2c6ead;">
-    <ion-row>
-      <ion-col>
-        <ion-icon name="time" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-      <ion-col>
-        <h1 style="color:#ffffff !important;">1 hour 13 minutes</h1>
-      </ion-col>
-      <ion-col (click)="toggle('hide-show3')">
-        <ion-icon name="md-arrow-dropdown" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-  </ion-row>
-   </ion-item>
 
+  </ion-slide>
+  <ion-slide>
+    <ion-card>
   <ion-item>
     <div class="row">
-        <div class="col-10">
-          <ion-avatar item-start>
-            <img src="http://www.greenend.org.uk/rjk/junk/avatar%20small.png">
-          </ion-avatar>
+        
+        <div class="col">
+          <h2>Mobile: Ram Gopal Verma</h2>
         </div>
-        <div class="col" style="margin-left: 10px;">
-          <h2>Flexon-MR</h2>
-           <p>The dose at a time of: 0.25 pill</p>
+        <div class="col">
+          <h2>Address: 53/13, Karolbagh, New Delhi 95</h2>
         </div>
-      </div>
-      <div id="hide-show3" style="display: block;">
-        <div class="row inline-all">
-            <div class = "col inline" style="color:green;"><ion-icon name="checkmark"></ion-icon></div>
-            <div class = "col inline"><p>For today adopted: 1 of 10</p></div>
-        </div>
-        <div class="row inline-all">
-           <div class = "col inline" style="color:#f53d3d;"><ion-icon name="close"></ion-icon></div>
-           <div class = "col inline"><p>For today missing: 1</p></div>
-        </div>
-        <div class="row inline-new">
-          <div class="col border-right"><p>Getting admission:</p>
-          22.05.17</div>
-          <div class="col"><p>Deadline:</p>13.07.17</div>
-        </div>
-        <div class="row inline-inst">
-           <div><p>Instructions for use:</p>Drink plenty of water</div>
+        <div class="col">
+          <h2>Box Details: 100</h2>
         </div>
       </div>
+			<button ion-button small>Box Req.</button>
+			
   </ion-item>
-
-  <ion-row style="margin-left: 50px;">
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>MISS</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>POSTPONE</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>ACCEPT</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
+  <ion-card>
+<ion-item style="background-color: #af0e94;text-align:center;" >
+					
+	 <div class="col" >
+		  <h2 style="color:#fff;">Desi Cow milk</h2>
+		</div>
+	 <div class="col" >
+		  <h2 style="color:#fff;">Quantity: 3</h2>
+		</div>
+    </ion-item>
+    </ion-card>
 </ion-card>
-<ion-card>
-    <ion-item item-start style="background: #2c6ead;">
-    <ion-row>
-      <ion-col>
-        <ion-icon name="time" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-      <ion-col>
-        <h1 style="color:#ffffff !important;">1 hour 13 minutes</h1>
-      </ion-col>
-      <ion-col (click)="toggle('hide-show4')">
-        <ion-icon name="md-arrow-dropdown" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-  </ion-row>
-   </ion-item>
 
-  <ion-item>
-    <div class="row">
-        <div class="col-10">
-          <ion-avatar item-start>
-            <img src="http://www.greenend.org.uk/rjk/junk/avatar%20small.png">
-          </ion-avatar>
-        </div>
-        <div class="col" style="margin-left: 10px;">
-          <h2>Flexon-MR</h2>
-           <p>The dose at a time of: 0.25 pill</p>
-        </div>
-      </div>
-      <div id="hide-show4" style="display: block;">
-        <div class="row inline-all">
-            <div class = "col inline" style="color:green;"><ion-icon name="checkmark"></ion-icon></div>
-            <div class = "col inline"><p>For today adopted: 1 of 10</p></div>
-        </div>
-        <div class="row inline-all">
-           <div class = "col inline" style="color:#f53d3d;"><ion-icon name="close"></ion-icon></div>
-           <div class = "col inline"><p>For today missing: 1</p></div>
-        </div>
-        <div class="row inline-new">
-          <div class="col border-right"><p>Getting admission:</p>
-          22.05.17</div>
-          <div class="col"><p>Deadline:</p>13.07.17</div>
-        </div>
-        <div class="row inline-inst">
-           <div><p>Instructions for use:</p>Drink plenty of water</div>
-        </div>
-      </div>
-  </ion-item>
-
-  <ion-row style="margin-left: 50px;">
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>MISS</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>POSTPONE</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>ACCEPT</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
-</ion-card>
-<ion-card>
-    <ion-item item-start style="background: #2c6ead;">
-    <ion-row>
-      <ion-col>
-        <ion-icon name="time" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-      <ion-col>
-        <h1 style="color:#ffffff !important;">1 hour 13 minutes</h1>
-      </ion-col>
-      <ion-col (click)="toggle('hide-show5')">
-        <ion-icon name="md-arrow-dropdown" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-  </ion-row>
-   </ion-item>
-
-  <ion-item>
-    <div class="row">
-        <div class="col-10">
-          <ion-avatar item-start>
-            <img src="http://www.greenend.org.uk/rjk/junk/avatar%20small.png">
-          </ion-avatar>
-        </div>
-        <div class="col" style="margin-left: 10px;">
-          <h2>Flexon-MR</h2>
-           <p>The dose at a time of: 0.25 pill</p>
-        </div>
-      </div>
-      <div id="hide-show5" style="display: block;">
-        <div class="row inline-all">
-            <div class = "col inline" style="color:green;"><ion-icon name="checkmark"></ion-icon></div>
-            <div class = "col inline"><p>For today adopted: 1 of 10</p></div>
-        </div>
-        <div class="row inline-all">
-           <div class = "col inline" style="color:#f53d3d;"><ion-icon name="close"></ion-icon></div>
-           <div class = "col inline"><p>For today missing: 1</p></div>
-        </div>
-        <div class="row inline-new">
-          <div class="col border-right"><p>Getting admission:</p>
-          22.05.17</div>
-          <div class="col"><p>Deadline:</p>13.07.17</div>
-        </div>
-        <div class="row inline-inst">
-           <div><p>Instructions for use:</p>Drink plenty of water</div>
-        </div>
-      </div>
-  </ion-item>
-
-  <ion-row style="margin-left: 50px;">
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>MISS</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>POSTPONE</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>ACCEPT</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
-</ion-card>
-<ion-card>
-    <ion-item item-start style="background: #2c6ead;">
-    <ion-row>
-      <ion-col>
-        <ion-icon name="time" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-      <ion-col>
-        <h1 style="color:#ffffff !important;">1 hour 13 minutes</h1>
-      </ion-col>
-      <ion-col (click)="toggle('hide-show6')">
-        <ion-icon name="md-arrow-dropdown" style="color:#ffffff !important;"></ion-icon>
-      </ion-col>
-  </ion-row>
-   </ion-item>
-
-  <ion-item>
-    <div class="row">
-        <div class="col-10">
-          <ion-avatar item-start>
-            <img src="http://www.greenend.org.uk/rjk/junk/avatar%20small.png">
-          </ion-avatar>
-        </div>
-        <div class="col" style="margin-left: 10px;">
-          <h2>Flexon-MR</h2>
-           <p>The dose at a time of: 0.25 pill</p>
-        </div>
-      </div>
-      <div id="hide-show6" style="display: block;">
-        <div class="row inline-all">
-            <div class = "col inline" style="color:green;"><ion-icon name="checkmark"></ion-icon></div>
-            <div class = "col inline"><p>For today adopted: 1 of 10</p></div>
-        </div>
-        <div class="row inline-all">
-           <div class = "col inline" style="color:#f53d3d;"><ion-icon name="close"></ion-icon></div>
-           <div class = "col inline"><p>For today missing: 1</p></div>
-        </div>
-        <div class="row inline-new">
-          <div class="col border-right"><p>Getting admission:</p>
-          22.05.17</div>
-          <div class="col"><p>Deadline:</p>13.07.17</div>
-        </div>
-        <div class="row inline-inst">
-           <div><p>Instructions for use:</p>Drink plenty of water</div>
-        </div>
-      </div>
-  </ion-item>
-
-  <ion-row style="margin-left: 50px;">
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>MISS</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>POSTPONE</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <div>ACCEPT</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
-</ion-card>
+  </ion-slide>
+</ion-slides>
 </ion-content>
