@@ -10,10 +10,10 @@
 <ion-content class="OrganizationsView" padding>
 
 <ion-slides>
-  <ion-slide *ngFor="let user of AppUsers">
+  <ion-slide *ngFor="let user of AppUsers;let i=index;">
     <ion-card>
     	<ion-item>
-		<h3>{{AppUsers.length}}</h3>
+		<h3>{{i}}/{{AppUsers.length}}</h3>
 	</ion-item>
   <ion-item>
   
