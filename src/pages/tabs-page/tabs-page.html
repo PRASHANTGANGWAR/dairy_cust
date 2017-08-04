@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="OrganizationsView" padding>
-	
+
 <ion-slides>
   <ion-slide *ngFor="let user of AppUsers">
     <ion-card>
@@ -32,7 +32,8 @@
 			<!-- <button ion-button small>Box Req.</button> -->
 			
   </ion-item>
-  <ion-card *ngFor="let pack of user.delivery_packages">
+  <!-- <ion-card *ngFor="let pack of user.delivery_packages" (click)="insertProduct(pack,user.id)"> -->
+  <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
 <ion-item style="text-align:center;background:#999a9b" >
 					
 	 <div class="col" >

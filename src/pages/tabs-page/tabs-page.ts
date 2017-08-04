@@ -8,7 +8,7 @@ import { SchedulePage } from '../schedule/schedule';
 import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { DBProvider } from '../../providers/DBProvider';
-
+import { AlertController} from 'ionic-angular';
 
 @Component({
   templateUrl: 'tabs-page.html'
@@ -22,7 +22,7 @@ export class TabsPage {
   tab4Root: any = AboutPage;
   mySelectedIndex: number;
 
-  constructor(navParams: NavParams,private sqlite: SQLite,public db: DBProvider) {
+  constructor(navParams: NavParams,private sqlite: SQLite,public db: DBProvider,private _alert: AlertController) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
   ionViewDidLoad() {
@@ -45,15 +45,17 @@ export class TabsPage {
       });
   }
 
-  /*public insertAppUser() {
-    this.db.insertAppUser()
+  public insertProduct(pro: any,deliveryId: any,status: any) {
+    console.log(pro);
+    console.log(deliveryId);
+    this.db.insertProducts(pro,deliveryId,status)
       .then(data => {
       console.log(data);
       })
       .catch(ex => {
         console.log(ex);
       });
-  }*/
+  }
 
   public getAllAppUsers() {
   let DeliveryList: any = [];
@@ -117,5 +119,33 @@ alert(this.username);
 
 }
   
+doAlert(pro: any,deliveryId: any) {
+    let alert = this._alert.create({
+      subTitle: "message",
+      buttons: [
+      {
+        text: 'Accept',
+        handler: () => {
+          this.insertProduct(pro,deliveryId,'1');
+        }
+      },
+        {
+        text: 'Reject',
+        handler: () => {
+          this.insertProduct(pro,deliveryId,'0');
+        }
+      },
+        {
+        text: 'Cancle',
+        role: 'cancel',
+        handler: () => {
+         console.log("cancel");
+        }
+      }
+      ],
+      cssClass: 'custom-alert'
+    });
+    alert.present();
+  }
 
 }

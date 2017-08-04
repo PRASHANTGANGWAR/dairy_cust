@@ -31,6 +31,7 @@ export class DBProvider {
             }
         });
         this._tryInit();
+        this._CreateTable();
     }
 
     // Initialize the DB with our required tables
@@ -39,6 +40,18 @@ export class DBProvider {
                          id INTEGER NOT NULL,
                          jsondata TEXT NOT NULL,
                          PRIMARY KEY(id)
+                     )`).catch(err => {
+                console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
+            });
+    }
+
+    _CreateTable() {
+        this.query(`CREATE TABLE IF NOT EXISTS DeliveryProducts (
+                         deliveryId INTEGER NOT NULL,
+                         packageId INTEGER NOT NULL,
+                         productId INTEGER NOT NULL,
+                         status INTEGER NOT NULL,
+                         PRIMARY KEY(deliveryId)
                      )`).catch(err => {
                 console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
             });
@@ -66,38 +79,22 @@ export class DBProvider {
     }
 
     insertAppUser(data: any): Promise<any> {
-        //let id;
-        //let jsondata;
-        //let i:number;
-        //let a:number = 10;
-        /*
-        console.log(dataa);
-        let dataaa :any = {deliveries:[{"name":"vinod","id":1},{"name":"akash","id":3}]};
-
-        var query = "INSERT INTO AppUser (id, jsondata) VALUES ";
-                let obj :any = [];
-                 let data: any = [];
-                 let rowArgs: any = [];
-                 dataaa.deliveries.forEach(function (category: any) {
-                         rowArgs.push("(?, ?)");
-                         obj = [];
-                         obj.push(category.id);
-                         obj.push(JSON.stringify(category));
-                         data.push(obj);
-                     });
-                 query += rowArgs.join(", ");
-                    console.log(query);
-                 this.query(query,[data]);
-        */
-        //return dataa;
-
-        
-
         for(var i = 0; i<data.deliveries.length;i++){
             this.query("INSERT INTO AppUser (id,jsondata) VALUES (?, ?);",[i, JSON.stringify(data.deliveries[i])]);
         }
 
-        //return this.query('INSERT INTO AppUser (id, jsondata) VALUES (2, "9876543210")', []);
+        return new Promise((resolve, reject) => {
+        console.log(reject);
+        console.log(resolve);
+            return resolve;
+        });
+    }
+
+    insertProducts(pro: any,deliveryId: any,status: any): Promise<any> {
+         
+         console.log(pro);
+         console.log(deliveryId);
+         this.query("INSERT INTO DeliveryProducts (deliveryId, packageId, productId, status) VALUES (?, ?, ?, ?);",[deliveryId, pro.id, pro.product.id, status]);
 
         return new Promise((resolve, reject) => {
         console.log(reject);
