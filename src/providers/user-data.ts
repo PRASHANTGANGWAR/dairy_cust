@@ -71,7 +71,6 @@ export class UserData {
 
 
   device_deliverie(){
-  debugger;
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
     let data :any = {};
     data.delivery_status = 0;
@@ -157,7 +156,6 @@ export class UserData {
   };
 
   setUsername(user_details: any): void {
-    debugger;
       window.localStorage.setItem('user_details', JSON.stringify(user_details.message));
   };
 

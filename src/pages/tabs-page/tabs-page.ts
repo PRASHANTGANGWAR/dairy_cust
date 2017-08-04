@@ -7,11 +7,14 @@ import { MapPage } from '../map/map';
 import { SchedulePage } from '../schedule/schedule';
 import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { DBProvider } from '../../providers/DBProvider';
+
 
 @Component({
   templateUrl: 'tabs-page.html'
 })
 export class TabsPage {
+  AppUsers: Array<Object>;
   // set the root pages for each tab
   tab1Root: any = SchedulePage;
   tab2Root: any = SpeakerListPage;
@@ -19,17 +22,60 @@ export class TabsPage {
   tab4Root: any = AboutPage;
   mySelectedIndex: number;
 
-  constructor(navParams: NavParams,private sqlite: SQLite) {
+  constructor(navParams: NavParams,private sqlite: SQLite,public db: DBProvider) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
+  ionViewDidLoad() {
+    this.deleteAppUser();
+    //this.insertAppUser();
+    this.getAllAppUsers();
+  }
+  public deleteAppUser() {
+    this.db.deleteAppUser(1)
+      .then(data => {
+        if (data.res.rowsAffected == 1) {
+          console.log('AppUser Deleted.');
+        }
+        else {
+          console.log('No AppUser Deleted.');
+        }
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+  }
 
+  /*public insertAppUser() {
+    this.db.insertAppUser()
+      .then(data => {
+      console.log(data);
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+  }*/
+
+  public getAllAppUsers() {
+  let DeliveryList: any = [];
+    //let that = this;
+    this.db.getAppUsers()
+      .then(data => {
+        for(var i=0;i<data.length;i++){
+        DeliveryList.push(JSON.parse(data[i].jsondata));
+        }
+        this.AppUsers = DeliveryList;
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+  
+  }
   username='';
   name='';
 items: any = [];
 save()
 {
 
-debugger;
 this.sqlite.create({
 name: 'data.db',
 location: 'default'
@@ -70,5 +116,6 @@ alert('Unable to execute sql: '+JSON.stringify(err));
 alert(this.username);
 
 }
+  
 
 }

@@ -27,8 +27,8 @@ import { SupportPage } from '../pages/support/support';
 
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
-
 import { SQLite } from '@ionic-native/sqlite';
+import { DBProvider } from '../providers/DBProvider';
 
 @NgModule({
   declarations: [
@@ -88,6 +88,7 @@ import { SQLite } from '@ionic-native/sqlite';
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     SQLite,
+    DBProvider,
     ConferenceData,
     UserData,
     InAppBrowser,

@@ -9,7 +9,7 @@ import { UserOptions } from '../../interfaces/user-options';
 
 import { TabsPage } from '../tabs-page/tabs-page';
 import { MapPage } from '../map/map';
-
+import { DBProvider } from '../../providers/DBProvider';
 
 @Component({
   selector: 'page-user',
@@ -20,21 +20,70 @@ export class LoginPage {
   login: UserOptions = { username: '', password: '' };
   submitted = false;
   private loading :any;
+  AppUsers: Array<Object>;
 
   constructor(
     private navCtrl: NavController, 
     public userData: UserData,
     private _loading: LoadingController,
-    private _alert: AlertController
+    private _alert: AlertController,
+    public db: DBProvider
     ) { }
 
+    ionViewDidLoad() {
+    this.deleteAppUser();
+  }
+
+  ngOnInit() {
+  }
+
+
+  public deleteAppUser() {
+    this.db.deleteAppUser(1)
+      .then(data => {
+        if (data.res.rowsAffected == 1) {
+          console.log('AppUser Deleted.');
+        }
+        else {
+          console.log('No AppUser Deleted.');
+        }
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+  }
+
+  public insertAppUser(resultData: any) {
+    this.db.insertAppUser(resultData)
+      .then(data => {
+      console.log(data);
+        this.navCtrl.setRoot(TabsPage);
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+      this.navCtrl.setRoot(TabsPage);
+  }
+
+  public getAllAppUsers() {
+    this.db.getAppUsers()
+      .then(data => {
+        this.AppUsers = data;
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+  }
+
+
+
   onLogin(form: NgForm) {
+  console.log(form);
+  //this.navCtrl.setRoot(TabsPage);
     this.submitted = true;
-    debugger;
     if (form.valid) {
       this.showLoader();
       this.userData.login(this.login.username,this.login.password).then(results=>{
-      debugger;
           console.log(results);
           let resultData : any ={};
            resultData = results;
@@ -50,17 +99,16 @@ export class LoginPage {
   }
 
    device_deliveries() {
-    debugger;
       //this.showLoader();
       this.userData.device_deliverie().then(results=>{
-      debugger;
         this.hideLoader();
           let resultData : any ={};
            resultData = results;
           if(resultData.deliveries && resultData.product_quantities){
             //this.navCtrl.setRoot(TabsPage);
             //this.doAlert('Success','Delivery details have been come !!');
-            this.navCtrl.setRoot(TabsPage);
+            this.insertAppUser(resultData);
+            
           } else{
             this.doAlert('Error','Invalid username/password. Please try again.');
           }
@@ -87,7 +135,7 @@ export class LoginPage {
     let alert = this._alert.create({
       title: type,
       subTitle: message,
-      buttons: ['OK']
+      buttons: ['Done','Cancel']
     });
     alert.present();
   }

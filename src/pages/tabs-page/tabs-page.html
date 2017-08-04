@@ -8,103 +8,44 @@
 </ion-header>
 
 <ion-content class="OrganizationsView" padding>
-
+	
 <ion-slides>
-  <ion-slide>
+  <ion-slide *ngFor="let user of AppUsers">
     <ion-card>
+    	<ion-item>
+		<h3>{{AppUsers.length}}</h3>
+	</ion-item>
   <ion-item>
+  
     <div>
+        <ion-item>
+          <h2>Name: {{user.customer_name}}</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Mobile: {{user.member1_phone_no}}</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Address: {{user.address.name}}</h2>
+        </ion-item>
         
-        <ion-item>
-          <h2>Mobile: Ram Gopal Verma</h2>
-        </ion-item>
-        <ion-item>
-          <h2>Address: 53/13, Karolbagh</h2>
-        </ion-item>
-        <ion-item>
-          <h2>Box Details: 100</h2>
-        </ion-item>
       </div>
-			<button ion-button small>Box Req.</button>
+			<!-- <button ion-button small>Box Req.</button> -->
 			
   </ion-item>
-  <ion-card>
-<ion-item style="background-color: #af0e94;text-align:center;" >
+  <ion-card *ngFor="let pack of user.delivery_packages">
+<ion-item style="text-align:center;background:#999a9b" >
 					
 	 <div class="col" >
-		  <h2 style="color:#fff;">Desi Cow milk</h2>
+		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>
 		</div>
-	 <div class="col" >
-		  <h2 style="color:#fff;">Quantity: 3</h2>
+		<div class="col" >
+		  <h2 style="color:#fff;">Quantity: {{pack.quantity}}</h2>
 		</div>
     </ion-item>
     </ion-card>
 </ion-card>
 
   </ion-slide>
-  <ion-slide>
-    <ion-card>
-  <ion-item>
-    <div class="row">
-        
-        <div class="col">
-          <h2>Mobile: Ram Gopal Verma</h2>
-        </div>
-        <div class="col">
-          <h2>Address: 53/13, Karolbagh, New Delhi 95</h2>
-        </div>
-        <div class="col">
-          <h2>Box Details: 100</h2>
-        </div>
-      </div>
-			<button ion-button small>Box Req.</button>
-			
-  </ion-item>
-  <ion-card>
-<ion-item style="background-color: #af0e94;text-align:center;" >
-					
-	 <div class="col" >
-		  <h2 style="color:#fff;">Desi Cow milk</h2>
-		</div>
-	 <div class="col" >
-		  <h2 style="color:#fff;">Quantity: 3</h2>
-		</div>
-    </ion-item>
-    </ion-card>
-</ion-card>
 
-  </ion-slide>
-  <ion-slide>
-    <ion-card>
-  <ion-item>
-    <div class="row">
-        
-        <div class="col">
-          <h2>Mobile: Ram Gopal Verma</h2>
-        </div>
-        <div class="col">
-          <h2>Address: 53/13, Karolbagh, New Delhi 95</h2>
-        </div>
-        <div class="col">
-          <h2>Box Details: 100</h2>
-        </div>
-      </div>
-			<button ion-button small>Box Req.</button>
-			
-  </ion-item>
-  <ion-card>
-<ion-item style="background-color: #af0e94;text-align:center;" >
-					
-	 <div class="col" >
-		  <h2 style="color:#fff;">Desi Cow milk</h2>
-		</div>
-	 <div class="col" >
-		  <h2 style="color:#fff;">Quantity: 3</h2>
-		</div>
-    </ion-item>
-    </ion-card>
-</ion-card>
-
-  </ion-slide>
 </ion-slides>
 </ion-content>
