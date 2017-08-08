@@ -9,12 +9,13 @@ import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { DBProvider } from '../../providers/DBProvider';
 import { AlertController} from 'ionic-angular';
-
+//import * as _ from 'underscore';
 @Component({
   templateUrl: 'tabs-page.html'
 })
 export class TabsPage {
-  AppUsers: Array<Object>;
+  AppUsers: any=[];
+  //Products: any=[];
   // set the root pages for each tab
   tab1Root: any = SchedulePage;
   tab2Root: any = SpeakerListPage;
@@ -45,6 +46,19 @@ export class TabsPage {
       });
   }
 
+/*  public isProductExist(id: any) {
+    let a = false;
+    if(this.Products != undefined && this.Products != null){
+      for(var i=0;i<this.Products.length;i++){
+        if(this.Products == id){
+            a = true;
+        }
+      }
+    }
+    return a;
+    // let isExists = _.find(this.Products, { id : idd } );
+    // return ( isExists ? true : false );
+  }*/
 
   public insertProduct(pro: any,deliveryId: any,status: any) {
     console.log(pro);
@@ -55,7 +69,19 @@ export class TabsPage {
           let stts = data;
           this.db.updateAppUser(pro,deliveryId,status,stts)
           .then(data => {
-          //this.Products.push(pro.id);
+          for(var i=0;i<this.AppUsers.length;i++){
+            if(this.AppUsers[i].id==deliveryId){
+              for(var y=0;y<this.AppUsers[i].delivery_packages.length;y++){
+                if(this.AppUsers[i].delivery_packages[y].id==pro.id){
+                    this.AppUsers[i].delivery_packages.splice(y, 1);
+                    if(this.AppUsers[i].delivery_packages.length == 0){
+                      this.AppUsers.splice(i, 1);
+                    }
+                }
+              }
+
+            }
+          }
           console.log(data);
           })
           .catch(ex => {
@@ -132,7 +158,7 @@ alert(this.username);
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({
-      subTitle: "message",
+      subTitle: "Delivery Status",
       buttons: [
       {
         text: 'Accept',

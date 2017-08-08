@@ -31,7 +31,6 @@ export class DBProvider {
             }
         });
         this._tryInit();
-        this._CreateTable();
     }
 
     // Initialize the DB with our required tables
@@ -47,17 +46,6 @@ export class DBProvider {
             });
     }
 
-    _CreateTable() {
-        this.query(`CREATE TABLE IF NOT EXISTS DeliveryProducts (
-                         deliveryId INTEGER NOT NULL,
-                         packageId INTEGER NOT NULL,
-                         productId INTEGER NOT NULL,
-                         status INTEGER NOT NULL,
-                         PRIMARY KEY(deliveryId)
-                     )`).catch(err => {
-                console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
-            });
-    }
 
     getAppUsers(): Promise<any> {
         return this.query('SELECT * FROM AppUser').then(data => {
@@ -110,18 +98,6 @@ export class DBProvider {
         });
     }
 
-    insertProducts(pro: any,deliveryId: any,status: any): Promise<any> {
-         
-         console.log(pro);
-         console.log(deliveryId);
-         this.query("INSERT INTO DeliveryProducts (deliveryId, packageId, productId, status) VALUES (?, ?, ?, ?);",[deliveryId, pro.id, pro.product.id, status]);
-
-        return new Promise((resolve, reject) => {
-        console.log(reject);
-        console.log(resolve);
-            return resolve;
-        });
-    }
 
     updateAppUser(pro: any,deliveryId: any,status: any,stts: any): Promise<any> {
         console.log(pro);

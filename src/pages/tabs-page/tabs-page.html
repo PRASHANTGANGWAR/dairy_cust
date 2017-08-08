@@ -12,11 +12,11 @@
 <ion-slides>
   <ion-slide *ngFor="let user of AppUsers;let i=index;">
     <ion-card>
-    	<ion-item>
-		<h3>{{i}}/{{AppUsers.length}}</h3>
-	</ion-item>
+    	
   <ion-item>
-  
+  <ion-item>
+		<h3  style="padding:10px;">{{i}}/{{AppUsers.length}}</h3>
+	</ion-item>
     <div>
         <ion-item>
           <h2>Name: {{user.customer_name}}</h2>
@@ -32,9 +32,9 @@
 			<!-- <button ion-button small>Box Req.</button> -->
 			
   </ion-item>
-  <!-- <ion-card *ngFor="let pack of user.delivery_packages" (click)="insertProduct(pack,user.id)"> -->
+ 
   <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
-<ion-item style="text-align:center;background:#999a9b" >
+<ion-item style="text-align:center;background:#999a9b">
 					
 	 <div class="col" >
 		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>
