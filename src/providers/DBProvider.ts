@@ -39,6 +39,8 @@ export class DBProvider {
         this.query(`CREATE TABLE IF NOT EXISTS AppUser (
                          id INTEGER NOT NULL,
                          jsondata TEXT NOT NULL,
+                         status TEXT,
+                         final_status INTEGER,
                          PRIMARY KEY(id)
                      )`).catch(err => {
                 console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
@@ -78,9 +80,27 @@ export class DBProvider {
         });
     }
 
+    getDeliveryStatus(id: any): Promise<any> {
+        return this.query('SELECT status FROM AppUser WHERE id='+id).then(data => {
+            if (data.res.rows[0].status == null) {
+                console.log('Rows found.');
+                if (this.platform.is('cordova') && win.sqlitePlugin) {
+                    let result = "null";
+
+                    return result;
+                }
+                else {
+                    return data.res.rows[0].status;
+                }
+            }else{
+                return data.res.rows[0].status;
+            }
+        });
+    }
+
     insertAppUser(data: any): Promise<any> {
         for(var i = 0; i<data.deliveries.length;i++){
-            this.query("INSERT INTO AppUser (id,jsondata) VALUES (?, ?);",[i, JSON.stringify(data.deliveries[i])]);
+            this.query("INSERT INTO AppUser (id,jsondata) VALUES (?, ?);",[data.deliveries[i].id, JSON.stringify(data.deliveries[i])]);
         }
 
         return new Promise((resolve, reject) => {
@@ -103,9 +123,26 @@ export class DBProvider {
         });
     }
 
-    updateAppUser(UserId: any): Promise<any> {
-        let query = "UPDATE AppUser SET Email=? WHERE UserId=?";
-        return this.query(query, ['niravparsana@outlook.com', UserId]);
+    updateAppUser(pro: any,deliveryId: any,status: any,stts: any): Promise<any> {
+        console.log(pro);
+        console.log(deliveryId);
+        console.log(status);
+        let ary: any = [];
+        let obj: any = {};
+        let str: any;
+        obj.status = status;
+        obj.id = pro.id;
+        ary.push(obj);
+        if(stts == null){
+            str = JSON.stringify(ary);
+        }else{
+            str = JSON.parse(stts);
+            str.push(obj)
+            str = JSON.stringify(str);
+        }
+        console.log(stts);
+        console.log(str);
+        return this.query('UPDATE AppUser SET status=?,final_status=? WHERE id=?', [str, 0, deliveryId]);
     }
 
     deleteAppUser(UserId: any): Promise<any> {

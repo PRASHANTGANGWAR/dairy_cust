@@ -45,16 +45,27 @@ export class TabsPage {
       });
   }
 
+
   public insertProduct(pro: any,deliveryId: any,status: any) {
     console.log(pro);
     console.log(deliveryId);
-    this.db.insertProducts(pro,deliveryId,status)
+    this.db.getDeliveryStatus(deliveryId)
       .then(data => {
-      console.log(data);
+          console.log(data);
+          let stts = data;
+          this.db.updateAppUser(pro,deliveryId,status,stts)
+          .then(data => {
+          //this.Products.push(pro.id);
+          console.log(data);
+          })
+          .catch(ex => {
+            console.log(ex);
+          });
       })
       .catch(ex => {
         console.log(ex);
-      });
+      })
+    
   }
 
   public getAllAppUsers() {
