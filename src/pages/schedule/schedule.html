@@ -1,88 +1,35 @@
 <ion-header>
-  <ion-navbar no-border-bottom>
-    <button ion-button menuToggle>
+  <ion-navbar>
+    <button ion-button menuToggle="left" style="display: inline-block !important;">
       <ion-icon name="menu"></ion-icon>
     </button>
-
-    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favorites
-      </ion-segment-button>
-    </ion-segment>
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="presentFilter()">
-        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>Canceled</ion-title>
   </ion-navbar>
-
-  <ion-toolbar no-border-top>
-    <ion-searchbar color="primary"
-                   [(ngModel)]="queryText"
-                   (ionInput)="updateSchedule()"
-                   placeholder="Search">
-    </ion-searchbar>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<ion-content class="OrganizationsView" padding>
+  
+<ion-card *ngFor="let user of Deliveries">
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
+  <ion-item>
+    <div>
+        <h3 style="text-align: center;padding:10px;">{{user.date}}</h3>
+        <ion-item>
+          <h2>Orderid: {{user.id}}</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Name: {{user.customer_name}}</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Mobile: {{user.member1_phone_no}}</h2>
+        </ion-item>
+        <ion-item>
+          <h2>Address: {{user.address.name}}</h2>
+        </ion-item>
+        
+      </div>
+  </ion-item>
 
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
-
-      <ion-item-divider sticky>
-        <ion-label>
-          {{group.time}}
-        </ion-label>
-      </ion-item-divider>
-
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
-
-        <button ion-item (click)="goToSessionDetail(session)">
-          <h3>{{session.name}}</h3>
-          <p>
-            {{session.timeStart}} &mdash;
-            {{session.timeEnd}}:
-            {{session.location}}
-          </p>
-        </button>
-
-        <ion-item-options>
-          <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </button>
-          <button ion-button color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')" *ngIf="segment === 'favorites'">
-            Remove
-          </button>
-        </ion-item-options>
-
-      </ion-item-sliding>
-
-    </ion-item-group>
-
-  </ion-list>
-
-  <ion-list-header [hidden]="shownSessions > 0">
-      No Sessions Found
-  </ion-list-header>
-
-  <ion-fab bottom right #fab>
-    <button ion-fab><ion-icon name="share"></ion-icon></button>
-    <ion-fab-list side="top">
-      <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
-      <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
-      <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
-    </ion-fab-list>
-  </ion-fab>
-
+</ion-card>
 
 </ion-content>

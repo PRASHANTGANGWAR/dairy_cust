@@ -15,7 +15,7 @@ import { AlertController} from 'ionic-angular';
 })
 export class TabsPage {
   AppUsers: any=[];
-  // Products: any=[];
+  Products: any=[];
   //Products: any=[];
   // set the root pages for each tab
   tab1Root: any = SchedulePage;
@@ -47,7 +47,7 @@ export class TabsPage {
       });
   }
 
-/*  public isProductExist(id: any) {
+ public isProductExist(id: any) {
     let a = false;
     if(this.Products != undefined && this.Products != null){
       for(var i=0;i<this.Products.length;i++){
@@ -59,7 +59,7 @@ export class TabsPage {
     return a;
     // let isExists = _.find(this.Products, { id : idd } );
     // return ( isExists ? true : false );
-  }*/
+  }
 
   public insertProduct(pro: any,deliveryId: any,status: any) {
     console.log(pro);
@@ -76,6 +76,7 @@ export class TabsPage {
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
                     if(this.AppUsers[i].delivery_packages.length == 0){
+                      this.db.updateFinalStatus(this.AppUsers[i].id);
                       this.AppUsers.splice(i, 1);
                     }
                 }
@@ -96,42 +97,19 @@ export class TabsPage {
   }
 
   public getAllAppUsers() {
-  let DeliveryList: any = [];
-  let StatusList: any = [];
+   //let DeliveryList: any = [];
+   // let StatusList: any = [];
     //let that = this;
     this.db.getAppUsers()
       .then(data => {
-        for(var i=0;i<data.length;i++){
-          if(data[i].status == null){
-            DeliveryList.push(JSON.parse(data[i].jsondata));
-            StatusList.push(data[i].status);
-          }
-          else if(JSON.parse(data[i].status).length != JSON.parse(data[i].jsondata)){
-            StatusList.push(JSON.parse(data[i].status));
-            DeliveryList.push(JSON.parse(data[i].jsondata));
-            for(var y=0;y<DeliveryList[i].delivery_packages.length;y++){
-              if(StatusList[i] != null){
-                for(var x=0;x<StatusList[i].length;x++){
-                  if(DeliveryList[i].delivery_packages[y].id == StatusList[i][x].id){
-                    DeliveryList[i].delivery_packages.splice(y, 1);
-                    /*if(DeliveryList[i].delivery_packages.length == 0){
-                      DeliveryList.splice(i, 1);
-                      StatusList.splice(i, 1);
-                      i--;
-                    }*/
-                    y--;
-
-                  }
+       for(var i=0;i<data.length;i++){
+            this.AppUsers.push(JSON.parse(data[i].jsondata));
+            if(JSON.parse(data[i].status) != null){
+                for(var x=0;x<JSON.parse(data[i].status).length;x++){
+                    this.Products.push(JSON.parse(data[i].status)[x].id);
                 }
-              }else{
-                break;
-            }
-              }
           }
-          
         }
-
-        this.AppUsers = DeliveryList;
       })
       .catch(ex => {
         console.log(ex);

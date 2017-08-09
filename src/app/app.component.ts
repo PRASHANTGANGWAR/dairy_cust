@@ -7,10 +7,12 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 
 import { TabsPage } from '../pages/tabs-page/tabs-page';
-/*
+// import { AccountPage } from '../pages/account/account';
+// import { SupportPage } from '../pages/support/support';
+
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
-*/
+
 import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 
@@ -23,6 +25,9 @@ export interface PageInterface {
   index?: number;
   tabName?: string;
   tabComponent?: any;
+  delivered?: boolean;
+  canceled?: boolean; 
+  panding?: boolean; 
 }
 
 @Component({
@@ -45,8 +50,9 @@ export class ConferenceApp {
 
   ];*/
   loggedInPages: PageInterface[] = [
-    /*{ title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' }
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },*/
+    { title: 'Panding', name: 'TabsPage', component: TabsPage, icon: 'log-out', panding: true },
+    { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'log-out', canceled: true },
+    { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'log-out', delivered: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
@@ -116,6 +122,15 @@ export class ConferenceApp {
       window.localStorage.removeItem('loginDetails');
       this.nav.setRoot(LoginPage);
 
+    }
+    if (page.panding === true) {
+      this.nav.setRoot(TabsPage);
+    }
+    if (page.canceled === true) {
+      this.nav.setRoot(SpeakerListPage);
+    }
+    if (page.delivered === true) {
+      this.nav.setRoot(SchedulePage);
     }
   }
 

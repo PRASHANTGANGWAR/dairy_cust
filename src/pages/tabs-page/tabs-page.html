@@ -33,7 +33,7 @@
 			
   </ion-item>
  
-  <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
+  <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)" [hidden]="isProductExist(pack.id)">
 <ion-item style="text-align:center;background:#999a9b">
 					
 	 <div class="col" >

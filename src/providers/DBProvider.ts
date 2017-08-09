@@ -48,7 +48,7 @@ export class DBProvider {
 
 
     getAppUsers(): Promise<any> {
-        return this.query('SELECT * FROM AppUser').then(data => {
+        return this.query('SELECT * FROM AppUser WHERE final_status is NULL or final_status = 0').then(data => {
             if (data.res.rows.length > 0) {
                 console.log('Rows found.');
                 if (this.platform.is('cordova') && win.sqlitePlugin) {
@@ -119,6 +119,11 @@ export class DBProvider {
         console.log(stts);
         console.log(str);
         return this.query('UPDATE AppUser SET status=?,final_status=? WHERE id=?', [str, 0, deliveryId]);
+    }
+
+    updateFinalStatus(deliveryid: any): Promise<any> {
+        console.log(deliveryid);
+        return this.query('UPDATE AppUser SET final_status=? WHERE id=?', [1, deliveryid]);
     }
 
     deleteAppUser(UserId: any): Promise<any> {

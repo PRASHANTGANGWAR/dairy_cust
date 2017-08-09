@@ -97,6 +97,56 @@ export class UserData {
     });
   };
 
+  deliveredItems(){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    let data :any = {};
+    data.delivery_status = 2;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: JSON.stringify(data),
+      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
+    canceledItems(){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    let data :any = {};
+    data.delivery_status = 2;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: JSON.stringify(data),
+      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
 
 
   signup(username: string, email: string, phone: string, password: string){
