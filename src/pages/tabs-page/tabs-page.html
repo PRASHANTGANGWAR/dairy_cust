@@ -10,7 +10,7 @@
 <ion-content class="OrganizationsView" padding>
 
 <ion-slides>
-  <ion-slide *ngFor="let user of AppUsers;let i=index;">
+  <ion-slide *ngFor="let user of AppUsers;let i=index;" [hidden]="!user.delivery_packages.length">
     <ion-card>
     	
   <ion-item>

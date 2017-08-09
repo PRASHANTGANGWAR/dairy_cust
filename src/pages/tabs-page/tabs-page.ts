@@ -15,6 +15,7 @@ import { AlertController} from 'ionic-angular';
 })
 export class TabsPage {
   AppUsers: any=[];
+  // Products: any=[];
   //Products: any=[];
   // set the root pages for each tab
   tab1Root: any = SchedulePage;
@@ -96,12 +97,40 @@ export class TabsPage {
 
   public getAllAppUsers() {
   let DeliveryList: any = [];
+  let StatusList: any = [];
     //let that = this;
     this.db.getAppUsers()
       .then(data => {
         for(var i=0;i<data.length;i++){
-        DeliveryList.push(JSON.parse(data[i].jsondata));
+          if(data[i].status == null){
+            DeliveryList.push(JSON.parse(data[i].jsondata));
+            StatusList.push(data[i].status);
+          }
+          else if(JSON.parse(data[i].status).length != JSON.parse(data[i].jsondata)){
+            StatusList.push(JSON.parse(data[i].status));
+            DeliveryList.push(JSON.parse(data[i].jsondata));
+            for(var y=0;y<DeliveryList[i].delivery_packages.length;y++){
+              if(StatusList[i] != null){
+                for(var x=0;x<StatusList[i].length;x++){
+                  if(DeliveryList[i].delivery_packages[y].id == StatusList[i][x].id){
+                    DeliveryList[i].delivery_packages.splice(y, 1);
+                    /*if(DeliveryList[i].delivery_packages.length == 0){
+                      DeliveryList.splice(i, 1);
+                      StatusList.splice(i, 1);
+                      i--;
+                    }*/
+                    y--;
+
+                  }
+                }
+              }else{
+                break;
+            }
+              }
+          }
+          
         }
+
         this.AppUsers = DeliveryList;
       })
       .catch(ex => {
