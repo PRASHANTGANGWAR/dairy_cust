@@ -5,9 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
-/*
-import { TabsPage } from '../pages/tabs-page/tabs-page';
 
+import { TabsPage } from '../pages/tabs-page/tabs-page';
+/*
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 */
@@ -46,8 +46,8 @@ export class ConferenceApp {
   ];*/
   loggedInPages: PageInterface[] = [
     /*{ title: 'Account', name: 'AccountPage', component: AccountPage, icon: 'person' }
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
-    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }*/
+    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },*/
+    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
     /*{ title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' }
@@ -113,7 +113,9 @@ export class ConferenceApp {
 
     if (page.logsOut === true) {
       // Give the menu time to close before changing to logged out
-      this.userData.logout();
+      window.localStorage.removeItem('loginDetails');
+      this.nav.setRoot(LoginPage);
+
     }
   }
 

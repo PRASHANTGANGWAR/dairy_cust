@@ -11,6 +11,8 @@ import { TabsPage } from '../tabs-page/tabs-page';
 import { MapPage } from '../map/map';
 import { DBProvider } from '../../providers/DBProvider';
 
+declare var window: any;
+
 @Component({
   selector: 'page-user',
   templateUrl: 'login.html'
@@ -28,7 +30,12 @@ export class LoginPage {
     private _loading: LoadingController,
     private _alert: AlertController,
     public db: DBProvider
-    ) { }
+    ) {
+      let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+        if(user){
+          this.navCtrl.setRoot(TabsPage);
+        } 
+    }
 
     ionViewDidLoad() {
     this.deleteAppUser();

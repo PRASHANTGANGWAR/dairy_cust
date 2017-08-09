@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 import { Headers, RequestOptions,Request,RequestMethod } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
-
+declare var window: any;
 @Injectable()
 export class UserData {
   _favorites: string[] = [];
@@ -53,8 +53,10 @@ export class UserData {
       this.http.request(new Request(options))
       .subscribe(
         res => {
+          this.events.publish('user:login');
           resolve(res.json());
           this.setUsername(res.json());
+           window.localStorage.setItem('loginDetails',JSON.stringify(res.json().user));
         },
         err => {
           resolve(err.json());
@@ -156,7 +158,8 @@ export class UserData {
   };
 
   setUsername(user_details: any): void {
-      window.localStorage.setItem('user_details', JSON.stringify(user_details.message));
+      //window.localStorage.setItem('user_details', JSON.stringify(user_details.message));
+      console.log(user_details);
   };
 
   getUsername(): Promise<string> {
