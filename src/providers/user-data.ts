@@ -190,59 +190,6 @@ export class UserData {
   };
 
 
-
-  signup(username: string, email: string, phone: string, password: string){
-    this.storage.set(this.HAS_LOGGED_IN, true);
-    //this.setUsername(username);
-    console.log(username+""+email+""+phone+""+password);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let data :any = {};
-    data.username = username;
-    data.email = email;
-    data.phone = phone;
-    data.password = password;
-    //this.events.publish('user:signup');
-    let options = new RequestOptions({ 
-      method: RequestMethod.Post,
-      headers: headers,
-      body: JSON.stringify(data),
-      url: 'https://enbake.herokuapp.com/signup'
-    });
-    return new Promise(resolve => {
-      this.http.request(new Request(options))
-      .subscribe(
-        res => {
-          resolve(res.json());
-        },
-        err => {
-          resolve(err.json());
-        }
-      );
-    });
-  };
-
-  resetPassword(email: string){
-    console.log(email);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ 
-      method: RequestMethod.Post,
-      headers: headers,
-      body: JSON.stringify({email}),
-      url: 'https://enbake.herokuapp.com/forgetPassword'
-    });
-    return new Promise(resolve => {
-      this.http.request(new Request(options))
-      .subscribe(
-        res => {
-          resolve(res.json());
-        },
-        err => {
-          resolve(err.json());
-        }
-      );
-    });
-  };
-
   logout(): void {
     this.storage.remove(this.HAS_LOGGED_IN);
     this.storage.remove('username');

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Platform } from "ionic-angular";
 
-const DB_NAME: string = 'DailySheet';
+const DB_NAME: string = 'DairyLac';
 const win: any = window;
 
 @Injectable()
@@ -35,7 +35,7 @@ export class DBProvider {
 
     // Initialize the DB with our required tables
     _tryInit() {
-        this.query(`CREATE TABLE IF NOT EXISTS AppUser (
+        this.query(`CREATE TABLE IF NOT EXISTS Deliveries (
                          id INTEGER NOT NULL,
                          jsondata TEXT NOT NULL,
                          status TEXT,
@@ -48,7 +48,7 @@ export class DBProvider {
 
 
     getAppUsers(): Promise<any> {
-        return this.query('SELECT * FROM AppUser WHERE final_status is NULL or final_status = 0').then(data => {
+        return this.query('SELECT * FROM Deliveries WHERE final_status is NULL or final_status = 0').then(data => {
             if (data.res.rows.length > 0) {
                 console.log('Rows found.');
                 if (this.platform.is('cordova') && win.sqlitePlugin) {
@@ -69,7 +69,7 @@ export class DBProvider {
     }
 
     getData(): Promise<any> {
-        return this.query('SELECT * FROM AppUser WHERE final_status = 1').then(data => {
+        return this.query('SELECT * FROM Deliveries WHERE final_status = 1').then(data => {
             if (data.res.rows.length > 0) {
                 console.log('Rows found.');
                 if (this.platform.is('cordova') && win.sqlitePlugin) {
@@ -90,7 +90,7 @@ export class DBProvider {
     }
 
     getDeliveryStatus(id: any): Promise<any> {
-        return this.query('SELECT status FROM AppUser WHERE id='+id).then(data => {
+        return this.query('SELECT status FROM Deliveries WHERE id='+id).then(data => {
             if (data.res.rows[0].status == null) {
                 console.log('Rows found.');
                 if (this.platform.is('cordova') && win.sqlitePlugin) {
@@ -109,7 +109,7 @@ export class DBProvider {
 
     insertAppUser(data: any): Promise<any> {
         for(var i = 0; i<data.deliveries.length;i++){
-            this.query("INSERT INTO AppUser (id,jsondata) VALUES (?, ?);",[data.deliveries[i].id, JSON.stringify(data.deliveries[i])]);
+            this.query("INSERT INTO Deliveries (id,jsondata) VALUES (?, ?);",[data.deliveries[i].id, JSON.stringify(data.deliveries[i])]);
         }
 
         return new Promise((resolve, reject) => {
@@ -139,17 +139,17 @@ export class DBProvider {
         }
         console.log(stts);
         console.log(str);
-        return this.query('UPDATE AppUser SET status=?,final_status=? WHERE id=?', [str, 0, deliveryId]);
+        return this.query('UPDATE Deliveries SET status=?,final_status=? WHERE id=?', [str, 0, deliveryId]);
     }
 
     updateFinalStatus(deliveryid: any): Promise<any> {
         console.log(deliveryid);
-        return this.query('UPDATE AppUser SET final_status=? WHERE id=?', [1, deliveryid]);
+        return this.query('UPDATE Deliveries SET final_status=? WHERE id=?', [1, deliveryid]);
     }
 
     deleteAppUser(): Promise<any> {
         // let query = "DELETE FROM AppUser WHERE final_status = 1";
-        return this.query("DELETE FROM AppUser WHERE final_status = 1");
+        return this.query("DELETE FROM Deliveries WHERE final_status = 1");
     }
 
     query(query: string, params: any[] = []): Promise<any> {

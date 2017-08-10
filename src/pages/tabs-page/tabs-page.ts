@@ -2,11 +2,7 @@ import { Component } from '@angular/core';
 
 import { UserData } from '../../providers/user-data';
 
-import { AboutPage } from '../about/about';
-import { MapPage } from '../map/map';
-import { SchedulePage } from '../schedule/schedule';
-import { SpeakerListPage } from '../speaker-list/speaker-list';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+
 import { DBProvider } from '../../providers/DBProvider';
 import { MenuController, AlertController, LoadingController} from 'ionic-angular';
 //import * as _ from 'underscore';
@@ -16,22 +12,16 @@ import { MenuController, AlertController, LoadingController} from 'ionic-angular
 export class TabsPage {
   AppUsers: any=[];
   Products: any=[];
-  //Products: any=[];
-  // set the root pages for each tab
-  tab1Root: any = SchedulePage;
-  tab2Root: any = SpeakerListPage;
-  tab3Root: any = MapPage;
-  tab4Root: any = AboutPage;
-  private loading :any;
-  mySelectedIndex: number;
 
-  constructor(public menu: MenuController, public userData: UserData, private _loading: LoadingController, private sqlite: SQLite,public db: DBProvider,private _alert: AlertController) {
+  private loading :any;
+
+  constructor(public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
     this.menu.enable(true, 'loggedInMenu');
   }
   ionViewDidLoad() {
     // this.deleteAppUser();
     //this.insertAppUser();
-    this.getAllAppUsers();
+    this.getAllPendings();
   }
   public deleteAppUser() {
     this.db.deleteAppUser()
@@ -164,7 +154,7 @@ export class TabsPage {
       
   }
 
-  public getAllAppUsers() {
+  public getAllPendings() {
    //let DeliveryList: any = [];
    // let StatusList: any = [];
     //let that = this;
@@ -186,7 +176,7 @@ export class TabsPage {
       });
   
   }
-  username='';
+/*  username='';
   name='';
 items: any = [];
 save()
@@ -231,7 +221,7 @@ alert('Unable to execute sql: '+JSON.stringify(err));
 .catch(e => alert(JSON.stringify(e)));
 alert(this.username);
 
-}
+}*/
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({
