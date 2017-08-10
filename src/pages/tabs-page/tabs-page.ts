@@ -14,6 +14,7 @@ import { MenuController, AlertController, LoadingController} from 'ionic-angular
   templateUrl: 'tabs-page.html'
 })
 export class TabsPage {
+  queryText = '';
   AppUsers: any=[];
   Products: any=[];
   //Products: any=[];
@@ -61,6 +62,27 @@ export class TabsPage {
     return a;
     // let isExists = _.find(this.Products, { id : idd } );
     // return ( isExists ? true : false );
+  }
+  updateSchedule() {
+    this.db.getAppUsers()
+      .then(data => {
+       this.AppUsers = [];
+       for(var i=0;i<data.length;i++){
+            this.AppUsers.push(JSON.parse(data[i].jsondata));
+         }
+        for(var i=0;i<this.AppUsers.length;i++){
+          if(this.AppUsers[i] && this.AppUsers[i].customer_name ){
+              var name = this.AppUsers[i].customer_name.toUpperCase();
+              var address = this.AppUsers[i].address.name.toUpperCase();
+              if((name.indexOf(this.queryText.toUpperCase())>-1)|| (this.AppUsers[i].member1_phone_no.indexOf(this.queryText)>-1) || (address.indexOf(this.queryText.toUpperCase())>-1)){
+         
+              } else {
+                this.AppUsers.splice(i,1);
+                i--;
+              }
+            }            
+          }
+      })    
   }
 
   public insertProduct(pro: any,deliveryId: any,status: any) {
