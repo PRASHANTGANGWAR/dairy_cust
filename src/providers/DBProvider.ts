@@ -68,6 +68,27 @@ export class DBProvider {
         });
     }
 
+    getData(): Promise<any> {
+        return this.query('SELECT * FROM AppUser WHERE final_status = 1').then(data => {
+            if (data.res.rows.length > 0) {
+                console.log('Rows found.');
+                if (this.platform.is('cordova') && win.sqlitePlugin) {
+                    let result = [];
+
+                    for (let i = 0; i < data.res.rows.length; i++) {
+                        var row = data.res.rows.item(i);
+                        result.push(row);
+                    }
+
+                    return result;
+                }
+                else {
+                    return data.res.rows;
+                }
+            }
+        });
+    }
+
     getDeliveryStatus(id: any): Promise<any> {
         return this.query('SELECT status FROM AppUser WHERE id='+id).then(data => {
             if (data.res.rows[0].status == null) {
@@ -126,9 +147,9 @@ export class DBProvider {
         return this.query('UPDATE AppUser SET final_status=? WHERE id=?', [1, deliveryid]);
     }
 
-    deleteAppUser(UserId: any): Promise<any> {
-        let query = "DELETE FROM AppUser WHERE UserId=?";
-        return this.query(query, [UserId]);
+    deleteAppUser(): Promise<any> {
+        // let query = "DELETE FROM AppUser WHERE final_status = 1";
+        return this.query("DELETE FROM AppUser WHERE final_status = 1");
     }
 
     query(query: string, params: any[] = []): Promise<any> {

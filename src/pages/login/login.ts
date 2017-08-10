@@ -46,7 +46,7 @@ export class LoginPage {
 
 
   public deleteAppUser() {
-    this.db.deleteAppUser(1)
+    this.db.deleteAppUser()
       .then(data => {
         if (data.res.rowsAffected == 1) {
           console.log('AppUser Deleted.');

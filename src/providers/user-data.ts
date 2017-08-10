@@ -97,6 +97,29 @@ export class UserData {
     });
   };
 
+  upload(data: any){
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Put,
+      headers: headers,
+      params: data,
+      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/update_now'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
   deliveredItems(){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
     let data :any = {};

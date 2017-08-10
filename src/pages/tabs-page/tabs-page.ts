@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NavParams } from 'ionic-angular';
+import { UserData } from '../../providers/user-data';
 
 import { AboutPage } from '../about/about';
 import { MapPage } from '../map/map';
@@ -8,7 +9,7 @@ import { SchedulePage } from '../schedule/schedule';
 import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { DBProvider } from '../../providers/DBProvider';
-import { AlertController} from 'ionic-angular';
+import { AlertController, LoadingController} from 'ionic-angular';
 //import * as _ from 'underscore';
 @Component({
   templateUrl: 'tabs-page.html'
@@ -22,21 +23,23 @@ export class TabsPage {
   tab2Root: any = SpeakerListPage;
   tab3Root: any = MapPage;
   tab4Root: any = AboutPage;
+  private loading :any;
   mySelectedIndex: number;
 
-  constructor(navParams: NavParams,private sqlite: SQLite,public db: DBProvider,private _alert: AlertController) {
+  constructor(navParams: NavParams, public userData: UserData, private _loading: LoadingController, private sqlite: SQLite,public db: DBProvider,private _alert: AlertController) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
   ionViewDidLoad() {
-    this.deleteAppUser();
+    // this.deleteAppUser();
     //this.insertAppUser();
     this.getAllAppUsers();
   }
   public deleteAppUser() {
-    this.db.deleteAppUser(1)
+    this.db.deleteAppUser()
       .then(data => {
-        if (data.res.rowsAffected == 1) {
+        if (data.res.rowsAffected) {
           console.log('AppUser Deleted.');
+          this.hideLoader();
         }
         else {
           console.log('No AppUser Deleted.');
@@ -94,6 +97,69 @@ export class TabsPage {
         console.log(ex);
       })
     
+  }
+
+  upload(){
+      this.showLoader();
+      this.db.getData()
+      .then(data => {
+        if(data != undefined && data.length >0){
+          console.log(data);
+          let deliveryData: any=[];
+          let statusData: any=[];
+          let dataObj: any={};
+          let innerObj: any={};
+          let newObj: any = [];
+          let status: any;
+          for(var i=0;i<data.length;i++){
+            // deliveryData.push(JSON.parse(data[i].jsondata));
+            statusData.push(JSON.parse(data[i].status));
+          }
+
+
+
+          for(var y=0;y<data.length;y++){
+            dataObj = {};
+            innerObj.user_id = JSON.parse(data[y].jsondata).customer_id;
+            // dataObj[JSON.parse(data[i].jsondata).id] =
+            for(var x=0;x<JSON.parse(data[y].jsondata).delivery_packages.length;x++){
+              for(var v=0;v<JSON.parse(data[y].status).length;v++){
+                  if(JSON.parse(data[y].status)[v].id==JSON.parse(data[y].jsondata).delivery_packages[x].id){
+                    status = JSON.parse(data[y].status)[v].status;
+                  }
+              }
+              innerObj[JSON.parse(data[y].jsondata).delivery_packages[x].id] = [];
+              newObj.push(JSON.parse(data[y].jsondata).delivery_packages[x].product.id);
+              newObj.push(JSON.parse(data[y].jsondata).delivery_packages[x].quantity);
+              newObj.push(JSON.parse(data[y].jsondata).delivery_packages[x].total);
+              newObj.push(status);
+              innerObj[JSON.parse(data[y].jsondata).delivery_packages[x].id]  = newObj;
+              newObj = [];
+              status = null;
+            }
+            dataObj = innerObj;
+            innerObj = {};
+            deliveryData.push(dataObj);
+
+          }
+
+
+
+
+          console.log(deliveryData);
+           this.userData.upload(deliveryData).then(results=>{
+            console.log(results);
+            this.deleteAppUser();
+            
+           /* let resultData : any ={};
+             resultData = results;*/
+           
+          });
+       }else{
+         this.doAlert('Error','No updated deliveries!!');
+       }
+      })
+      
   }
 
   public getAllAppUsers() {
@@ -176,7 +242,7 @@ doAlert(pro: any,deliveryId: any) {
         {
         text: 'Reject',
         handler: () => {
-          this.insertProduct(pro,deliveryId,'0');
+          this.insertProduct(pro,deliveryId,'2');
         }
       },
         {
@@ -192,4 +258,14 @@ doAlert(pro: any,deliveryId: any) {
     alert.present();
   }
 
+   showLoader(){
+    this.loading = this._loading.create({
+      content: 'Please wait...',
+    });
+    this.loading.present();
+  }
+
+  hideLoader(){
+    this.loading.dismiss();
+  }
 }
