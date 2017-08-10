@@ -50,9 +50,9 @@ export class ConferenceApp {
 
   ];*/
   loggedInPages: PageInterface[] = [
-    { title: 'Panding', name: 'TabsPage', component: TabsPage, icon: 'log-out', panding: true },
-    { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'log-out', canceled: true },
-    { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'log-out', delivered: true },
+    { title: 'Pending', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
+    { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'information-circle', canceled: true },
+    { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'information-circle', delivered: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [

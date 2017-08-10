@@ -94,12 +94,13 @@ export class LoginPage {
           console.log(results);
           let resultData : any ={};
            resultData = results;
-          if(resultData.user.authentication_token){
+
+          if(resultData.user && resultData.user.authentication_token){
             //this.navCtrl.setRoot(TabsPage);
             this.device_deliveries();
           } else{
-            form.resetForm();
-            this.doAlert('Error','Invalid username/password. Please try again.');
+            this.hideLoader();
+            this.doAlert('Error',resultData.message);
           }
       });
     }
@@ -142,7 +143,7 @@ export class LoginPage {
     let alert = this._alert.create({
       title: type,
       subTitle: message,
-      buttons: ['Done','Cancel']
+      buttons: ['Ok']
     });
     alert.present();
   }

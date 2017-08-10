@@ -87,14 +87,17 @@ export class TabsPage {
 
             }
           }
+          this.MsgAlert('Success','Delivery status is updated successfully');
           console.log(data);
           })
           .catch(ex => {
-            console.log(ex);
+            // console.log(ex);
+            this.MsgAlert('Error',ex);
           });
       })
       .catch(ex => {
-        console.log(ex);
+        // console.log(ex);
+        this.MsgAlert('Error',ex);
       })
     
   }
@@ -143,7 +146,7 @@ export class TabsPage {
 
           }
 
-
+          this.MsgAlert('Success','Deliveries have been uploaded successfully');
 
 
           console.log(deliveryData);
@@ -156,7 +159,7 @@ export class TabsPage {
            
           });
        }else{
-         this.doAlert('Error','No updated deliveries!!');
+         this.MsgAlert('Error','No deliveries found!!');
        }
       })
       
@@ -166,6 +169,7 @@ export class TabsPage {
    //let DeliveryList: any = [];
    // let StatusList: any = [];
     //let that = this;
+    this.showLoader();
     this.db.getAppUsers()
       .then(data => {
        for(var i=0;i<data.length;i++){
@@ -176,6 +180,7 @@ export class TabsPage {
                 }
           }
         }
+        this.hideLoader();
       })
       .catch(ex => {
         console.log(ex);
@@ -267,5 +272,14 @@ doAlert(pro: any,deliveryId: any) {
 
   hideLoader(){
     this.loading.dismiss();
+  }
+
+  MsgAlert(type: string,message: string) {
+    let alert = this._alert.create({
+      title: type,
+      subTitle: message,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }
