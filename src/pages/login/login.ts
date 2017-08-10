@@ -34,7 +34,6 @@ export class LoginPage {
     ) {
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));
         if(user){
-          this.events.publish('user:login');
           this.navCtrl.setRoot(TabsPage);
         } 
     }

@@ -73,7 +73,13 @@ export class UserData {
 
 
   device_deliverie(){
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
     let data :any = {};
     data.delivery_status = 0;
     console.log(data);
@@ -121,9 +127,15 @@ export class UserData {
   };
 
   deliveredItems(){
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+       'Accept':'application/json',
+       'X-User-Mobile':user.mobile,
+       'X-User-Token': user.authentication_token
+        });
     let data :any = {};
-    data.delivery_status = 2;
+    data.delivery_status = 1;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
@@ -146,7 +158,14 @@ export class UserData {
   };
 
     canceledItems(){
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+      let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+      console.log(user);
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+       'Accept':'application/json',
+       'X-User-Mobile':user.mobile,
+       'X-User-Token': user.authentication_token
+     });
     let data :any = {};
     data.delivery_status = 2;
     console.log(data);
