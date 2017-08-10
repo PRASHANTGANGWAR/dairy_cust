@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { NavParams } from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 
 import { AboutPage } from '../about/about';
@@ -9,7 +8,7 @@ import { SchedulePage } from '../schedule/schedule';
 import { SpeakerListPage } from '../speaker-list/speaker-list';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { DBProvider } from '../../providers/DBProvider';
-import { AlertController, LoadingController} from 'ionic-angular';
+import { MenuController, AlertController, LoadingController} from 'ionic-angular';
 //import * as _ from 'underscore';
 @Component({
   templateUrl: 'tabs-page.html'
@@ -26,8 +25,8 @@ export class TabsPage {
   private loading :any;
   mySelectedIndex: number;
 
-  constructor(navParams: NavParams, public userData: UserData, private _loading: LoadingController, private sqlite: SQLite,public db: DBProvider,private _alert: AlertController) {
-    this.mySelectedIndex = navParams.data.tabIndex || 0;
+  constructor(public menu: MenuController, public userData: UserData, private _loading: LoadingController, private sqlite: SQLite,public db: DBProvider,private _alert: AlertController) {
+    this.menu.enable(true, 'loggedInMenu');
   }
   ionViewDidLoad() {
     // this.deleteAppUser();
@@ -248,13 +247,6 @@ doAlert(pro: any,deliveryId: any) {
         text: 'Reject',
         handler: () => {
           this.insertProduct(pro,deliveryId,'2');
-        }
-      },
-        {
-        text: 'Cancle',
-        role: 'cancel',
-        handler: () => {
-         console.log("cancel");
         }
       }
       ],

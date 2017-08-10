@@ -6,7 +6,7 @@ import { NavController, AlertController, LoadingController } from 'ionic-angular
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
-
+import { Events } from 'ionic-angular';
 import { TabsPage } from '../tabs-page/tabs-page';
 import { MapPage } from '../map/map';
 import { DBProvider } from '../../providers/DBProvider';
@@ -29,10 +29,12 @@ export class LoginPage {
     public userData: UserData,
     private _loading: LoadingController,
     private _alert: AlertController,
+    public events: Events,
     public db: DBProvider
     ) {
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));
         if(user){
+          this.events.publish('user:login');
           this.navCtrl.setRoot(TabsPage);
         } 
     }
