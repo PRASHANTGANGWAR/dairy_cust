@@ -235,7 +235,7 @@ alert(this.username);
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({
-      subTitle: "Delivery Status",
+      subTitle: "Select Delivery Status",
       buttons: [
       {
         text: 'Accept',
