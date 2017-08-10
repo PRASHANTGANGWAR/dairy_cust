@@ -169,6 +169,16 @@ export class TabsPage {
                 }
           }
         }
+        for(var m=0;m<this.AppUsers.length;m++){
+            for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
+                for(var o=0;o<this.Products.length;o++){
+                    if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
+                        this.AppUsers[m].delivery_packages.splice(n, 1);
+                    }
+                }
+                
+            }
+        }
         this.hideLoader();
       })
       .catch(ex => {
