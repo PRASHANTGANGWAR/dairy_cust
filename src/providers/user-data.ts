@@ -106,10 +106,12 @@ export class UserData {
   upload(data: any){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
     console.log(data);
+    let data2: any = {};
+    data2.deliveries = data;
     let options = new RequestOptions({ 
       method: RequestMethod.Put,
       headers: headers,
-      params: data,
+      params: data2,
       url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/update_now'
     });
     return new Promise(resolve => {

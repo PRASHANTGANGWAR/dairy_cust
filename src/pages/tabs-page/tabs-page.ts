@@ -57,8 +57,8 @@ export class TabsPage {
     this.db.getAppUsers()
       .then(data => {
        this.AppUsers = [];
-       for(var i=0;i<data.length;i++){
-            this.AppUsers.push(JSON.parse(data[i].jsondata));
+       for(var z=0;z<data.length;z++){
+            this.AppUsers.push(JSON.parse(data[z].jsondata));
          }
         for(var i=0;i<this.AppUsers.length;i++){
           if(this.AppUsers[i] && this.AppUsers[i].customer_name ){
@@ -159,11 +159,17 @@ export class TabsPage {
 
           this.MsgAlert('Success','Deliveries have been uploaded successfully');
 
-
+          let resultData: any = {};
+          
           console.log(deliveryData);
            this.userData.upload(deliveryData).then(results=>{
             console.log(results);
-            this.deleteAppUser();
+            resultData = results;
+            if(resultData.status == 200){
+              // this.MsgAlert('Success',resultData.notice);
+              this.deleteAppUser();
+            }
+            
             
            /* let resultData : any ={};
              resultData = results;*/
