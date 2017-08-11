@@ -191,25 +191,33 @@ export class TabsPage {
     this.showLoader();
     this.db.getAppUsers()
       .then(data => {
-       for(var i=0;i<data.length;i++){
+        if(data != undefined && data.length > 0){
+          for(var i=0;i<data.length;i++){
             this.AppUsers.push(JSON.parse(data[i].jsondata));
-            if(JSON.parse(data[i].status) != null){
-                for(var x=0;x<JSON.parse(data[i].status).length;x++){
-                    this.Products.push(JSON.parse(data[i].status)[x].id);
-                }
-          }
-        }
-        for(var m=0;m<this.AppUsers.length;m++){
-            for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
-                for(var o=0;o<this.Products.length;o++){
-                    if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
-                        this.AppUsers[m].delivery_packages.splice(n, 1);
-                    }
-                }
-                
+              if(JSON.parse(data[i].status) != null){
+                  for(var x=0;x<JSON.parse(data[i].status).length;x++){
+                      this.Products.push(JSON.parse(data[i].status)[x].id);
+                  }
             }
+          }
+          for(var m=0;m<this.AppUsers.length;m++){
+              for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
+                  for(var o=0;o<this.Products.length;o++){
+                      if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
+                          this.AppUsers[m].delivery_packages.splice(n, 1);
+                      }
+                  }
+                  
+              }
+          }
+          this.hideLoader();
+        }else{
+          this.hideLoader();
+          this.MsgAlert('Success','No deliveries found!!');
         }
-        this.hideLoader();
+       
+        
+
       })
       .catch(ex => {
         console.log(ex);

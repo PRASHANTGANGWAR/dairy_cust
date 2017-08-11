@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 declare var window: any;
 @Injectable()
 export class UserData {
+  // public url : string = false;
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
@@ -111,7 +112,7 @@ export class UserData {
     let options = new RequestOptions({ 
       method: RequestMethod.Put,
       headers: headers,
-      params: data2,
+      body: data2,
       url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/update_now'
     });
     return new Promise(resolve => {
@@ -143,7 +144,7 @@ export class UserData {
       method: RequestMethod.Get,
       headers: headers,
       params: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries_status'
+      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

@@ -112,7 +112,19 @@ export class LoginPage {
       this.userData.device_deliverie().then(results=>{
         this.hideLoader();
           let resultData : any ={};
-           resultData = results;
+          let result : any ={};
+          result = results;
+            resultData = results;
+           /*if(result.deliveries.length){
+            for(var i=0;i<result.deliveries.length;i++){
+              if(result.deliveries[i].delivery_status == 0){
+                resultData = result.deliveries[i].deliveries;
+              }
+            } 
+            this.insertAppUser(resultData);     
+          } else{
+            this.doAlert('Error','Please try again');
+          }*/
           if(resultData.deliveries && resultData.product_quantities){
             //this.navCtrl.setRoot(TabsPage);
             //this.doAlert('Success','Delivery details have been come !!');
