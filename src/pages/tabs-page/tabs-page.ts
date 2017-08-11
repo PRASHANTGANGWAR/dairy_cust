@@ -30,7 +30,7 @@ export class TabsPage {
         if (data.res.rowsAffected) {
           console.log('AppUser Deleted.');
           this.hideLoader();
-          this.MsgAlert('Success','Delivery status is updated successfully');
+          this.MsgAlert('Success','Deliveries have been uploaded successfully');
         }
         else {
           console.log('No AppUser Deleted.');
@@ -147,18 +147,18 @@ export class TabsPage {
               newObj.push(JSON.parse(data[y].jsondata).delivery_packages[x].product.id);
               newObj.push(JSON.parse(data[y].jsondata).delivery_packages[x].quantity);
               newObj.push(JSON.parse(data[y].jsondata).delivery_packages[x].total);
-              newObj.push(status);
+              newObj.push(parseInt(status));
               innerObj[JSON.parse(data[y].jsondata).delivery_packages[x].id]  = newObj;
               newObj = [];
               status = null;
             }
-            dataObj = innerObj;
+            dataObj[JSON.parse(data[y].jsondata).id] = innerObj;
             innerObj = {};
             deliveryData.push(dataObj);
 
           }
 
-          this.MsgAlert('Success','Deliveries have been uploaded successfully');
+          // this.MsgAlert('Success','Deliveries have been uploaded successfully');
 
           let resultData: any = {};
           
@@ -177,6 +177,7 @@ export class TabsPage {
            
           });
        }else{
+         this.hideLoader();
          this.MsgAlert('Error','No deliveries found!!');
        }
       })

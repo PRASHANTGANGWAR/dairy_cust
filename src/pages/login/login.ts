@@ -101,7 +101,7 @@ export class LoginPage {
             this.device_deliveries();
           } else{
             this.hideLoader();
-            this.doAlert('Error',resultData.message);
+            this.doAlert('Error','Invalid User Phone or Password');
           }
       });
     }

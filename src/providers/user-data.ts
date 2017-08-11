@@ -143,7 +143,7 @@ export class UserData {
       method: RequestMethod.Get,
       headers: headers,
       params: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
+      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries_status'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -168,14 +168,14 @@ export class UserData {
        'X-User-Mobile':user.mobile,
        'X-User-Token': user.authentication_token
      });
-    let data :any = {};
-    data.delivery_status = 2;
-    console.log(data);
+    //let data :any = {};
+    //data.delivery_status = 2;
+    //console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
+      //params: JSON.stringify(data),
+      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries_status?delivery_status=1'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

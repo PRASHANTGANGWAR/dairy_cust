@@ -16,7 +16,7 @@
 		<ion-list no-lines>
 			<ion-item [hidden]="flag">
 				<ion-label stacked color="primary">User Phone</ion-label>
-				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
+				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off" placeholder="Enter Phone No"
 					required>
 				</ion-input>
 			</ion-item>
@@ -26,7 +26,7 @@
 
 			<ion-item [hidden]="flag">
 				<ion-label stacked color="primary">Password</ion-label>
-				<ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
+				<ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" placeholder="Enter Password" required>
 				</ion-input>
 			</ion-item>
 			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>

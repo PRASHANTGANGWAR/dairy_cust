@@ -25,10 +25,14 @@ export class SchedulePage {
       this.showLoader();
       this.userData.deliveredItems().then(results=>{
         this.hideLoader();
-          let resultData : any ={};
-           resultData = results;
-           if(resultData.deliveries){
-              this.Deliveries = resultData.deliveries;            
+           let result : any ={};
+          result = results;
+          if(result.deliveries.length){
+            for(var i=0;i<result.deliveries.length;i++){
+              if(result.deliveries[i].delivery_status == 1){
+                this.Deliveries = result.deliveries[i].deliveries;
+              }
+            }           
           } else{
             this.doAlert('Error','Please try again');
           }

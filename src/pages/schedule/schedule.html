@@ -9,25 +9,24 @@
 
 <ion-content class="OrganizationsView" padding>
   
-<ion-card *ngFor="let user of Deliveries">
+<ion-card *ngFor="let user of Deliveries" responsive-sm>
 
   <ion-item>
-    <div>
+
         <h3 style="text-align: center;padding-top:10px;">{{user.date}}</h3>
         <ion-item>
-          <h2>Orderid: {{user.id}}</h2>
+          <h3>Orderid: {{user.order_id}}</h3>
         </ion-item>
         <ion-item>
-          <h2>Name: {{user.customer_name}}</h2>
+          <h3>Name: {{user.customer_name}}</h3>
         </ion-item>
         <ion-item>
-          <h2>Mobile: {{user.member1_phone_no}}</h2>
+          <h3>Mobile: {{user.address.mobile}}</h3>
         </ion-item>
         <ion-item>
-          <h2>Address: {{user.address.name}}</h2>
+          <div><h3>Address: {{user.address.name}}{{ user.address.city.name}}</h3></div>
         </ion-item>
         
-      </div>
   </ion-item>
 
 </ion-card>
