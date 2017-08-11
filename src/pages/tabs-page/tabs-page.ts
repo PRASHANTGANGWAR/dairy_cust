@@ -30,6 +30,7 @@ export class TabsPage {
         if (data.res.rowsAffected) {
           console.log('AppUser Deleted.');
           this.hideLoader();
+          this.MsgAlert('Success','Delivery status is updated successfully');
         }
         else {
           console.log('No AppUser Deleted.');
@@ -166,7 +167,7 @@ export class TabsPage {
             console.log(results);
             resultData = results;
             if(resultData.status == 200){
-              // this.MsgAlert('Success',resultData.notice);
+              
               this.deleteAppUser();
             }
             
