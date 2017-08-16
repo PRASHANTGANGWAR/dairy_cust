@@ -169,6 +169,8 @@ export class TabsPage {
             if(resultData.status == 200){
               
               this.deleteAppUser();
+            }else{
+              this.hideLoader();
             }
             
             
@@ -217,15 +219,9 @@ export class TabsPage {
 
   public insertAppUser(resultData: any) {
     
-    this.db.insertAppUser(resultData)
-      .then(data => {
-      console.log(data);
-      this.getAllPendings()
-        // this.navCtrl.setRoot(TabsPage);
-      })
-      .catch(ex => {
-        console.log(ex);
-      });
+    this.db.insertAppUser(resultData);
+      this.hideLoader();
+      this.getAllPendings();
       // this.navCtrl.setRoot(TabsPage);
   }
 
@@ -234,6 +230,8 @@ export class TabsPage {
    //let DeliveryList: any = [];
    // let StatusList: any = [];
     //let that = this;
+    this.Products = [];
+    this.AppUsers = [];
     this.showLoader();
     this.db.getAppUsers()
       .then(data => {

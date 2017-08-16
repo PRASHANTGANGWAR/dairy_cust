@@ -85,7 +85,6 @@ export class LoginPage {
 
 
   onLogin(form: NgForm) {
-    debugger;
   console.log(form);
   //this.navCtrl.setRoot(TabsPage);
     this.submitted = true;

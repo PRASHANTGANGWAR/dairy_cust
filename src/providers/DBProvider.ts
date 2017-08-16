@@ -164,7 +164,7 @@ export class DBProvider {
         //     });
         // let query = "DELETE FROM AppUser WHERE final_status = 1";
         // return this.query("DROP TABLE IF EXISTS Deliveries");
-        return this.query("DELETE FROM Deliveries WHERE id > 0");
+        return this.query("DELETE FROM Deliveries");
     }
 
     query(query: string, params: any[] = []): Promise<any> {
