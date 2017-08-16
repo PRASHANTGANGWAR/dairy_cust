@@ -152,6 +152,21 @@ export class DBProvider {
         return this.query("DELETE FROM Deliveries WHERE final_status = 1");
     }
 
+    deleteTable(): Promise<any> {
+        // this.query(`CREATE TABLE IF NOT EXISTS Deliveries (
+        //                  id INTEGER NOT NULL,
+        //                  jsondata TEXT NOT NULL,
+        //                  status TEXT,
+        //                  final_status INTEGER,
+        //                  PRIMARY KEY(id)
+        //              )`).catch(err => {
+        //         console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
+        //     });
+        // let query = "DELETE FROM AppUser WHERE final_status = 1";
+        // return this.query("DROP TABLE IF EXISTS Deliveries");
+        return this.query("DELETE FROM Deliveries WHERE id > 0");
+    }
+
     query(query: string, params: any[] = []): Promise<any> {
         return new Promise((resolve, reject) => {
             try {

@@ -2,18 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Events, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { TutorialPage } from '../pages/tutorial/tutorial';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 
 import { TabsPage } from '../pages/tabs-page/tabs-page';
-// import { AccountPage } from '../pages/account/account';
-// import { SupportPage } from '../pages/support/support';
 
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 
-import { ConferenceData } from '../providers/conference-data';
 import { UserData } from '../providers/user-data';
 
 export interface PageInterface {
@@ -41,14 +37,7 @@ export class ConferenceApp {
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
-  /*appPages: PageInterface[] = [
-    { title: 'Prescriptions', name: 'TabsPage', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts' },
-    { title: 'Calendar', name: 'TabsPage', component: TabsPage, tabComponent: SchedulePage, index: 0, icon: 'calendar' },
-    { title: 'Feedback', name: 'TabsPage', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' },
-    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true },
-    { title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' }
 
-  ];*/
   loggedInPages: PageInterface[] = [
     { title: 'Pending', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
     { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
@@ -56,9 +45,6 @@ export class ConferenceApp {
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
-    /*{ title: 'Login', name: 'LoginPage', component: LoginPage, icon: 'log-in' }
-    { title: 'Support', name: 'SupportPage', component: SupportPage, icon: 'help' },
-    { title: 'Signup', name: 'SignupPage', component: SignupPage, icon: 'person-add' }*/
   ];
   rootPage: any;
 
@@ -67,7 +53,6 @@ export class ConferenceApp {
     public userData: UserData,
     public menu: MenuController,
     public platform: Platform,
-    public confData: ConferenceData,
     public storage: Storage,
     public splashScreen: SplashScreen
   ) {
@@ -84,7 +69,6 @@ export class ConferenceApp {
       });
 
     // load the conference data
-    confData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
@@ -134,16 +118,10 @@ export class ConferenceApp {
     }
   }
 
-  openTutorial() {
-    this.nav.setRoot(TutorialPage);
-  }
+  
 
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
-      this.enableMenu(true);
-    });
-
-    this.events.subscribe('user:signup', () => {
       this.enableMenu(true);
     });
 

@@ -184,6 +184,52 @@ export class TabsPage {
       
   }
 
+  refresh() {
+    this.showLoader();
+    this.db.deleteTable()
+      .then(data => {
+       console.log(data);
+         this.userData.device_deliverie().then(results=>{
+        // this.hideLoader();
+          let resultData : any ={};
+          let result : any ={};
+          let newObj : any ={};
+          result = results;
+            resultData = results;
+        
+          if(resultData.deliveries && resultData.product_quantities){
+            //this.navCtrl.setRoot(TabsPage);
+            //this.doAlert('Success','Delivery details have been come !!');
+            newObj.deliveries = [];
+            for(var i=0;i<resultData.deliveries.length;i++){
+                if(resultData.deliveries[i].delivery_status == "0"){
+                    newObj.deliveries.push(resultData.deliveries[i]);
+                }
+            }
+            this.insertAppUser(newObj);
+            
+          } else{
+            this.doAlert('Error','No pending deliveries');
+          }
+      });
+      })
+  }
+
+  public insertAppUser(resultData: any) {
+    
+    this.db.insertAppUser(resultData)
+      .then(data => {
+      console.log(data);
+      this.getAllPendings()
+        // this.navCtrl.setRoot(TabsPage);
+      })
+      .catch(ex => {
+        console.log(ex);
+      });
+      // this.navCtrl.setRoot(TabsPage);
+  }
+
+
   public getAllPendings() {
    //let DeliveryList: any = [];
    // let StatusList: any = [];
@@ -213,7 +259,7 @@ export class TabsPage {
           this.hideLoader();
         }else{
           this.hideLoader();
-          this.MsgAlert('Success','No deliveries found!!');
+          // this.MsgAlert('Success','No deliveries found!!');
         }
        
         

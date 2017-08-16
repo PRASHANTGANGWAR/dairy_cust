@@ -8,7 +8,6 @@ import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { Events } from 'ionic-angular';
 import { TabsPage } from '../tabs-page/tabs-page';
-import { MapPage } from '../map/map';
 import { DBProvider } from '../../providers/DBProvider';
 
 declare var window: any;
@@ -50,10 +49,10 @@ export class LoginPage {
     this.db.deleteAppUser()
       .then(data => {
         if (data.res.rowsAffected == 1) {
-          console.log('AppUser Deleted.');
+          console.log('Delivery Deleted.');
         }
         else {
-          console.log('No AppUser Deleted.');
+          console.log('No Delivery Deleted.');
         }
       })
       .catch(ex => {
@@ -86,6 +85,7 @@ export class LoginPage {
 
 
   onLogin(form: NgForm) {
+    debugger;
   console.log(form);
   //this.navCtrl.setRoot(TabsPage);
     this.submitted = true;
@@ -113,33 +113,27 @@ export class LoginPage {
         this.hideLoader();
           let resultData : any ={};
           let result : any ={};
+          let newObj : any ={};
           result = results;
             resultData = results;
-           /*if(result.deliveries.length){
-            for(var i=0;i<result.deliveries.length;i++){
-              if(result.deliveries[i].delivery_status == 0){
-                resultData = result.deliveries[i].deliveries;
-              }
-            } 
-            this.insertAppUser(resultData);     
-          } else{
-            this.doAlert('Error','Please try again');
-          }*/
+        
           if(resultData.deliveries && resultData.product_quantities){
             //this.navCtrl.setRoot(TabsPage);
             //this.doAlert('Success','Delivery details have been come !!');
-            this.insertAppUser(resultData);
+            newObj.deliveries = [];
+            for(var i=0;i<resultData.deliveries.length;i++){
+                if(resultData.deliveries[i].delivery_status == "0"){
+                    newObj.deliveries.push(resultData.deliveries[i]);
+                }
+            }
+            this.insertAppUser(newObj);
             
           } else{
-            this.doAlert('Error','Invalid username/password. Please try again.');
+            this.doAlert('Error','No pending deliveries');
           }
       });
   }
 
-  forgotPassword() {
-    this.flag = true;
-    this.navCtrl.push(MapPage);
-  }
 
   showLoader(){
     this.loading = this._loading.create({

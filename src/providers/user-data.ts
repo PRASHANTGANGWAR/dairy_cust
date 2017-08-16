@@ -12,6 +12,7 @@ export class UserData {
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
+  Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
 
   constructor(
     public events: Events,
@@ -48,7 +49,7 @@ export class UserData {
       method: RequestMethod.Post,
       headers: headers,
       body: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/users/sign_in'
+      url: this.Url+'/users/sign_in'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -88,7 +89,7 @@ export class UserData {
       method: RequestMethod.Get,
       headers: headers,
       params: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
+      url: this.Url+'/deliveries/device_deliveries'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -113,7 +114,7 @@ export class UserData {
       method: RequestMethod.Put,
       headers: headers,
       body: data2,
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/update_now'
+      url: this.Url+'/deliveries/update_now'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -144,7 +145,7 @@ export class UserData {
       method: RequestMethod.Get,
       headers: headers,
       params: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries'
+      url: this.Url+'/deliveries/device_deliveries'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -176,7 +177,7 @@ export class UserData {
       method: RequestMethod.Get,
       headers: headers,
       //params: JSON.stringify(data),
-      url: 'http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com/deliveries/device_deliveries_status?delivery_status=1'
+      url: this.Url+'/deliveries/device_deliveries_status?delivery_status=1'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
