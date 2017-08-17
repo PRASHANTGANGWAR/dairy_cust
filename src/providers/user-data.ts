@@ -13,6 +13,7 @@ export class UserData {
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
   Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
+  // Url = "http://192.168.0.137:3004";
 
   constructor(
     public events: Events,
@@ -108,12 +109,16 @@ export class UserData {
   upload(data: any){
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
     console.log(data);
-    let data2: any = {};
-    data2.deliveries = data;
+    // let data2: any = {};
+    let main: any = {};
+    // main._json = [];
+    main.delivery = {};
+    main.deliveries = data;
+    // main._json.push(data2);
     let options = new RequestOptions({ 
       method: RequestMethod.Put,
       headers: headers,
-      body: data2,
+      body: main,
       url: this.Url+'/deliveries/update_now'
     });
     return new Promise(resolve => {
@@ -144,8 +149,8 @@ export class UserData {
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: JSON.stringify(data),
-      url: this.Url+'/deliveries/device_deliveries'
+      // params: JSON.stringify(data),
+      url: this.Url+'/deliveries/device_deliveries_status?delivery_status=2'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))

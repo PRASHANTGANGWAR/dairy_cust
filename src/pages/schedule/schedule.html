@@ -13,18 +13,18 @@
 
   <ion-item>
 
-        <h3 style="text-align: center;padding-top:10px;">{{user.date}}</h3>
-        <ion-item>
-          <h3>Orderid: {{user.order_id}}</h3>
+        <h3 style="text-align: center;padding-top:2px;">{{user.date}}</h3>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Orderid: {{user.order_id}}</h3>
         </ion-item>
-        <ion-item>
-          <h3>Name: {{user.customer_name}}</h3>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Name: {{user.customer_name}}</h3>
         </ion-item>
-        <ion-item>
-          <h3>Mobile: {{user.address.mobile}}</h3>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Mobile: {{user.address.mobile}}</h3>
         </ion-item>
-        <ion-item>
-          <div><h3>Address: {{user.address.name}}{{ user.address.city.name}}</h3></div>
+        <ion-item text-wrap no-lines>
+          <div style="padding-top:2px;"><h3>Address: {{user.address.name}}{{ user.address.city.name}} {{ user.address.state.name}} {{ user.address.zone.name}}</h3></div>
         </ion-item>
         
   </ion-item>

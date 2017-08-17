@@ -25,16 +25,16 @@
 		<h3 style="text-align: center;padding-top:10px;">{{i+1}}/{{AppUsers.length}}</h3>
 	</ion-item>
     <div>
-        <ion-item>
+        <ion-item text-wrap no-lines>
           <h2>Name: {{user.customer_name}}</h2>
         </ion-item>
-        <ion-item>
+        <ion-item text-wrap no-lines>
           <h2>Mobile: {{user.member1_phone_no}}</h2>
         </ion-item>
-        <ion-item>
-          <h2>Address: {{user.address.name}}{{ user.address.city.name}}{{ user.address.state.name}}{{ user.address.zone.name}}</h2>
+        <ion-item text-wrap no-lines>
+            <h2>Address: {{user.address.name}}{{ user.address.city.name}} {{ user.address.state.name}} {{ user.address.zone.name}}</h2>
         </ion-item>
-        <ion-item>
+        <ion-item text-wrap no-lines>
           <h2>Box Details: {{user.box_status}}</h2>
         </ion-item>
         

@@ -134,7 +134,7 @@ export class TabsPage {
 
 
           for(var y=0;y<data.length;y++){
-            dataObj = {};
+            // dataObj = {};
             innerObj.user_id = JSON.parse(data[y].jsondata).customer_id;
             // dataObj[JSON.parse(data[i].jsondata).id] =
             for(var x=0;x<JSON.parse(data[y].jsondata).delivery_packages.length;x++){
@@ -154,7 +154,7 @@ export class TabsPage {
             }
             dataObj[JSON.parse(data[y].jsondata).id] = innerObj;
             innerObj = {};
-            deliveryData.push(dataObj);
+            // deliveryData.push(dataObj);
 
           }
 
@@ -163,7 +163,7 @@ export class TabsPage {
           let resultData: any = {};
           
           console.log(deliveryData);
-           this.userData.upload(deliveryData).then(results=>{
+           this.userData.upload(dataObj).then(results=>{
             console.log(results);
             resultData = results;
             if(resultData.status == 200){
