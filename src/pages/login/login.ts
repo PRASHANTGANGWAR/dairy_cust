@@ -38,7 +38,7 @@ export class LoginPage {
     }
 
     ionViewDidLoad() {
-    this.deleteAppUser();
+    // this.deleteAppUser();
   }
 
   ngOnInit() {
@@ -46,6 +46,7 @@ export class LoginPage {
 
 
   public deleteAppUser() {
+    debugger;
     this.db.deleteAppUser()
       .then(data => {
         if (data.res.rowsAffected == 1) {
