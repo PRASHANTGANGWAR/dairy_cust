@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { MenuController, NavController, AlertController, LoadingController } from 'ionic-angular';
 
 import { UserData } from '../../providers/user-data';
 
@@ -29,8 +29,10 @@ export class LoginPage {
     private _loading: LoadingController,
     private _alert: AlertController,
     public events: Events,
-    public db: DBProvider
+    public db: DBProvider,
+    public menu: MenuController
     ) {
+      this.menu.enable(false, 'loggedInMenu');
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));
         if(user){
           this.navCtrl.setRoot(TabsPage);

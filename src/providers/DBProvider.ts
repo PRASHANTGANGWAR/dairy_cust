@@ -48,7 +48,7 @@ export class DBProvider {
 
 
     getAppUsers(): Promise<any> {
-        return this.query('SELECT * FROM Deliveries WHERE final_status is NULL or final_status = 0').then(data => {
+        return this.query('SELECT * FROM Deliveries WHERE final_status is NULL or final_status = 0 or final_status = 1').then(data => {
             if (data.res.rows.length > 0) {
                 console.log('Rows found.');
                 if (this.platform.is('cordova') && win.sqlitePlugin) {

@@ -39,7 +39,7 @@ export class ConferenceApp {
   // the login page disables the left menu
 
   loggedInPages: PageInterface[] = [
-    { title: 'Pending', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
+    { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
     { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }

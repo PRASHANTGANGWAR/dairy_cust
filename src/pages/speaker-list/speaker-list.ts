@@ -26,7 +26,7 @@ export class SpeakerListPage {
         this.hideLoader();
           let result : any ={};
           result = results;
-          if(result.deliveries.length){
+          if(result != undefined && result.deliveries.length != undefined && result.deliveries.length){
             for(var i=0;i<result.deliveries.length;i++){
               if(result.deliveries[i].delivery_status == 2){
                 this.Deliveries = result.deliveries[i].deliveries;

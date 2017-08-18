@@ -74,7 +74,6 @@ export class UserData {
   };
 
 
-
   device_deliverie(){
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
     let headers = new Headers({ 

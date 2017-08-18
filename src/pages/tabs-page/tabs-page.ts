@@ -5,11 +5,15 @@ import { UserData } from '../../providers/user-data';
 
 import { DBProvider } from '../../providers/DBProvider';
 import { MenuController, AlertController, LoadingController} from 'ionic-angular';
+declare var window:any;
 //import * as _ from 'underscore';
 @Component({
   templateUrl: 'tabs-page.html'
 })
 export class TabsPage {
+  public TotalPackets : number = 0;
+  public DeliveredPackets : number = 0;
+  public hideButton : boolean = false;
   queryText = '';
   AppUsers: any=[];
   Products: any=[];
@@ -18,9 +22,10 @@ export class TabsPage {
 
   constructor(public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
     this.menu.enable(true, 'loggedInMenu');
+    this.checkTime();
   }
   ionViewDidLoad() {
-    // this.deleteAppUser();
+    //this.deleteAppUser();
     //this.insertAppUser();
     this.getAllPendings();
   }
@@ -28,7 +33,10 @@ export class TabsPage {
     this.db.deleteAppUser()
       .then(data => {
         if (data.res.rowsAffected) {
-          console.log('AppUser Deleted.');
+          var newDate = new Date();
+          window.localStorage.setItem('updateTime',JSON.stringify(newDate));
+          this.hideButton = true;
+          this.buttonDisable();
           this.hideLoader();
           this.MsgAlert('Success','Deliveries have been uploaded successfully');
         }
@@ -65,7 +73,11 @@ export class TabsPage {
           if(this.AppUsers[i] && this.AppUsers[i].customer_name ){
               var name = this.AppUsers[i].customer_name.toUpperCase();
               var address = this.AppUsers[i].address.name.toUpperCase();
-              if((name.indexOf(this.queryText.toUpperCase())>-1)|| (this.AppUsers[i].member1_phone_no.indexOf(this.queryText)>-1) || (address.indexOf(this.queryText.toUpperCase())>-1)){
+              var mobile = this.AppUsers[i].address.mobile;
+              var city = this.AppUsers[i].address.city.name.toUpperCase();
+              var state = this.AppUsers[i].address.state.name.toUpperCase();
+              var area = this.AppUsers[i].address.area.name.toUpperCase();
+              if((name.indexOf(this.queryText.toUpperCase())>-1)|| (mobile.indexOf(this.queryText)>-1) || (address.indexOf(this.queryText.toUpperCase())>-1) || (city.indexOf(this.queryText.toUpperCase())>-1) || (area.indexOf(this.queryText.toUpperCase())>-1) || (state.indexOf(this.queryText.toUpperCase())>-1)){
          
               } else {
                 this.AppUsers.splice(i,1);
@@ -74,6 +86,37 @@ export class TabsPage {
             }            
           }
       })    
+  }
+
+  checkTime() {
+      var updateTime = JSON.parse(window.localStorage.getItem('updateTime'));
+    if(updateTime){
+      var now = new Date();
+      var predate = new Date(updateTime);
+      if(now.valueOf() > predate.valueOf()){
+        var diff = now.valueOf() - predate.valueOf()
+        if(diff >= 5000*60){
+          window.localStorage.removeItem('updateTime');
+          this.hideButton = false;
+          console.log(diff);
+        }
+        else if(diff < 5000*60){
+          this.hideButton = true;
+          var newdif = 5000*60 - diff;
+          this.updateTimeout(newdif);
+        }
+      }
+    }
+    
+        
+  }
+
+  updateTimeout(diff: any){
+    let that = this;
+    setTimeout(function () {
+      window.localStorage.removeItem('updateTime');
+        that.hideButton = false;
+    }, diff);
   }
 
   public insertProduct(pro: any,deliveryId: any,status: any) {
@@ -90,9 +133,14 @@ export class TabsPage {
               for(var y=0;y<this.AppUsers[i].delivery_packages.length;y++){
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
+                    this.TotalPackets--;
+                    if(status == 1){
+                      this.DeliveredPackets++;
+                    }
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
                       this.AppUsers.splice(i, 1);
+                      // this.TotalPackets--;
                     }
                 }
               }
@@ -114,7 +162,17 @@ export class TabsPage {
     
   }
 
+  buttonDisable() {
+
+    let that = this;
+    setTimeout(function () {
+      window.localStorage.removeItem('updateTime');
+        that.hideButton = false;
+    }, 10000);
+  }
+
   upload(){
+
       this.showLoader();
       this.db.getData()
       .then(data => {
@@ -127,12 +185,8 @@ export class TabsPage {
           let newObj: any = [];
           let status: any;
           for(var i=0;i<data.length;i++){
-            // deliveryData.push(JSON.parse(data[i].jsondata));
             statusData.push(JSON.parse(data[i].status));
           }
-
-
-
           for(var y=0;y<data.length;y++){
             // dataObj = {};
             innerObj.user_id = JSON.parse(data[y].jsondata).customer_id;
@@ -154,11 +208,8 @@ export class TabsPage {
             }
             dataObj[JSON.parse(data[y].jsondata).id] = innerObj;
             innerObj = {};
-            // deliveryData.push(dataObj);
 
           }
-
-          // this.MsgAlert('Success','Deliveries have been uploaded successfully');
 
           let resultData: any = {};
           
@@ -173,10 +224,6 @@ export class TabsPage {
               this.hideLoader();
             }
             
-            
-           /* let resultData : any ={};
-             resultData = results;*/
-           
           });
        }else{
          this.hideLoader();
@@ -185,14 +232,13 @@ export class TabsPage {
       })
       
   }
-
+  
   refresh() {
     this.showLoader();
     this.db.deleteTable()
       .then(data => {
        console.log(data);
          this.userData.device_deliverie().then(results=>{
-        // this.hideLoader();
           let resultData : any ={};
           let result : any ={};
           let newObj : any ={};
@@ -200,8 +246,6 @@ export class TabsPage {
             resultData = results;
         
           if(resultData.deliveries && resultData.product_quantities){
-            //this.navCtrl.setRoot(TabsPage);
-            //this.doAlert('Success','Delivery details have been come !!');
             newObj.deliveries = [];
             for(var i=0;i<resultData.deliveries.length;i++){
                 if(resultData.deliveries[i].delivery_status == "0"){
@@ -222,14 +266,10 @@ export class TabsPage {
     this.db.insertAppUser(resultData);
       this.hideLoader();
       this.getAllPendings();
-      // this.navCtrl.setRoot(TabsPage);
   }
 
 
   public getAllPendings() {
-   //let DeliveryList: any = [];
-   // let StatusList: any = [];
-    //let that = this;
     this.Products = [];
     this.AppUsers = [];
     this.showLoader();
@@ -237,18 +277,33 @@ export class TabsPage {
       .then(data => {
         if(data != undefined && data.length > 0){
           for(var i=0;i<data.length;i++){
-            this.AppUsers.push(JSON.parse(data[i].jsondata));
-              if(JSON.parse(data[i].status) != null){
+            if(data[i].final_status == 1){
+              for(var t=0;t<JSON.parse(data[i].status).length;t++){
+                if(JSON.parse(data[i].status)[t].status == 1){
+                    this.DeliveredPackets++;
+                }
+              }
+            }else{
+              this.AppUsers.push(JSON.parse(data[i].jsondata));
+              this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages.length;
+            }
+            
+              if(JSON.parse(data[i].status) != null && data[i].final_status != 1){
                   for(var x=0;x<JSON.parse(data[i].status).length;x++){
                       this.Products.push(JSON.parse(data[i].status)[x].id);
+                      if(JSON.parse(data[i].status).status == 1){
+                          this.DeliveredPackets++;
+                      }
                   }
             }
           }
+          // this.DeliveredPackets += this.Products.length;
           for(var m=0;m<this.AppUsers.length;m++){
               for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
                   for(var o=0;o<this.Products.length;o++){
                       if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
                           this.AppUsers[m].delivery_packages.splice(n, 1);
+                          this.TotalPackets--;
                       }
                   }
                   
@@ -257,7 +312,6 @@ export class TabsPage {
           this.hideLoader();
         }else{
           this.hideLoader();
-          // this.MsgAlert('Success','No deliveries found!!');
         }
        
         
@@ -268,52 +322,7 @@ export class TabsPage {
       });
   
   }
-/*  username='';
-  name='';
-items: any = [];
-save()
-{
 
-this.sqlite.create({
-name: 'data.db',
-location: 'default'
-})
-.then((db: SQLiteObject) => {
-
-//data insert section
-db.executeSql('CREATE TABLE IF NOT EXISTS usernameList(id INTEGER PRIMARY KEY AUTOINCREMENT,name)', {})
-.then(() => alert('Executed SQL'))
-.catch(e => console.log(e));
-
-//data insert section
-db.executeSql('INSERT INTO usernameList(name) VALUES(?)', [this.username])
-.then(() => alert('Executed SQL'))
-.catch(e => console.log(e));
-
-
-//data retrieve section
-
-db.executeSql('select * from usernameList', {}).then((data) => {
-
-alert(JSON.stringify(data));
-
-//alert(data.rows.length);
-//alert(data.rows.item(5).name);
-if(data.rows.length > 0) {
-for(var i = 0; i < data.rows.length; i++) {
-//alert(data.rows.item(i).name);
-this.items.push({"name": data.rows.item(i).name});
-}
-}
-
-}, (err) => {
-alert('Unable to execute sql: '+JSON.stringify(err));
-});
-})
-.catch(e => alert(JSON.stringify(e)));
-alert(this.username);
-
-}*/
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({

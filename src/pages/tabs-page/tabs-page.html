@@ -3,7 +3,7 @@
     <button ion-button menuToggle="left" style="display: inline-block !important;">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Pending</ion-title>
+    <ion-title>Pending<span float-right>{{DeliveredPackets}}/{{TotalPackets}}</span></ion-title>
   </ion-navbar>
     <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
@@ -29,10 +29,10 @@
           <h2>Name: {{user.customer_name}}</h2>
         </ion-item>
         <ion-item text-wrap no-lines>
-          <h2>Mobile: {{user.member1_phone_no}}</h2>
+          <h2>Mobile: {{user.address.mobile}}</h2>
         </ion-item>
         <ion-item text-wrap no-lines>
-            <h2>Address: {{user.address.name}}{{ user.address.city.name}} {{ user.address.state.name}} {{ user.address.zone.name}}</h2>
+            <h2>Address: {{user.address.name}} {{ user.address.area.name}} {{ user.address.city.name}} {{ user.address.state.name}}</h2>
         </ion-item>
         <ion-item text-wrap no-lines>
           <h2>Box Details: {{user.box_status}}</h2>
@@ -59,7 +59,7 @@
   </ion-slide>
 
 </ion-slides>
-<ion-row responsive-sm style="width:100%;">
+<ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
       <ion-col>
         
       </ion-col>
@@ -70,7 +70,7 @@
         
       </ion-col>
     </ion-row>
-    <ion-row responsive-sm style="width:100%;">
+    <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
       <ion-col>
         
       </ion-col>
