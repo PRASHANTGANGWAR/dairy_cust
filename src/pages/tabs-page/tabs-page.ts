@@ -17,6 +17,7 @@ export class TabsPage {
   queryText = '';
   AppUsers: any=[];
   Products: any=[];
+  status: any=[];
 
   private loading :any;
 
@@ -95,14 +96,14 @@ export class TabsPage {
       var predate = new Date(updateTime);
       if(now.valueOf() > predate.valueOf()){
         var diff = now.valueOf() - predate.valueOf()
-        if(diff >= 5000*60){
+        if(diff >= 1000*60*15){
           window.localStorage.removeItem('updateTime');
           this.hideButton = false;
           console.log(diff);
         }
-        else if(diff < 5000*60){
+        else if(diff < 1000*60*15){
           this.hideButton = true;
-          var newdif = 5000*60 - diff;
+          var newdif = 1000*60*15 - diff;
           this.updateTimeout(newdif);
         }
       }
@@ -168,11 +169,12 @@ export class TabsPage {
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideButton = false;
-    }, 10000);
+    }, 1000*60*15);
   }
 
   upload(){
-
+      window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
+      window.localStorage.setItem('DeliveredPackets',JSON.stringify(this.DeliveredPackets));
       this.showLoader();
       this.db.getData()
       .then(data => {
@@ -272,6 +274,7 @@ export class TabsPage {
   public getAllPendings() {
     this.Products = [];
     this.AppUsers = [];
+    this.status = [];
     this.showLoader();
     this.db.getAppUsers()
       .then(data => {
@@ -285,6 +288,7 @@ export class TabsPage {
               }
             }else{
               this.AppUsers.push(JSON.parse(data[i].jsondata));
+              this.status.push(JSON.parse(data[i].status));
               this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages.length;
             }
             
@@ -304,6 +308,15 @@ export class TabsPage {
                       if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
                           this.AppUsers[m].delivery_packages.splice(n, 1);
                           this.TotalPackets--;
+                          if(this.status[m] != undefined){
+                            for(var b=0;b<this.status[m].length;b++){
+                              if(this.status[m][b].status == 1){
+                                  this.DeliveredPackets++;
+                              }
+                            }
+                          }
+                          
+                          
                       }
                   }
                   
