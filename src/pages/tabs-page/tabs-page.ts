@@ -275,6 +275,8 @@ export class TabsPage {
     this.Products = [];
     this.AppUsers = [];
     this.status = [];
+    this.TotalPackets = 0;
+    this.DeliveredPackets = 0;
     this.showLoader();
     this.db.getAppUsers()
       .then(data => {
