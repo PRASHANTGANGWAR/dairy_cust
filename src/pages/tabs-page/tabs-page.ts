@@ -274,6 +274,8 @@ export class TabsPage {
   public getAllPendings() {
     this.Products = [];
     this.AppUsers = [];
+    this.TotalPackets = 0;
+    this.DeliveredPackets = 0;
     this.status = [];
     this.showLoader();
     this.db.getAppUsers()
