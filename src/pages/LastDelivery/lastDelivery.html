@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Last Delivery</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="OrganizationsView" padding>
+  
+
+  <ion-item>
+        
+    <ion-grid>
+        <ion-row>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Name</b>
+          </ion-col>
+          <ion-col col-8 text-wrap no-lines>
+            : {{Customer.name}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Mobile</b>
+          </ion-col>
+          <ion-col col-8 text-wrap no-lines>
+            : {{Customer.mobile}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Email</b>
+          </ion-col>
+          <ion-col col-8 text-wrap no-lines>
+            : {{Customer.email}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Due Balance</b>
+          </ion-col>
+          <ion-col col-8 text-wrap no-lines>
+            : {{Customer.due_balance}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+        
+  </ion-item>
+<ion-card *ngFor="let user of Deliveries" responsive-sm [hidden]='!Deliveries.length'>
+
+</ion-card>
+<ion-card responsive-sm [hidden]='Deliveries.length'>
+    <h3>No past deliveries</h3>
+</ion-card>
+
+</ion-content>

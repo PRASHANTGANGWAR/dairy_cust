@@ -4,12 +4,13 @@ import { Events, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
-
 import { TabsPage } from '../pages/tabs-page/tabs-page';
-
+// import { LastDeliveryPage } from '../pages/LastDelivery/lastDelivery';
+import { CollectionPage } from '../pages/Collections/collection';
+import { UrgentPage } from '../pages/Urgent/urgent';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
-
+import { BoxPage } from '../pages/Box/box';
 import { UserData } from '../providers/user-data';
 
 export interface PageInterface {
@@ -24,6 +25,13 @@ export interface PageInterface {
   delivered?: boolean;
   canceled?: boolean; 
   panding?: boolean; 
+  collection?: boolean;
+  lastDelivery?: boolean;
+  lastDelivery1?: boolean;
+  urgent?: boolean;
+  box?: boolean;
+
+
 }
 
 @Component({
@@ -42,6 +50,10 @@ export class ConferenceApp {
     { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
     { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
+    // { title: 'LastDelivery', name: 'TabsPage', component: LastDeliveryPage, icon: 'md-checkmark-circle', lastDelivery: true },
+    { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-checkmark-circle', lastDelivery1: true },
+    { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-checkmark-circle', urgent: true },
+    { title: 'Box', name: 'TabsPage', component: BoxPage, icon: 'md-checkmark-circle', box: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
@@ -115,6 +127,18 @@ export class ConferenceApp {
     }
     if (page.delivered === true) {
       this.nav.setRoot(SchedulePage);
+    }
+   /* if (page.lastDelivery === true) {
+      this.nav.setRoot(LastDeliveryPage);
+    }*/
+    if (page.lastDelivery1 === true) {
+      this.nav.setRoot(CollectionPage);
+    }
+    if (page.urgent === true) {
+      this.nav.setRoot(UrgentPage);
+    }
+    if (page.box === true) {
+      this.nav.setRoot(BoxPage);
     }
   }
 

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+  <button ion-button menuToggle="left" style="display: inline-block !important;">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Box</ion-title>
+  </ion-navbar>
+    <ion-toolbar no-border-top>
+    <ion-searchbar color="primary"
+                   [(ngModel)]="queryText"
+                   (ionInput)="updateSchedule()"
+                   placeholder="Search">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="OrganizationsView" padding>
+  
+<ion-card *ngFor="let user of BoxResult" responsive-sm>
+
+  <ion-item>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Name: {{user.name}}</h3>
+        </ion-item>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Mobile: {{user.mobile}}</h3>
+        </ion-item>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Box Status: {{user.box_status}}</h3>
+        </ion-item>
+        <ion-item text-wrap no-lines>
+          <div style="padding-top:2px;"><h3>Address: {{user.locality_name}}{{ user.area_name}} {{ user.zone_name}} {{ user.state_name}}</h3></div>
+        </ion-item>
+        
+  </ion-item>
+  <ion-row responsive-sm style="width:100%;">
+      <ion-col>
+        
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="receive()" [hidden]="flag" block>Receive</button>
+      </ion-col>
+      <ion-col>
+        
+      </ion-col>
+    </ion-row>
+
+</ion-card>
+
+</ion-content>
+

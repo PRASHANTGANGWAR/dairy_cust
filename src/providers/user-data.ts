@@ -43,8 +43,10 @@ export class UserData {
     data.user.login = username;
     data.user.password= password;
     data.user.mobile_type = "android";
-    data.user.app_version = "2.4";
-    data.user.mobile_key = "0001";
+    // data.user.app_version = "2.4";
+    // data.user.mobile_key = "0001";
+    data.user.app_version = "2.1";
+    data.user.mobile_key = "0000";
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Post,
@@ -72,6 +74,205 @@ export class UserData {
 
     //this.events.publish('user:login');
   };
+
+
+  collections(){
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
+    let data :any = {};
+    // data.delivery_status = 0;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: JSON.stringify(data),
+      url: this.Url+'/payments/customer_payment_status'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
+  urgentCollections(){
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
+    let data :any = {};
+    // data.delivery_status = 0;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: JSON.stringify(data),
+      url: this.Url+'/payments/cancel_order_payments'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  };
+
+  boxCollections(){
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
+    let data :any = {};
+    // data.delivery_status = 0;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: JSON.stringify(data),
+      url: this.Url+'/delivery_boxes/recieve_box_customers'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+
+  lastDeliveries(cusotmerId: any){
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
+    let data :any = {};
+    // data.delivery_status = 0;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: null,
+      url: this.Url+'/users/'+cusotmerId+'/customer_deliveries_history'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+
+  lastPayments(cusotmerId: any) {
+
+     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
+    let data :any = {};
+    // data.delivery_status = 0;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: null,
+      url: this.Url+'/users/'+cusotmerId+'/customer_payment_history'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+
+  }
+
+  paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
+
+     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+    });
+    let a = parseInt(payment);
+    console.log(due);
+    console.log(bill);
+    let data :any = {};
+    // data.delivery_status = 0;
+    data = {
+      customer_id: id,
+      cash_paid: a, 
+      device_id: deviceId
+    }
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Post,
+      headers: headers,
+      body: data,
+      url: this.Url+'/payments/deposit_due_balance'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+
+  }
 
 
   device_deliverie(){

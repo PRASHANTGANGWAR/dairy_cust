@@ -1,0 +1,24 @@
+.tabbar {
+  justify-content: center;
+}
+
+.tab-button {
+  max-width: 200px;
+}
+
+.custom-alert button.alert-button-group {
+   width: 33.33%;
+}
+
+.custom-alert .alert-button-group .button-inner {
+   -webkit-box-pack: center;
+   -webkit-justify-content: center;
+   -ms-flex-pack: center;
+   justify-content: center;
+}
+
+.custom-alert .alert-button-group-vertical {
+   -webkit-flex-direction: row;
+   -ms-flex-direction: row;
+   flex-direction: row ;
+}
