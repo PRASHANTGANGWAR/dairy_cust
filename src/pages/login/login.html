@@ -15,7 +15,7 @@
 	<form #loginForm="ngForm" novalidate>
 		<ion-list no-lines>
 			<ion-item [hidden]="flag">
-				<ion-label stacked color="primary">User Phone</ion-label>
+				<ion-label stacked style="color:#DF3796;">User Phone</ion-label>
 				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off" placeholder="Enter Phone No"
 					required>
 				</ion-input>
@@ -25,7 +25,7 @@
 			</p>
 
 			<ion-item [hidden]="flag">
-				<ion-label stacked color="primary">Password</ion-label>
+				<ion-label stacked style="color:#DF3796;">Password</ion-label>
 				<ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" placeholder="Enter Password" required>
 				</ion-input>
 			</ion-item>
@@ -37,19 +37,11 @@
 
 		<ion-row responsive-sm>
 			<ion-col>
-				<button ion-button (click)="onLogin(loginForm)" type="submit" [hidden]="flag" block>Login</button>
+				<button ion-button (click)="onLogin(loginForm)" type="submit" [hidden]="flag" block style="background:#DF3796;">Login</button>
 			</ion-col>
-			<!-- <ion-col>
-				<button ion-button (click)="onSignup()" color="light" [hidden]="flag" block>Signup</button>
-			</ion-col> -->
+			
 		</ion-row>
-		<!-- <ion-row responsive-sm>
-			<ion-col>
-				<button ion-button full color="light" (click)="forgotPassword()" [hidden]="flag">Forgot password?</button>
-				<button ion-button clear (click)="scan()" style="text-transform: none;" [hidden]="flag"><ion-icon name="aperture"></ion-icon>Do you have a boucher with a QR code?</button>
-				<button ion-button full color="light" class="LoginView-submit" (click)="resetPassword()" [hidden]="!flag">Reset password</button>
-			</ion-col>
-		</ion-row> -->
+	
 	</form>
 
 </ion-content>
