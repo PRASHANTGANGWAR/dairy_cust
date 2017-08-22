@@ -63,6 +63,16 @@ export class TabsPage {
     // let isExists = _.find(this.Products, { id : idd } );
     // return ( isExists ? true : false );
   }
+
+  getStyle(name: any){
+    if(name == "Desi Buffalo milk") {
+      return "#a50be8";
+    }
+    if(name == "Desi Cow milk") {
+      return "#0f8ddb";
+    }
+  }
+
   updateSchedule() {
     this.db.getAppUsers()
       .then(data => {

@@ -44,7 +44,7 @@
   </ion-item>
  
   <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
-<ion-item style="text-align:center;background:#999a9b">
+<ion-item style="text-align:center;" [style.background-color]="getStyle(pack.product.display_name)">
 					
 	 <div class="col" >
 		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>

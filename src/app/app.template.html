@@ -10,14 +10,14 @@
 
     <ion-content class="outer-content">
 
-      <ion-list>
+      <div>
         <!-- <ion-list-header>
         </ion-list-header> -->
         <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
           <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
           {{p.title}}
         </button>
-      </ion-list>
+      </div>
 
     </ion-content>
 
