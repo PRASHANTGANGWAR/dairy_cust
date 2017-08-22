@@ -51,9 +51,9 @@ export class ConferenceApp {
     { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     // { title: 'LastDelivery', name: 'TabsPage', component: LastDeliveryPage, icon: 'md-checkmark-circle', lastDelivery: true },
-    { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-checkmark-circle', lastDelivery1: true },
-    { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-checkmark-circle', urgent: true },
-    { title: 'Box', name: 'TabsPage', component: BoxPage, icon: 'md-checkmark-circle', box: true },
+    { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-keypad', lastDelivery1: true },
+    { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-notifications', urgent: true },
+    { title: 'Box', name: 'TabsPage', component: BoxPage, icon: 'md-archive', box: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   loggedOutPages: PageInterface[] = [
