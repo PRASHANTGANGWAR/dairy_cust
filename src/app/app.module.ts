@@ -31,7 +31,7 @@ import { DBProvider } from '../providers/DBProvider';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(ConferenceApp, {}, {
+    IonicModule.forRoot(ConferenceApp, { pageTransition: 'md-transition'}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
         { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
