@@ -5,7 +5,7 @@ import { LastDeliveryPage } from '../LastDelivery/lastDelivery';
 import { PaymentHistoryPage } from '../payment-history/paymentHistory';
 import { UrgentPage } from '../Urgent/urgent';
 import { UserData } from '../../providers/user-data';
-
+// const FilteredAppUsers: any=[];
 @Component({
   selector: 'collection',
   templateUrl: 'collection.html'
@@ -14,6 +14,7 @@ import { UserData } from '../../providers/user-data';
 export class CollectionPage {
   private loading :any;
   AppUsers: any=[];
+  queryText = '';
 
   constructor(
     public userData: UserData,
@@ -70,10 +71,6 @@ export class CollectionPage {
   }
 
   paynowBox(id: any,due: any,bill: any,deviceId: any) {
-    console.log(id);
-    console.log(due);
-    console.log(bill);
-    console.log(deviceId);
     let alert = this._alert.create({
       subTitle: "Enter amount to pay",
       inputs: [ 
@@ -97,6 +94,37 @@ export class CollectionPage {
       cssClass: 'custom-alert'
     });
     alert.present();
+  }
+
+  search(){
+    this.AppUsers = [];
+    this.userData.collections().then(results=>{
+          let result : any ={};
+          result = results;
+          if(result.customers.length && result.customers[0].device){
+            this.AppUsers = result.customers[0].device;
+            for(var k=0;k<this.AppUsers.length;k++){
+              this.AppUsers[k].address1 = this.AppUsers[k].addresses[0];
+            }
+            for(var i=0;i<this.AppUsers.length;i++){
+          if(this.AppUsers[i] && this.AppUsers[i].name ){
+              var name = this.AppUsers[i].name.toUpperCase();
+              var address = this.AppUsers[i].address1.name.toUpperCase();
+              var mobile = this.AppUsers[i].mobile;
+              var city = this.AppUsers[i].address1.city_name.toUpperCase();
+              var state = this.AppUsers[i].address1.state_name.toUpperCase();
+              var area = this.AppUsers[i].address1.area_name.toUpperCase();
+              var device = this.AppUsers[i].device_name.toUpperCase();
+              if((name.indexOf(this.queryText.toUpperCase())>-1)|| (mobile.indexOf(this.queryText)>-1) || (address.indexOf(this.queryText.toUpperCase())>-1) || (city.indexOf(this.queryText.toUpperCase())>-1) || (area.indexOf(this.queryText.toUpperCase())>-1) || (state.indexOf(this.queryText.toUpperCase())>-1) || (device.indexOf(this.queryText.toUpperCase())>-1)){
+         
+              } else {
+                this.AppUsers.splice(i,1);
+                i--;
+              }
+            }            
+          }
+          }
+      });
   }
 
   paymentHistory(id: any) {

@@ -8,7 +8,7 @@
     <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
-                   (ionInput)="updateSchedule()"
+                   (ionInput)="search()"
                    placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
@@ -75,17 +75,6 @@
       </ion-col>
       <ion-col>
         <button ion-button small (click)="paynowBox(user.id,user.due_balance,user.billing_amount,user.device_id)" block>Pay Now</button>
-      </ion-col>
-    </ion-row>
-    <ion-row responsive-sm style="width:100%;">
-      <ion-col>
-        
-      </ion-col>
-      <ion-col>
-        <button ion-button small (click)="refresh()" block>Snooze</button>
-      </ion-col>
-      <ion-col>
-        
       </ion-col>
     </ion-row>
 </ion-card>
