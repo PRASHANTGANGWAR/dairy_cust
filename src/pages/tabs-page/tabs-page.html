@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;">
+    <button ion-button menuToggle="left" style="display: inline-block !important;background:#DF3796">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Pending<span float-right>{{DeliveredPackets}}/{{TotalPackets}}</span></ion-title>
   </ion-navbar>
     <ion-toolbar no-border-top>
-    <ion-searchbar color="primary"
+    <ion-searchbar
                    [(ngModel)]="queryText"
                    (ionInput)="updateSchedule()"
                    placeholder="Search">
@@ -64,7 +64,7 @@
         
       </ion-col>
       <ion-col>
-        <button ion-button (click)="upload()" [hidden]="flag" block>Update Now</button>
+        <button ion-button (click)="upload()" [hidden]="flag" block style="background:#DF3796">Update Now</button>
       </ion-col>
       <ion-col>
         
@@ -75,7 +75,7 @@
         
       </ion-col>
       <ion-col>
-        <button ion-button (click)="refresh()" [hidden]="flag" block>Refresh</button>
+        <button ion-button (click)="refresh()" [hidden]="flag" block style="background:#DF3796">Refresh</button>
       </ion-col>
       <ion-col>
         
