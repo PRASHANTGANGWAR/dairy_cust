@@ -49,12 +49,10 @@ export class CollectionPage {
   }
 
   paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
-    console.log(id);
-    console.log(due);
-    console.log(bill);
-    console.log(deviceId);
-    console.log(deviceId);
-    this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
+    var min = due-100;
+    var max = due+100;
+   if(parseInt(payment.Amount) > min && parseInt(payment.Amount) < max){
+       this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
           let result : any ={};
           result = results;
           if(result.message == "Payment Successfully Paid"){
@@ -67,17 +65,23 @@ export class CollectionPage {
 
           
       });
+   }else{
+     
+     this.hideLoader();
+     this.MsgAlert('Error',"Please enter amount between "+min+"and"+max+"!");
+   }
+    
     // this.navCtrl.push(LastDeliveryPage, {customerid:id});
   }
 
   paynowBox(id: any,due: any,bill: any,deviceId: any) {
     let alert = this._alert.create({
-      subTitle: "Enter amount to pay",
+      title: "Enter Amount to pay",
       inputs: [ 
         {
           type: 'number',
           name: 'Amount',
-          placeholder: 'Title',
+          placeholder: 'Enter Amount',
           value: 'payment',
           id: 'abc'
         },
