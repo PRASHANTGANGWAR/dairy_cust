@@ -37,7 +37,16 @@
         <ion-item text-wrap no-lines>
           <h2>Box Details: {{user.box_status}}</h2>
         </ion-item>
+        <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
+      <ion-col>
         
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="assign(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;">Box Req.</button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+    </ion-row>
       </div>
 			<!-- <button ion-button small>Box Req.</button> -->
 			

@@ -131,8 +131,6 @@ export class TabsPage {
   }
 
   public insertProduct(pro: any,deliveryId: any,status: any) {
-    console.log(pro);
-    console.log(deliveryId);
     this.db.getDeliveryStatus(deliveryId)
       .then(data => {
           console.log(data);
@@ -144,9 +142,9 @@ export class TabsPage {
               for(var y=0;y<this.AppUsers[i].delivery_packages.length;y++){
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
-                    this.TotalPackets--;
+                    this.TotalPackets -= pro.quantity;
                     if(status == 1){
-                      this.DeliveredPackets++;
+                      this.DeliveredPackets += pro.quantity;
                     }
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
@@ -295,20 +293,22 @@ export class TabsPage {
             if(data[i].final_status == 1){
               for(var t=0;t<JSON.parse(data[i].status).length;t++){
                 if(JSON.parse(data[i].status)[t].status == 1){
-                    this.DeliveredPackets++;
+                    this.DeliveredPackets += JSON.parse(data[i].status)[t].quantity;
                 }
               }
             }else{
               this.AppUsers.push(JSON.parse(data[i].jsondata));
               this.status.push(JSON.parse(data[i].status));
-              this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages.length;
+              for(var u=0;u<JSON.parse(data[i].jsondata).delivery_packages.length;u++){
+                this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
+              }
             }
             
-              if(JSON.parse(data[i].status) != null && data[i].final_status != 1){
+            if(JSON.parse(data[i].status) != null && data[i].final_status != 1){
                   for(var x=0;x<JSON.parse(data[i].status).length;x++){
                       this.Products.push(JSON.parse(data[i].status)[x].id);
                       if(JSON.parse(data[i].status).status == 1){
-                          this.DeliveredPackets++;
+                          this.DeliveredPackets += JSON.parse(data[i].status)[x].quantity;
                       }
                   }
             }
@@ -318,12 +318,12 @@ export class TabsPage {
               for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
                   for(var o=0;o<this.Products.length;o++){
                       if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
+                          this.TotalPackets -= this.AppUsers[m].delivery_packages[n].quantity;
                           this.AppUsers[m].delivery_packages.splice(n, 1);
-                          this.TotalPackets--;
                           if(this.status[m] != undefined){
                             for(var b=0;b<this.status[m].length;b++){
                               if(this.status[m][b].status == 1){
-                                  this.DeliveredPackets++;
+                                  this.DeliveredPackets += this.status[m][b].quantity;
                               }
                             }
                           }
@@ -348,6 +348,46 @@ export class TabsPage {
   
   }
 
+boxAssign(deliveryId: any, customerId: any) {
+  this.showLoader();
+  this.userData.boxAssign(deliveryId,customerId).then(results=>{
+          console.log(results);
+          let resultData : any ={};
+           resultData = results;
+
+          if(resultData.status == "success"){
+            this.hideLoader();
+            this.MsgAlert('Success',resultData.success);
+          } else{
+            this.hideLoader();
+            this.doAlert('Error',"Delivery Box is not assigned");
+          }
+      });
+
+}
+
+assign(deliveryId: any, customerId: any) {
+    let alert = this._alert.create({
+      subTitle: "Do you want to assign box",
+      buttons: [
+      {
+        text: 'Reject',
+        role: 'cancel'
+        /*handler: () => {
+          this.insertProduct(pro,deliveryId,'1');
+        }*/
+      },
+        {
+        text: 'Assign',
+        handler: () => {
+          this.boxAssign(deliveryId, customerId);
+        }
+      }
+      ],
+      cssClass: 'custom-alert'
+    });
+    alert.present();
+  }
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({

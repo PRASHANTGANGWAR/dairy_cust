@@ -165,6 +165,43 @@ export class UserData {
     });
   };
 
+
+  boxAssign(deliveryId: any, customerId: any) {
+    console.log(deliveryId);
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+       'Accept':'application/json',
+       'X-User-Mobile':user.mobile,
+       'X-User-Token': user.authentication_token
+        });
+    let data :any = {};
+    data.delivery_box = {
+      customer_id: customerId,
+      action_type: "assign"
+    };
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Post,
+      headers: headers,
+      body: JSON.stringify(data),
+      url: this.Url+'/delivery_boxes/customer_delivery_box/'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+
+
     canceledItems(){
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));
       console.log(user);

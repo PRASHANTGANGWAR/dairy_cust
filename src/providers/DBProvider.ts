@@ -129,6 +129,7 @@ export class DBProvider {
         let str: any;
         obj.status = status;
         obj.id = pro.id;
+        obj.quantity = pro.quantity;
         ary.push(obj);
         if(stts == null){
             str = JSON.stringify(ary);
