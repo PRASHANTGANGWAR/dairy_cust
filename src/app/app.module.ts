@@ -16,6 +16,7 @@ import { PaymentHistoryPage } from '../pages/payment-history/paymentHistory';
 import { LoginPage } from '../pages/login/login';
 import { BoxPage } from '../pages/Box/box';
 import { UrgentPage } from '../pages/Urgent/urgent';
+import { ModalPage } from '../pages/modal/modal';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
@@ -29,6 +30,7 @@ import { DBProvider } from '../providers/DBProvider';
     LastDeliveryPage,
     CollectionPage,
     PaymentHistoryPage,
+    ModalPage,
     LoginPage,
     BoxPage,
     UrgentPage,
@@ -39,7 +41,7 @@ import { DBProvider } from '../providers/DBProvider';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(ConferenceApp, {}, {
+    IonicModule.forRoot(ConferenceApp, { pageTransition: 'md-transition'}, {
       links: [
         { component: TabsPage, name: 'TabsPage', segment: 'tabs-page' },
         { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
@@ -66,6 +68,7 @@ import { DBProvider } from '../providers/DBProvider';
     SchedulePage,
     SpeakerListPage,
     TabsPage,
+    ModalPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

@@ -67,3 +67,31 @@
     }
   }
 }
+/*
+modal-wrapper {
+  position: absolute;
+    z-index: 9999;
+    position: absolute;
+    top: 35%;
+    left: 10%;
+    width: 80%;
+    height: 30%;
+}
+
+@media not all and (min-height: 600px) and (min-width: 768px) {
+  ion-modal ion-backdrop {
+    visibility: 0.5;
+  }
+}
+
+@media only screen and (min-height: 0px) and (min-width: 0px) {
+  .modal-wrapper {
+    z-index: 9999;
+    position: absolute;
+    top: 35%;
+    left: 10%;
+    width: 80%;
+    height: 30%;
+  }
+}
+*/

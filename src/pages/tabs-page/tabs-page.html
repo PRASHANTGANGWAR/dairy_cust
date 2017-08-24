@@ -37,15 +37,24 @@
         <ion-item text-wrap no-lines>
           <h2>Box Details: {{user.box_status}}</h2>
         </ion-item>
+        <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
+      <ion-col>
         
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="assign(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;">Box Req.</button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+    </ion-row>
       </div>
 			<!-- <button ion-button small>Box Req.</button> -->
 			
   </ion-item>
  
   <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
-<ion-item style="text-align:center;background:#999a9b">
-					
+<!-- <ion-item style="text-align:center;" [style.background-color]="getStyle(pack.product.display_name)"> -->
+<ion-item style="text-align:center;background:#831cd8">
 	 <div class="col" >
 		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>
 		</div>
@@ -64,18 +73,16 @@
         
       </ion-col>
       <ion-col>
-        <button ion-button (click)="upload()" [hidden]="flag" block style="background:#DF3796">Update Now</button>
+        <button ion-button (click)="upload()" [hidden]="flag" block style="background:#DF3796;">Update Now</button>
       </ion-col>
       <ion-col>
-        
       </ion-col>
     </ion-row>
     <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
       <ion-col>
-        
       </ion-col>
       <ion-col>
-        <button ion-button (click)="refresh()" [hidden]="flag" block style="background:#DF3796">Refresh</button>
+        <button ion-button (click)="refresh()" [hidden]="flag" block style="background:#DF3796;">Refresh</button>
       </ion-col>
       <ion-col>
         

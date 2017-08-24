@@ -36,7 +36,7 @@ export class UserData {
     }
   };
 
-  login(username: string,password: string){
+  CashBoyLogin(username: string,password: string){
     console.log(username+""+password);
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
     let data :any = {user:{}};
@@ -61,7 +61,43 @@ export class UserData {
           this.events.publish('user:login');
           resolve(res.json());
           this.setUsername(res.json());
+           window.localStorage.setItem('CashboyLogin',JSON.stringify(res.json().user));
+           window.localStorage.setItem('App',"CashBoyApp");
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+
+  login(username: string,password: string){
+    console.log(username+""+password);
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    let data :any = {user:{}};
+    data.user.login = username;
+    data.user.password= password;
+    data.user.mobile_type = "android";
+    data.user.app_version = "2.4";
+    data.user.mobile_key = "0001";
+  /*  data.user.app_version = "2.1";
+    data.user.mobile_key = "0000";*/
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Post,
+      headers: headers,
+      body: JSON.stringify(data),
+      url: this.Url+'/users/sign_in'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          this.events.publish('user:login');
+          resolve(res.json());
+          this.setUsername(res.json());
            window.localStorage.setItem('loginDetails',JSON.stringify(res.json().user));
+           window.localStorage.setItem('App',"DeliveryApp");
         },
         err => {
           resolve(err.json());
@@ -77,7 +113,7 @@ export class UserData {
 
 
   collections(){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let user = JSON.parse(window.localStorage.getItem('CashboyLogin'));
     let headers = new Headers({ 
       'Content-Type': 'application/json',
       'Accept':'application/json',
@@ -108,7 +144,7 @@ export class UserData {
   };
 
   urgentCollections(){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let user = JSON.parse(window.localStorage.getItem('CashboyLogin'));
     let headers = new Headers({ 
       'Content-Type': 'application/json',
       'Accept':'application/json',
@@ -139,7 +175,7 @@ export class UserData {
   };
 
   boxCollections(){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let user = JSON.parse(window.localStorage.getItem('CashboyLogin'));
     let headers = new Headers({ 
       'Content-Type': 'application/json',
       'Accept':'application/json',
@@ -170,7 +206,7 @@ export class UserData {
   }
 
   lastDeliveries(cusotmerId: any){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let user = JSON.parse(window.localStorage.getItem('CashboyLogin'));
     let headers = new Headers({ 
       'Content-Type': 'application/json',
       'Accept':'application/json',
@@ -202,7 +238,7 @@ export class UserData {
 
   lastPayments(cusotmerId: any) {
 
-     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+     let user = JSON.parse(window.localStorage.getItem('CashboyLogin'));
     let headers = new Headers({ 
       'Content-Type': 'application/json',
       'Accept':'application/json',
@@ -235,7 +271,7 @@ export class UserData {
 
   paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
 
-     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+     let user = JSON.parse(window.localStorage.getItem('CashboyLogin'));
     let headers = new Headers({ 
       'Content-Type': 'application/json',
       'Accept':'application/json',
@@ -365,6 +401,43 @@ export class UserData {
       );
     });
   };
+
+
+  boxAssign(deliveryId: any, customerId: any) {
+    console.log(deliveryId);
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+       'Accept':'application/json',
+       'X-User-Mobile':user.mobile,
+       'X-User-Token': user.authentication_token
+        });
+    let data :any = {};
+    data.delivery_box = {
+      customer_id: customerId,
+      action_type: "assign"
+    };
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Post,
+      headers: headers,
+      body: JSON.stringify(data),
+      url: this.Url+'/delivery_boxes/customer_delivery_box/'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+
 
     canceledItems(){
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));

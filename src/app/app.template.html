@@ -10,12 +10,35 @@
 
     <ion-content class="outer-content">
 
-      <ion-list>
-        <button ion-item menuClose *ngFor="let p of loggedInPages" (click)="openPage(p)">
-          <ion-icon item-start [name]="p.icon" style="color:#DF3796"></ion-icon>
+      <div>
+        <!-- <ion-list-header>
+        </ion-list-header> -->
+        <ion-item teappable ion-item menuClose *ngFor="let p of deliveryPages" (click)="openPage(p)" [hidden]="isCashBoyApp">
+          <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
           {{p.title}}
-        </button>
-      </ion-list>
+        </ion-item>
+        <ion-item teappable ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" [hidden]="isDeliveryApp">
+          <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
+          {{p.title}}
+        </ion-item>
+
+
+
+        <ion-item teappable ion-item menuClose (click)="CashBoyLogin()" [hidden]="appType=='CashBoyApp'">
+          <ion-icon item-start name="log-out" style="color:#DF3796;"></ion-icon>
+          CashBoy Loign
+        </ion-item>
+
+        <ion-item teappable ion-item menuClose (click)="Switch()" [hidden]="appType=='CashBoyApp'">
+          <ion-icon item-start name="log-out" style="color:#DF3796;"></ion-icon>
+          Switched to CashBoy
+        </ion-item>
+
+        <ion-item teappable ion-item menuClose [hidden]="appType=='DeliveryApp'" (click)="Switch()">
+          <ion-icon item-start name="log-out" style="color:#DF3796;"></ion-icon>
+          Switched to Delivery
+        </ion-item>
+      </div>
 
     </ion-content>
 

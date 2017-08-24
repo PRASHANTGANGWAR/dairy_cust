@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Events, MenuController, Nav, Platform } from 'ionic-angular';
+import { Events, LoadingController, AlertController, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
@@ -12,7 +12,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { BoxPage } from '../pages/Box/box';
 import { UserData } from '../providers/user-data';
-
+declare var window: any;
 export interface PageInterface {
   title: string;
   name: string;
@@ -38,6 +38,8 @@ export interface PageInterface {
   templateUrl: 'app.template.html'
 })
 export class ConferenceApp {
+
+  private loading :any;
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
@@ -46,21 +48,29 @@ export class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
 
-  loggedInPages: PageInterface[] = [
+  deliveryPages: PageInterface[] = [
     { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
     { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     // { title: 'LastDelivery', name: 'TabsPage', component: LastDeliveryPage, icon: 'md-checkmark-circle', lastDelivery: true },
+    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
+  ];
+
+  cashboyPages: PageInterface[] = [
     { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-basket', lastDelivery1: true },
     { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-notifications', urgent: true },
     { title: 'Box', name: 'TabsPage', component: BoxPage, icon: 'md-archive', box: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
-  loggedOutPages: PageInterface[] = [
-  ];
+  
   rootPage: any;
+  isDeliveryApp: boolean;
+  isCashBoyApp: boolean;
+  appType: string;
 
   constructor(
+    private _loading: LoadingController,
+    private _alert: AlertController,
     public events: Events,
     public userData: UserData,
     public menu: MenuController,
@@ -68,7 +78,17 @@ export class ConferenceApp {
     public storage: Storage,
     public splashScreen: SplashScreen
   ) {
-
+    debugger;
+    this.appType = window.localStorage.getItem('App');
+    if(this.appType == "DeliveryApp"){
+      this.isDeliveryApp = true;
+      this.isCashBoyApp = false;
+    }
+    if(this.appType == "CashBoyApp"){
+      this.isDeliveryApp = false;
+      this.isCashBoyApp = true;
+    }
+    
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')
       .then((hasSeenTutorial) => {
@@ -89,6 +109,73 @@ export class ConferenceApp {
     this.enableMenu(true);
 
     this.listenToLoginEvents();
+  }
+
+  Switch(){
+    if(this.appType == "DeliveryApp"){
+      this.isDeliveryApp = false;
+      this.isCashBoyApp = true;
+      this.appType = "CashBoyApp"
+        window.localStorage.setItem('App',"CashBoyApp");
+    }
+    if(this.appType == "CashBoyApp"){
+      this.isDeliveryApp = true;
+      this.isCashBoyApp = false;
+      this.appType = "DeliveryApp"
+        window.localStorage.setItem('App',"DeliveryApp");
+    }
+  }
+
+  CashBoyLogin() {
+    let alert = this._alert.create({
+      title: "Login as Cash Boy",
+      inputs: [ 
+        {
+          type: 'text',
+          name: 'UserPhone',
+          placeholder: 'Enter Phone No',
+          value: 'UserPhone'
+        },
+        {
+          type: 'Password',
+          name: 'Password',
+          placeholder: 'Enter Password',
+          value: 'Pass'
+        }
+      ],
+      buttons: [
+      {
+        text: 'Login',
+        handler: (data) => {
+          debugger;
+          this.showLoader();
+          console.log(data.UserPhone);
+          console.log(data.Password);
+          this.userData.CashBoyLogin(data.UserPhone,data.Password).then(results=>{
+          console.log(results);
+          let resultData : any ={};
+           resultData = results;
+
+          if(resultData.user && resultData.user.authentication_token){
+            //this.navCtrl.setRoot(TabsPage);
+            // this.device_deliveries();
+            this.hideLoader();
+            this.doAlert('Success',"Successfully Loged in as Cash Boy");
+          } else{
+            this.hideLoader();
+            this.doAlert('Error','Invalid User Phone or Password');
+            // this.hideLoader();
+            // this.doAlert('Error','Invalid User Phone or Password');
+          }
+      });
+          // this.showLoader();
+          // this.paynow(id,due,bill,deviceId,Amount);
+        }
+      }
+      ],
+      cssClass: 'custom-alert'
+    });
+    alert.present();
   }
 
   openPage(page: PageInterface) {
@@ -164,6 +251,26 @@ export class ConferenceApp {
     this.platform.ready().then(() => {
       this.splashScreen.hide();
     });
+  }
+
+  showLoader(){
+    this.loading = this._loading.create({
+      content: 'Please wait...',
+    });
+    this.loading.present();
+  }
+
+  hideLoader(){
+    this.loading.dismiss();
+  }
+
+  doAlert(type: string,message: string) {
+    let alert = this._alert.create({
+      title: type,
+      subTitle: message,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
   isActive(page: PageInterface) {
