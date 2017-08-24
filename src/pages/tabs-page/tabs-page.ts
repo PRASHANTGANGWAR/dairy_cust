@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { UserData } from '../../providers/user-data';
 
-
+// import { ModalPage } from '../modal/modal';
 import { DBProvider } from '../../providers/DBProvider';
 import { MenuController, AlertController, LoadingController} from 'ionic-angular';
 declare var window:any;
@@ -21,7 +21,7 @@ export class TabsPage {
 
   private loading :any;
 
-  constructor(public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
+  constructor( public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
     this.menu.enable(true, 'loggedInMenu');
     this.checkTime();
   }
@@ -355,12 +355,12 @@ boxAssign(deliveryId: any, customerId: any) {
           let resultData : any ={};
            resultData = results;
 
-          if(resultData.status == "success"){
+          if(resultData.status == "created"){
             this.hideLoader();
             this.MsgAlert('Success',resultData.success);
           } else{
             this.hideLoader();
-            this.doAlert('Error',"Delivery Box is not assigned");
+            this.MsgAlert('Error',"Delivery Box is not assigned");
           }
       });
 
@@ -388,21 +388,55 @@ assign(deliveryId: any, customerId: any) {
     });
     alert.present();
   }
+
+confirmDelivered(pro: any,deliveryId: any,status: any){
+  let alert = this._alert.create({
+      title: "Confirm",
+      subTitle: "Package is Delivered",
+      buttons: [
+      {
+        text: 'Yes',
+        handler: () => {
+          this.insertProduct(pro,deliveryId,status);
+        }
+      }
+      ],
+      cssClass: 'confirm-action-delivered'
+    });
+    alert.present();
+}
+
+confirmRejected(pro: any,deliveryId: any,status: any){
+  let alert = this._alert.create({
+      title: "Confirm",
+      subTitle: "Package is canceled",
+      buttons: [
+      {
+        text: 'Yes',
+        handler: () => {
+          this.insertProduct(pro,deliveryId,status);
+        }
+      }
+      ],
+      cssClass: 'confirm-action-canceled'
+    });
+    alert.present();
+}
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({
       subTitle: "Select Delivery Status",
       buttons: [
       {
-        text: 'Accept',
+        text: 'Delivered',
         handler: () => {
-          this.insertProduct(pro,deliveryId,'1');
+          this.confirmDelivered(pro,deliveryId,'1');
         }
       },
         {
-        text: 'Reject',
+        text: 'Canceled',
         handler: () => {
-          this.insertProduct(pro,deliveryId,'2');
+          this.confirmRejected(pro,deliveryId,'2');
         }
       }
       ],

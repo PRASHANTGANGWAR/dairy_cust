@@ -12,6 +12,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConferenceApp } from './app.component';
 
 import { LoginPage } from '../pages/login/login';
+import { ModalPage } from '../pages/modal/modal';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
@@ -23,6 +24,7 @@ import { DBProvider } from '../providers/DBProvider';
 @NgModule({
   declarations: [
     ConferenceApp,
+    ModalPage,
     LoginPage,
     SchedulePage,
     SpeakerListPage,
@@ -48,6 +50,7 @@ import { DBProvider } from '../providers/DBProvider';
     SchedulePage,
     SpeakerListPage,
     TabsPage,
+    ModalPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
