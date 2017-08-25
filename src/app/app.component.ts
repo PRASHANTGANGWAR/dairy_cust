@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Events, LoadingController, AlertController, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { StatusBar } from '@ionic-native/status-bar';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
 // import { LastDeliveryPage } from '../pages/LastDelivery/lastDelivery';
@@ -71,7 +70,6 @@ export class ConferenceApp {
   isCashBoyLogin: boolean = false;
 
   constructor(
-    private statusBar: StatusBar,
     private _loading: LoadingController,
     private _alert: AlertController,
     public events: Events,
@@ -81,7 +79,6 @@ export class ConferenceApp {
     public storage: Storage,
     public splashScreen: SplashScreen
   ) {
-    this.statusBar.backgroundColorByHexString('#a0266b');
     // this.appType = window.localStorage.getItem('App');
     if(window.localStorage.getItem('App') == "DeliveryApp"){
       this.isDeliveryApp = true;

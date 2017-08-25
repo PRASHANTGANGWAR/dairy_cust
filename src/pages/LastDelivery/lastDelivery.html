@@ -46,7 +46,30 @@
         
   </ion-item>
 <ion-card *ngFor="let user of Deliveries" responsive-sm [hidden]='!Deliveries.length'>
-
+    <ion-item>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Date: {{user.date}}</h3>
+        </ion-item>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Delivery Time: {{user.pickup}}</h3>
+        </ion-item>
+        <ion-row responsive-sm>
+      <ion-col>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Delivery Status: {{user.delivery_status}}</h3>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Balance: {{user.box_status}}</h3>
+        </ion-item>
+      </ion-col>
+      </ion-row>
+        
+        <ion-item text-wrap no-lines>
+          <h3 style="padding-top:2px;">Total: 180</h3>
+        </ion-item>
+  </ion-item>
 </ion-card>
 <ion-card responsive-sm [hidden]='Deliveries.length'>
     <h3>No past deliveries</h3>

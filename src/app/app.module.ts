@@ -5,7 +5,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -33,7 +32,6 @@ import { DBProvider } from '../providers/DBProvider';
     ModalPage,
     LoginPage,
     BoxPage,
-    StatusBar,
     UrgentPage,
     SchedulePage,
     SpeakerListPage,
@@ -76,7 +74,6 @@ import { DBProvider } from '../providers/DBProvider';
     SQLite,
     DBProvider,
     UserData,
-    StatusBar,
     InAppBrowser,
     SplashScreen
   ]

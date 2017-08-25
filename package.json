@@ -45,8 +45,7 @@
     "config": {},
     "cordova": {
         "plugins": {
-            "cordova-sqlite-plugin": {},
-            "cordova-plugin-statusbar": {}
+            "cordova-sqlite-plugin": {}
         }
     }
 }

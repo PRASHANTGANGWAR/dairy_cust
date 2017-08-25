@@ -37,7 +37,7 @@ export class LastDeliveryPage {
           if(result.customer.deliveries.length){
                 this.Deliveries = result.customer.deliveries;
           } else{
-            this.doAlert('Error','No past deliveries');
+            this.doAlert('Status','No past deliveries');
           }
       });
   }
@@ -57,7 +57,7 @@ export class LastDeliveryPage {
     let alert = this._alert.create({
       title: type,
       subTitle: message,
-      buttons: ['Done','Cancel']
+      buttons: ['ok']
     });
     alert.present();
   }
