@@ -69,7 +69,7 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="StatusBarStyle" value="default" />
+    <preference name="StatusBarStyle" value="color:a0266b" />
     <preference name="StatusBarBackgroundColor" value="#a0266b" />
     <preference name="SplashScreen" value="screen" />
     <preference name="orientation" value="default" />

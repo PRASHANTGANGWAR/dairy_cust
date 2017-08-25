@@ -1,28 +1,3 @@
-.tabbar {
-  justify-content: center;
-}
-
-.tab-button {
-  max-width: 200px;
-}
-
-.custom-alert button.alert-button-group {
-   width: 33.33%;
-}
-
-.custom-alert .alert-button-group .button-inner {
-   -webkit-box-pack: center;
-   -webkit-justify-content: center;
-   -ms-flex-pack: center;
-   justify-content: center;
-}
-
-.custom-alert .alert-button-group-vertical {
-   -webkit-flex-direction: row;
-   -ms-flex-direction: row;
-   flex-direction: row ;
-}
-
 /*
 .confirm-action-canceled{
    //background-color:red;
@@ -43,3 +18,57 @@
   }
 }
 */
+
+  
+
+.custom-alert-delivery{
+  text-align: center;
+  margin:auto;
+  .alert-button:first-child{
+    background: #22a034;
+    width: 45%;
+    color: #fff;
+  }
+  .alert-button:nth-child(2){
+    background: #e03434;
+    width: 45%;
+    color: #fff;
+  }
+  .alert-sub-title{
+    color: #DF3796;
+  }
+}
+
+.confirm-action-canceled{
+   text-align: center;
+  margin:auto;
+  .alert-button{
+    background: #e03434;
+    width: 100%;
+    color: #fff;
+  }
+  .alert-title{
+    color: #DF3796;
+    font-weight: bold;
+  }
+  .button-inner{
+    padding-right: 45%;
+  }
+}
+
+.confirm-action-delivered{
+  text-align: center;
+  margin:auto;
+  .alert-button{
+    background: #22a034;
+    width: 100%;
+    color: #fff;
+  }
+  .alert-title{
+    color: #DF3796;
+    font-weight: bold;
+  }
+  .button-inner{
+    padding-right: 45%;
+  }
+}

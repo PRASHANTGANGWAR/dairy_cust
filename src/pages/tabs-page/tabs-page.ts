@@ -8,6 +8,7 @@ import { MenuController, AlertController, LoadingController} from 'ionic-angular
 declare var window:any;
 //import * as _ from 'underscore';
 @Component({
+  selector: 'tabs-page-list',
   templateUrl: 'tabs-page.html'
 })
 export class TabsPage {
@@ -442,7 +443,7 @@ doAlert(pro: any,deliveryId: any) {
         }
       }
       ],
-      cssClass: 'custom-alert'
+      cssClass: 'custom-alert-delivery'
     });
     alert.present();
   }

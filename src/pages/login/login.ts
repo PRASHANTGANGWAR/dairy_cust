@@ -48,7 +48,6 @@ export class LoginPage {
 
 
   public deleteAppUser() {
-    debugger;
     this.db.deleteAppUser()
       .then(data => {
         if (data.res.rowsAffected == 1) {

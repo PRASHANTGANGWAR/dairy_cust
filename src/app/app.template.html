@@ -24,18 +24,18 @@
 
 
 
-        <ion-item teappable ion-item menuClose (click)="CashBoyLogin()" [hidden]="appType=='CashBoyApp'">
-          <ion-icon item-start name="log-out" style="color:#DF3796;"></ion-icon>
+        <ion-item teappable ion-item menuClose (click)="CashBoyLogin()" [hidden]="isCashBoyLogin || isCashBoyApp">
+          <ion-icon item-start name="log-in" style="color:#DF3796;"></ion-icon>
           CashBoy Loign
         </ion-item>
 
-        <ion-item teappable ion-item menuClose (click)="Switch()" [hidden]="appType=='CashBoyApp'">
-          <ion-icon item-start name="log-out" style="color:#DF3796;"></ion-icon>
+        <ion-item teappable ion-item menuClose (click)="Switch('Delivery')" [hidden]="(!isDeliveryApp && isCashBoyApp) || !isCashBoyLogin">
+          <ion-icon item-start name="switch" style="color:#DF3796;"></ion-icon>
           Switched to CashBoy
         </ion-item>
 
-        <ion-item teappable ion-item menuClose [hidden]="appType=='DeliveryApp'" (click)="Switch()">
-          <ion-icon item-start name="log-out" style="color:#DF3796;"></ion-icon>
+        <ion-item teappable ion-item menuClose [hidden]="isDeliveryApp && !isCashBoyApp" (click)="Switch('CashBoy')">
+          <ion-icon item-start name="switch" style="color:#DF3796;"></ion-icon>
           Switched to Delivery
         </ion-item>
       </div>
