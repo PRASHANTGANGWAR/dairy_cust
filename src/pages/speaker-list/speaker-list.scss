@@ -29,3 +29,20 @@ page-speaker-list {
     padding-right: 0;
   }
 }
+
+.my-alert{
+  text-align: center;
+  margin:auto;
+  .alert-button{
+    background: #DF3796;
+    width: 100%;
+    color: #fff;
+  }
+  .alert-title{
+    color: #DF3796;
+    font-weight: bold;
+  }
+  .button-inner{
+    padding-right: 45%;
+  }
+}

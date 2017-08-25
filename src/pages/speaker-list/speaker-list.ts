@@ -31,7 +31,10 @@ export class SpeakerListPage {
               if(result.deliveries[i].delivery_status == 2){
                 this.Deliveries = result.deliveries[i].deliveries;
               }
-            }           
+            }
+            if(!this.Deliveries.length){
+              this.doAlert('Status','No canceled items');
+            }         
           } else{
             this.doAlert('Error','Please try again');
           }
@@ -53,7 +56,8 @@ export class SpeakerListPage {
     let alert = this._alert.create({
       title: type,
       subTitle: message,
-      buttons: ['Done','Cancel']
+      buttons: ['Ok'],
+      cssClass: 'my-alert'
     });
     alert.present();
   }

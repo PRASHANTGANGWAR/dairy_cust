@@ -37,7 +37,7 @@ export class PaymentHistoryPage {
           if(result.customer.payment_history.length){
                 this.Payments = result.customer.deliveries;
           } else{
-            this.doAlert('Status','No past deliveries');
+            this.doAlert('Status','No payment history');
           }
       });
   }
@@ -57,7 +57,8 @@ export class PaymentHistoryPage {
     let alert = this._alert.create({
       title: type,
       subTitle: message,
-      buttons: ['ok']
+      buttons: ['ok'],
+      cssClass: 'my-alert'
     });
     alert.present();
   }

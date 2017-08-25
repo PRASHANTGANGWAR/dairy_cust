@@ -32,7 +32,10 @@ export class SchedulePage {
               if(result.deliveries[i].delivery_status == 1){
                 this.Deliveries = result.deliveries[i].deliveries;
               }
-            }           
+            }
+            if(!this.Deliveries.length){
+              this.doAlert('Status','No delivered items');
+            }          
           } else{
             this.doAlert('Error','Please try again');
           }
@@ -54,7 +57,8 @@ export class SchedulePage {
     let alert = this._alert.create({
       title: type,
       subTitle: message,
-      buttons: ['Done','Cancel']
+      buttons: ['Ok'],
+      cssClass: 'my-alert'
     });
     alert.present();
   }
