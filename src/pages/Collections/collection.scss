@@ -1,3 +1,8 @@
+collection{
+  .scroll-content{
+  padding: 2px !important;
+} 
+}
 .tabbar {
   justify-content: center;
 }
@@ -39,4 +44,44 @@
   .button-inner{
     padding-right: 36%;
   }
+}
+.swiper-slide{
+      width: 301px;
+}
+
+.custom-margin{
+padding-left: 7px;
+}
+
+
+.custom-collect-height{
+  height: 16px;
+  }
+
+@media screen and (max-width : 370px) {
+   .custom-collect-font {
+        font-size: 11px;
+    }
+    .custom-collect-div{
+      font-size: 11px !important;
+      padding-top: 6px;
+    }
+    .custom-collect-div2{
+    font-size: 11px !important; 
+    padding-top: 2px;
+    }
+}
+
+@media screen and (min-width : 371px) {
+     .custom-collect-font {
+        font-size: 14px;
+    }
+     .custom-collect-div{
+      font-size: 14px !important;
+      padding-top: 6px;
+    }
+     .custom-collect-div2{
+    font-size: 14px !important; 
+    padding-top: 2px;
+    }
 }
