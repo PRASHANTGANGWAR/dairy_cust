@@ -428,7 +428,6 @@ confirmRejected(pro: any,deliveryId: any,status: any){
   
 doAlert(pro: any,deliveryId: any) {
     let alert = this._alert.create({
-      subTitle: "Select Delivery Status",
       buttons: [
       {
         text: 'Delivered',

@@ -26,3 +26,11 @@ page-schedule {
 .item{
   white-space: wrap ;
 }
+
+.custom-item{
+	padding-left: 0px;
+
+.item .item-block .item-inner{
+	  padding-right: 0px; 
+}
+}

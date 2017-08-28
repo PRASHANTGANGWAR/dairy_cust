@@ -37,6 +37,14 @@
   .alert-sub-title{
     color: #DF3796;
   }
+  .alert-button-group{
+  padding: 8px 8px 8px 8px; 
+  }
+
+  .alert-button{
+  margin: -37px 8px 4px 0; 
+  padding: 13px 23px;
+  }
 }
 
 .confirm-action-canceled{
@@ -71,4 +79,11 @@
   .button-inner{
     padding-right: 45%;
   }
+}
+
+
+.button-small-md {
+    height: 3.1em;
+    font-size: 1.4rem;
+
 }
