@@ -89,13 +89,13 @@ export class UrgentPage {
         text: 'Pay',
         handler: (payment) => {
           this.showLoader();
-          var min = due-100;
-          var max = due+100;
-         if(parseInt(payment.Amount) > min && parseInt(payment.Amount) < max){
+           var min = 100 * Math.floor( due/ 100);;
+          var max = 100 * Math.ceil( due/ 100);;
+         if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
              this.confirmPayment(id,due,bill,deviceId,payment);
          }else{
            this.hideLoader();
-           this.MsgAlert('Error',"Please enter amount between "+min+" and "+max+" !");
+           this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
          }
           
         }

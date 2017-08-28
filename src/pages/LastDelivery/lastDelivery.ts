@@ -34,9 +34,8 @@ export class LastDeliveryPage {
            let result : any ={};
           result = results;
           this.Customer = result.customer;
-          if(result.customer.deliveries.length){
-                this.Deliveries = result.customer.deliveries;
-          } else{
+          this.Deliveries = result.customer.deliveries;
+          if(result.customer.deliveries.length==0){
             this.doAlert('Status','No past deliveries');
           }
       });

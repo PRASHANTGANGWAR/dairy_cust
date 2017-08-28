@@ -34,9 +34,8 @@ export class PaymentHistoryPage {
            let result : any ={};
           result = results;
           this.Customer = result.customer;
-          if(result.customer.payment_history.length){
-                this.Payments = result.customer.deliveries;
-          } else{
+          this.Payments = result.customer.deliveries;
+          if(result.customer.payment_history.length==0){
             this.doAlert('Status','No payment history');
           }
       });

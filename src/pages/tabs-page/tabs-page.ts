@@ -399,7 +399,6 @@ assign(deliveryId: any, customerId: any) {
 confirmDelivered(pro: any,deliveryId: any,status: any){
   let alert = this._alert.create({
       title: "Confirm",
-      subTitle: "Package is Delivered",
       buttons: [
       {
         text: 'Yes',
