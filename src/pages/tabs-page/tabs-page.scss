@@ -37,6 +37,14 @@
   .alert-sub-title{
     color: #DF3796;
   }
+  .alert-button-group{
+  padding: 8px 8px 8px 8px; 
+  }
+
+  .alert-button{
+  margin: -37px 8px 4px 0; 
+  padding: 13px 23px;
+  }
 }
 
 .confirm-action-canceled{
@@ -78,9 +86,9 @@
   margin:auto;
   .alert-button:first-child{
     padding-right:10%;
-    background: #c4c8ce;
+    background: #a0a5a1;
     width: 45%;
-    color: #000;
+    color: #fff;
   }
   .alert-button:nth-child(2){
     padding-right:10%;
@@ -91,4 +99,10 @@
   .alert-sub-title{
     color: #DF3796;
   }
+}
+
+.button-small-md {
+    height: 3.1em;
+    font-size: 1.4rem;
+
 }

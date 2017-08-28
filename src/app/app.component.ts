@@ -202,6 +202,10 @@ export class ConferenceApp {
       subTitle: "Are you realy want to logout",
       buttons: [
       {
+        text: 'No',
+        role: 'cancel'
+      },
+      {
         text: 'Logout',
         handler: () => {
              this.logout();

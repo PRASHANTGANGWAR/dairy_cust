@@ -113,17 +113,28 @@ modal-wrapper {
 .logout{
   text-align: center;
   margin:auto;
-  .alert-button{
+  .alert-button:first-child{
     margin:auto;
-    background: #26cc73;
-    width: 50%;
+    background: #a0a5a1;
+    width: 45%;
     color: #fff;
+    .button-inner{
+    padding-right: 30%;
+  }
+  }
+  .alert-button:nth-child(2){
+    margin:auto;
+    background: #DF3796;
+    width: 45%;
+    color: #fff;
+    .button-inner{
+    padding-right: 10%;
+  }
   }
   .alert-title{
     color: #DF3796;
     font-weight: bold;
   }
-  .button-inner{
-    padding-right: 20%;
-  }
+  
+  
 }
