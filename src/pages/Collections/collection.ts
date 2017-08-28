@@ -49,27 +49,23 @@ export class CollectionPage {
   }
 
   paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
-    var min = due-100;
-    var max = due+100;
-   if(parseInt(payment.Amount) > min && parseInt(payment.Amount) < max){
        this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
           let result : any ={};
           result = results;
           if(result.message == "Payment Successfully Paid"){
+            for(var i=0;i<this.AppUsers.length;i++){
+                if(this.AppUsers[i].id == id){
+                    this.AppUsers.splice(i,1);
+                }
+            }
             this.hideLoader();
             this.MsgAlert('Success',result.message);
           }else{
             this.hideLoader();
             this.MsgAlert('Error',result.message);
           }
-
-          
       });
-   }else{
-     
-     this.hideLoader();
-     this.MsgAlert('Error',"Please enter amount between "+min+"and"+max+"!");
-   }
+  
     
     // this.navCtrl.push(LastDeliveryPage, {customerid:id});
   }
@@ -89,9 +85,17 @@ export class CollectionPage {
       buttons: [
       {
         text: 'Pay',
-        handler: (Amount) => {
+        handler: (payment) => {
           this.showLoader();
-          this.paynow(id,due,bill,deviceId,Amount);
+          var min = due-100;
+          var max = due+100;
+         if(parseInt(payment.Amount) > min && parseInt(payment.Amount) < max){
+             this.confirmPayment(id,due,bill,deviceId,payment);
+         }else{
+           this.hideLoader();
+           this.MsgAlert('Error',"Please enter amount between "+min+" and "+max+" !");
+         }
+          
         }
       }
       ],
@@ -99,6 +103,23 @@ export class CollectionPage {
     });
     alert.present();
   }
+
+  confirmPayment(id: any,due: any,bill: any,deviceId: any,payment: any){
+  let alert = this._alert.create({
+      title: "Confirm",
+      subTitle: "Are you realy want to pay for delivery",
+      buttons: [
+      {
+        text: 'Confirm',
+        handler: () => {
+             this.paynow(id,due,bill,deviceId,payment);
+        }
+      }
+      ],
+      cssClass: 'confirm-action-payment'
+    });
+    alert.present();
+}
 
   search(){
     this.AppUsers = [];

@@ -37,7 +37,7 @@
         <ion-item text-wrap no-lines>
           <h2>Box Details: {{user.box_status}}</h2>
         </ion-item>
-        <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
+        <ion-row responsive-sm style="width:100%;" [hidden]="user.box_status!='Not Assigned'">
       <ion-col>
         
       </ion-col>

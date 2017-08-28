@@ -72,3 +72,23 @@
     padding-right: 45%;
   }
 }
+
+.Assign-box{
+  text-align: center;
+  margin:auto;
+  .alert-button:first-child{
+    padding-right:10%;
+    background: #c4c8ce;
+    width: 45%;
+    color: #000;
+  }
+  .alert-button:nth-child(2){
+    padding-right:10%;
+    background: #DF3796;
+    width: 45%;
+    color: #fff;
+  }
+  .alert-sub-title{
+    color: #DF3796;
+  }
+}
