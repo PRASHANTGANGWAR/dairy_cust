@@ -86,13 +86,13 @@ export class CollectionPage {
       {
         text: 'Pay',
         handler: (payment) => {
-          this.showLoader();
+          
           var min = 100 * Math.floor( due/ 100);;
           var max = 100 * Math.ceil( due/ 100);;
          if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
+           this.showLoader();
              this.confirmPayment(id,due,bill,deviceId,payment);
          }else{
-           this.hideLoader();
            this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
          }
           
@@ -182,10 +182,11 @@ export class CollectionPage {
   }
 
   MsgAlert(type: string,message: string) {
+    console.log(type);
     let alert = this._alert.create({
-      title: type,
       subTitle: message,
-      buttons: ['Ok']
+      buttons: ['Ok'],
+      cssClass: 'my-alert'
     });
     alert.present();
   }

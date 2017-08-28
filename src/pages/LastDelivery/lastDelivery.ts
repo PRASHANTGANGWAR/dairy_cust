@@ -53,8 +53,8 @@ export class LastDeliveryPage {
   }
 
   doAlert(type: string,message: string) {
+    console.log(type);
     let alert = this._alert.create({
-      title: type,
       subTitle: message,
       buttons: ['ok'],
        cssClass: 'my-alert'

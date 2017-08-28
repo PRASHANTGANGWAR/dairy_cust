@@ -124,10 +124,11 @@ export class BoxPage {
   }
 
   MsgAlert(type: string,message: string) {
+    console.log(type);
     let alert = this._alert.create({
-      title: type,
       subTitle: message,
-      buttons: ['Ok']
+      buttons: ['Ok'],
+      cssClass: 'my-alert'
     });
     alert.present();
   }
