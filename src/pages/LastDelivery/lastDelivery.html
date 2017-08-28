@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Last Delivery</ion-title>
+    <ion-title>Last Deliveries</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -45,6 +45,7 @@
       </ion-grid>
         
   </ion-item>
+  <ion-item><h2 style="color:#DF3796;padding-top:3px;">Last Deliveries</h2></ion-item>
 <ion-card *ngFor="let user of Deliveries" responsive-sm [hidden]='!Deliveries.length'>
     <ion-item>
         <ion-item text-wrap no-lines>
