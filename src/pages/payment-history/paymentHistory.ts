@@ -34,7 +34,7 @@ export class PaymentHistoryPage {
            let result : any ={};
           result = results;
           this.Customer = result.customer;
-          this.Payments = result.customer.deliveries;
+          this.Payments = result.customer.payment_history;
           if(result.customer.payment_history.length==0){
             this.doAlert('Status','No payment history');
           }
@@ -53,8 +53,8 @@ export class PaymentHistoryPage {
   }
 
   doAlert(type: string,message: string) {
+    console.log(type);
     let alert = this._alert.create({
-      title: type,
       subTitle: message,
       buttons: ['ok'],
       cssClass: 'my-alert'

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-  <button ion-button menuToggle="left" style="display: inline-block !important;">
+    <button ion-button menuToggle="left" style="display: inline-block !important;">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Urgent Collection</ion-title>
@@ -18,29 +18,42 @@
 
 <ion-slides>
   <ion-slide *ngFor="let user of AppUsers;let i=index;">
-    <ion-card>
-      
+  <ion-card>
   <ion-item>
   <ion-item>
     <h3 style="text-align: center;padding-top:10px;">{{i+1}}/{{AppUsers.length}}</h3>
   </ion-item>
 
-      <ion-grid>
-        <ion-row>
+      <ion-grid class="custom-collect-font">
+        <ion-row class="custom-collect-height">
           <ion-col col-3 text-wrap no-lines>
-            <b>Coustomer Name</b>
+            <b>Customer</b>
           </ion-col>
           <ion-col col-3 text-wrap no-lines>
-            <b>Mobile No</b>
+            <b>Mobile</b>
           </ion-col>
           <ion-col col-3 text-wrap no-lines>
-            <b>Due Balance</b>
+            <b>Due</b>
           </ion-col>
           <ion-col col-3 text-wrap no-lines>
-            <b>Billing Amount</b>
+            <b>Billing</b>
           </ion-col>
         </ion-row>
-        <ion-row>
+          <ion-row>
+          <ion-col col-3 text-wrap no-lines>
+            <b>Name</b>
+          </ion-col>
+          <ion-col col-3 text-wrap no-lines>
+            <b>Number</b>
+          </ion-col>
+          <ion-col col-3 text-wrap no-lines>
+            <b>Balance</b>
+          </ion-col>
+          <ion-col col-3 text-wrap no-lines>
+            <b>Amount</b>
+          </ion-col>
+        </ion-row>
+        <ion-row style="font-size: 11px;">
           <ion-col col-3 text-wrap no-lines>
             {{user.name}}
           </ion-col>
@@ -55,12 +68,14 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    <div>
-        <ion-item text-wrap no-lines>
-          <h2>Device: {{user.device_name}}</h2>
+    <div style="height: 31px;">
+        <ion-item text-wrap no-lines class="custom-margin">
+          <h2 class="custom-collect-div"><b>Device:</b>{{user.device_name}}</h2>
         </ion-item>
-        <ion-item text-wrap no-lines>
-            <h2>Address: {{user.address1.name}} {{ user.address1.area_name}} {{ user.address1.city_name}} {{ user.address1.state_name}}</h2>
+        </div>
+        <div>
+        <ion-item text-wrap no-lines class="custom-margin">
+            <h2 class="custom-collect-div2"><b>Address:</b>{{user.address1.name}} {{ user.address1.area_name}} {{ user.address1.city_name}} {{ user.address1.state_name}}</h2>
         </ion-item>
       </div>
       <!-- <button ion-button small>Box Req.</button> -->
@@ -77,6 +92,17 @@
         <button ion-button small (click)="paynowBox(user.id,user.due_balance,user.billing_amount,user.device_id)" block>Pay Now</button>
       </ion-col>
     </ion-row>
+    <!-- <ion-row responsive-sm style="width:100%;">
+      <ion-col>
+        
+      </ion-col>
+      <ion-col>
+        <button ion-button small (click)="urgent()" block>Urgent</button>
+      </ion-col>
+      <ion-col>
+        
+      </ion-col>
+    </ion-row> -->
 </ion-card>
    
   </ion-slide>
@@ -84,4 +110,5 @@
 </ion-slides>
 
 </ion-content>
+
 
