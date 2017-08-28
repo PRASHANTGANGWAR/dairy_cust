@@ -25,12 +25,12 @@
   text-align: center;
   margin:auto;
   .alert-button:first-child{
-    background: #22a034;
+    background: #26cc73;
     width: 45%;
     color: #fff;
   }
   .alert-button:nth-child(2){
-    background: #e03434;
+    background: #db1a61;
     width: 45%;
     color: #fff;
   }
@@ -51,7 +51,7 @@
    text-align: center;
   margin:auto;
   .alert-button{
-    background: #e03434;
+    background: #db1a61;
     width: 100%;
     color: #fff;
   }
@@ -68,7 +68,7 @@
   text-align: center;
   margin:auto;
   .alert-button{
-    background: #22a034;
+    background: #26cc73;
     width: 100%;
     color: #fff;
   }
@@ -81,9 +81,28 @@
   }
 }
 
-
 .button-small-md {
     height: 3.1em;
     font-size: 1.4rem;
+}
 
+
+.Assign-box{
+  text-align: center;
+  margin:auto;
+  .alert-button:first-child{
+    padding-right:10%;
+    background: #c4c8ce;
+    width: 45%;
+    color: #000;
+  }
+  .alert-button:nth-child(2){
+    padding-right:10%;
+    background: #DF3796;
+    width: 45%;
+    color: #fff;
+  }
+  .alert-sub-title{
+    color: #DF3796;
+  }
 }

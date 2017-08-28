@@ -357,8 +357,12 @@ boxAssign(deliveryId: any, customerId: any) {
           console.log(results);
           let resultData : any ={};
            resultData = results;
-
           if(resultData.status == "created"){
+            for(var i=0;i<this.AppUsers.length;i++){
+                if(this.AppUsers[i].id == deliveryId && this.AppUsers[i].customer_id == customerId){
+                    this.AppUsers[i].box_status = "Assigned";
+                }
+            }
             this.hideLoader();
             this.MsgAlert('Success',resultData.success);
           } else{
@@ -387,7 +391,7 @@ assign(deliveryId: any, customerId: any) {
         }
       }
       ],
-      cssClass: 'custom-alert'
+      cssClass: 'Assign-box'
     });
     alert.present();
   }
@@ -395,7 +399,6 @@ assign(deliveryId: any, customerId: any) {
 confirmDelivered(pro: any,deliveryId: any,status: any){
   let alert = this._alert.create({
       title: "Confirm",
-      subTitle: "Package is Delivered",
       buttons: [
       {
         text: 'Yes',

@@ -22,3 +22,21 @@
    -ms-flex-direction: row;
    flex-direction: row ;
 }
+
+.confirm-action-payment{
+  text-align: center;
+  margin:auto;
+  .alert-button{
+
+    background: #22a034;
+    width: 100%;
+    color: #fff;
+  }
+  .alert-title{
+    color: #DF3796;
+    font-weight: bold;
+  }
+  .button-inner{
+    padding-right: 36%;
+  }
+}

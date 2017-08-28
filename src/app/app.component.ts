@@ -187,6 +187,32 @@ export class ConferenceApp {
     alert.present();
   }
 
+  logout(){
+      window.localStorage.removeItem('loginDetails');
+      window.localStorage.removeItem('CashboyLogin');
+      window.localStorage.removeItem('App');
+      this.nav.setRoot(LoginPage);
+      this.isCashBoyLogin = false;
+      this.isDeliveryApp = false;
+      this.isCashBoyApp = false;
+  }
+
+   logoutConfirm(){
+  let alert = this._alert.create({
+      subTitle: "Are you realy want to logout",
+      buttons: [
+      {
+        text: 'Logout',
+        handler: () => {
+             this.logout();
+        }
+      }
+      ],
+      cssClass: 'logout'
+    });
+    alert.present();
+}
+
   openPage(page: PageInterface) {
     let params = {};
 
@@ -210,14 +236,15 @@ export class ConferenceApp {
     }
 
     if (page.logsOut === true) {
+      this.logoutConfirm();
       // Give the menu time to close before changing to logged out
-      window.localStorage.removeItem('loginDetails');
-      window.localStorage.removeItem('CashboyLogin');
-      window.localStorage.removeItem('App');
-      this.nav.setRoot(LoginPage);
-      this.isCashBoyLogin = false;
-      this.isDeliveryApp = false;
-      this.isCashBoyApp = false;
+      // window.localStorage.removeItem('loginDetails');
+      // window.localStorage.removeItem('CashboyLogin');
+      // window.localStorage.removeItem('App');
+      // this.nav.setRoot(LoginPage);
+      // this.isCashBoyLogin = false;
+      // this.isDeliveryApp = false;
+      // this.isCashBoyApp = false;
 
     }
     if (page.panding === true) {

@@ -51,34 +51,35 @@ export class UrgentPage {
 
 
   paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
-    this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
+       this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
           let result : any ={};
           result = results;
           if(result.message == "Payment Successfully Paid"){
+            for(var i=0;i<this.AppUsers.length;i++){
+                if(this.AppUsers[i].id == id){
+                    this.AppUsers.splice(i,1);
+                }
+            }
             this.hideLoader();
             this.MsgAlert('Success',result.message);
           }else{
             this.hideLoader();
             this.MsgAlert('Error',result.message);
           }
-
-          
       });
+  
+    
     // this.navCtrl.push(LastDeliveryPage, {customerid:id});
   }
 
   paynowBox(id: any,due: any,bill: any,deviceId: any) {
-    console.log(id);
-    console.log(due);
-    console.log(bill);
-    console.log(deviceId);
     let alert = this._alert.create({
-      subTitle: "Enter amount to pay",
+      title: "Enter Amount to pay",
       inputs: [ 
         {
           type: 'number',
           name: 'Amount',
-          placeholder: 'Amount',
+          placeholder: 'Enter Amount',
           value: 'payment',
           id: 'abc'
         },
@@ -86,9 +87,17 @@ export class UrgentPage {
       buttons: [
       {
         text: 'Pay',
-        handler: (Amount) => {
+        handler: (payment) => {
           this.showLoader();
-          this.paynow(id,due,bill,deviceId,Amount);
+           var min = 100 * Math.floor( due/ 100);;
+          var max = 100 * Math.ceil( due/ 100);;
+         if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
+             this.confirmPayment(id,due,bill,deviceId,payment);
+         }else{
+           this.hideLoader();
+           this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
+         }
+          
         }
       }
       ],
@@ -96,6 +105,23 @@ export class UrgentPage {
     });
     alert.present();
   }
+
+  confirmPayment(id: any,due: any,bill: any,deviceId: any,payment: any){
+  let alert = this._alert.create({
+      title: "Confirm",
+      subTitle: "Are you realy want to pay for delivery",
+      buttons: [
+      {
+        text: 'Confirm',
+        handler: () => {
+             this.paynow(id,due,bill,deviceId,payment);
+        }
+      }
+      ],
+      cssClass: 'confirm-action-payment'
+    });
+    alert.present();
+}
 
   search(){
     this.AppUsers = [];
