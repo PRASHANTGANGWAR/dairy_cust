@@ -118,7 +118,7 @@ export class LoginPage {
           result = results;
             resultData = results;
         
-          if(resultData.deliveries && resultData.product_quantities){
+          if(resultData.deliveries){
             //this.navCtrl.setRoot(TabsPage);
             //this.doAlert('Success','Delivery details have been come !!');
             newObj.deliveries = [];
@@ -130,6 +130,7 @@ export class LoginPage {
             this.insertAppUser(newObj);
             
           } else{
+            this.navCtrl.setRoot(TabsPage);
             this.doAlert('Error','No pending deliveries');
           }
       });

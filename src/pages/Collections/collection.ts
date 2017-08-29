@@ -87,14 +87,24 @@ export class CollectionPage {
         text: 'Pay',
         handler: (payment) => {
           
-          var min = 100 * Math.floor( due/ 100);;
-          var max = 100 * Math.ceil( due/ 100);;
-         if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
-           this.showLoader();
-             this.confirmPayment(id,due,bill,deviceId,payment);
-         }else{
-           this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
-         }
+          var min = 100 * Math.floor( due/ 100);
+          var max = 100 * Math.ceil( due/ 100);
+          if(min != 0){
+            if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
+             this.showLoader();
+               this.confirmPayment(id,due,bill,deviceId,payment);
+           }else{
+             this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
+           }
+          }else{
+            if(parseInt(payment.Amount) == max){
+             this.showLoader();
+               this.confirmPayment(id,due,bill,deviceId,payment);
+           }else{
+             this.MsgAlert('Error',"Please enter amount "+max+" !");
+           }
+          }
+         
           
         }
       }

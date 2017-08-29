@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="OrganizationsView" padding>
+<ion-content class="OrganizationsView my-background" padding>
 
 <ion-slides>
   <ion-slide *ngFor="let user of AppUsers;let i=index;" [hidden]="!user.delivery_packages.length">
@@ -73,7 +73,7 @@
         
       </ion-col>
       <ion-col>
-        <button ion-button (click)="upload()" [hidden]="flag" block style="background:#DF3796;">Update Now</button>
+        <button ion-button (click)="updateNowConfirm()" [hidden]="flag" block style="background:#DF3796;">Update Now</button>
       </ion-col>
       <ion-col>
       </ion-col>
@@ -82,7 +82,7 @@
       <ion-col>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="refresh()" [hidden]="flag" block style="background:#DF3796;">Refresh</button>
+        <button ion-button (click)="refreshConfirm()" [hidden]="flag" block style="background:#DF3796;">Refresh</button>
       </ion-col>
       <ion-col>
         

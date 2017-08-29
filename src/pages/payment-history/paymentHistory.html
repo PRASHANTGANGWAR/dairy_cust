@@ -4,7 +4,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="OrganizationsView" padding>
+<ion-content class="OrganizationsView my-background" padding>
   
 
   <ion-item class="custom-item">
@@ -48,15 +48,9 @@
   <ion-item><h2 style="color:#DF3796;padding-top:3px;">Payment History</h2></ion-item>
 <ion-card *ngFor="let user of Payments" responsive-sm [hidden]='!Payments.length'>
     <ion-item>
-        <ion-item text-wrap no-lines>
-          <h3 style="padding-top:2px;">Order Id: {{user.order_id}}</h3>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <h3 style="padding-top:2px;">Amount: {{user.amount}}</h3>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <h3 style="padding-top:2px;">Paid On: {{user.paid_on}}</h3>
-        </ion-item>
+          <h3 text-wrap no-lines style="padding-top:2px;"><b>Order Id:</b> {{user.order_id}}</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;"><b>Amount:</b> {{user.amount}}</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;"><b>Paid On:</b> {{user.paid_on | date}}</h3>
   </ion-item>
 </ion-card>
 <ion-card responsive-sm [hidden]='Payments.length'>

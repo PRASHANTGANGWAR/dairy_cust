@@ -13,7 +13,7 @@ export class UserData {
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
   Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
-  // Url = "http://192.168.0.137:3004";
+  // Url = "http://57291079.ngrok.io";
 
   constructor(
     public events: Events,
@@ -78,7 +78,7 @@ export class UserData {
     data.user.login = username;
     data.user.password= password;
     data.user.mobile_type = "android";
-    data.user.app_version = "2.4";
+    data.user.app_version = "2.3";
     data.user.mobile_key = "0001";
   /*  data.user.app_version = "2.1";
     data.user.mobile_key = "0000";*/

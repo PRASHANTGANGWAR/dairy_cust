@@ -256,7 +256,7 @@ export class TabsPage {
           result = results;
             resultData = results;
         
-          if(resultData.deliveries && resultData.product_quantities){
+          if(resultData.deliveries){
             newObj.deliveries = [];
             for(var i=0;i<resultData.deliveries.length;i++){
                 if(resultData.deliveries[i].delivery_status == "0"){
@@ -266,7 +266,7 @@ export class TabsPage {
             this.insertAppUser(newObj);
             
           } else{
-            this.doAlert('Error','No pending deliveries');
+            this.MsgAlert('Error','No pending deliveries');
           }
       });
       })
@@ -470,4 +470,43 @@ doAlert(pro: any,deliveryId: any) {
     });
     alert.present();
   }
+
+  updateNowConfirm(){
+      let alert = this._alert.create({
+      subTitle: "Are you realy want to update",
+      buttons: [
+      {
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text: 'Update',
+        handler: () => {
+             this.upload();
+        }
+      }
+      ],
+      cssClass: 'logout'
+    });
+    alert.present();
+  }
+  refreshConfirm(){
+      let alert = this._alert.create({
+      subTitle: "Are you realy want to refresh",
+      buttons: [
+      {
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text: 'Refresh',
+        handler: () => {
+             this.refresh();
+        }
+      }
+      ],
+      cssClass: 'logout'
+    });
+    alert.present();
+}
 }
