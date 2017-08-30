@@ -17,7 +17,7 @@
 <ion-content class="OrganizationsView my-background" padding>
 
 <ion-slides>
-  <ion-slide *ngFor="let user of AppUsers;let i=index;" [hidden]="!user.delivery_packages.length">
+  <ion-slide *ngFor="let user of AppUsers;let i=index;" [hidden]="!user.delivery_packages.length" style="overflow:scroll;">
     <ion-card>
     	
   <ion-item>
@@ -42,9 +42,7 @@
 			<!-- <button ion-button small>Box Req.</button> -->
 			
   </ion-item>
- 
   <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
-<!-- <ion-item style="text-align:center;" [style.background-color]="getStyle(pack.product.display_name)"> -->
 <ion-item style="text-align:center;background:#831cd8">
 	 <div class="col" >
 		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>
@@ -81,3 +79,4 @@
     </ion-row>
 </ion-content>
 
+<!-- <ion-item style="text-align:center;" [style.background-color]="getStyle(pack.product.display_name)"> -->
