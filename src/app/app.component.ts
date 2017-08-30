@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Events, LoadingController, AlertController, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
@@ -71,6 +72,7 @@ export class ConferenceApp {
 
   constructor(
     // private navCtrl: NavController,
+    private statusBar: StatusBar,
     private _loading: LoadingController,
     private _alert: AlertController,
     public events: Events,
@@ -307,8 +309,10 @@ export class ConferenceApp {
 
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.backgroundColorByHexString('#a0266b');
       this.splashScreen.hide();
-      
+
     });
 
 

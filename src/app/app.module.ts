@@ -7,6 +7,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { StatusBar } from '@ionic-native/status-bar';
 
 import { ConferenceApp } from './app.component';
 import { LastDeliveryPage } from '../pages/LastDelivery/lastDelivery';
@@ -75,6 +76,7 @@ import { DBProvider } from '../providers/DBProvider';
     DBProvider,
     UserData,
     InAppBrowser,
+    StatusBar,
     SplashScreen
   ]
 })
