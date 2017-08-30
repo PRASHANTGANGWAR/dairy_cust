@@ -25,21 +25,12 @@
 		<h3 style="text-align: center;padding-top:10px;">{{i+1}}/{{AppUsers.length}}</h3>
 	</ion-item>
     <div>
-        <ion-item text-wrap no-lines>
-          <h2>Name: {{user.customer_name}}</h2>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <h2>Mobile: {{user.address.mobile}}</h2>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-            <h2>Address: {{user.address.name}} {{ user.address.area.name}} {{ user.address.city.name}} {{ user.address.state.name}}</h2>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <h2>Box Details: {{user.box_status}}</h2>
-        </ion-item>
+          <h2 text-wrap no-lines class="pendingMar"><b>Name:</b> {{user.customer_name}}</h2>
+          <h2 text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{user.address.mobile}}</h2>
+            <h2 text-wrap no-lines class="pendingMar"><b>Address:</b> {{user.address.name}} {{ user.address.area.name}} {{ user.address.city.name}} {{ user.address.state.name}}</h2>
+          <h2 text-wrap no-lines class="pendingMar"><b>Box Details:</b> {{user.box_status}}</h2>
         <ion-row responsive-sm style="width:100%;" [hidden]="user.box_status!='Not Assigned'">
       <ion-col>
-        
       </ion-col>
       <ion-col>
         <button ion-button (click)="assign(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;">Box Req.</button>

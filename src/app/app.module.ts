@@ -46,7 +46,7 @@ import { DBProvider } from '../providers/DBProvider';
         { component: SchedulePage, name: 'Schedule', segment: 'schedule' },
         { component: SpeakerListPage, name: 'SpeakerList', segment: 'speakerList' },
         { component: LastDeliveryPage, name: 'LastDeliveryPage', segment: 'LastDeliveryPage' },
-        { component: CollectionPage, name: 'LastDeliveryPage1', segment: 'LastDeliveryPage1' },
+        { component: CollectionPage, name: 'Collections', segment: 'Collections' },
         { component: PaymentHistoryPage, name: 'PaymentHistoryPage', segment: 'PaymentHistoryPage' },
         { component: UrgentPage, name: 'UrgentPage', segment: 'UrgentPage' },
         { component: BoxPage, name: 'BoxPage', segment: 'BoxPage' },

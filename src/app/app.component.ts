@@ -70,6 +70,7 @@ export class ConferenceApp {
   isCashBoyLogin: boolean = false;
 
   constructor(
+    // private navCtrl: NavController,
     private _loading: LoadingController,
     private _alert: AlertController,
     public events: Events,
@@ -93,6 +94,11 @@ export class ConferenceApp {
     if(window.localStorage.getItem('CashboyLogin')){
         this.isCashBoyLogin = true;
     }
+
+    
+
+    // this.currentApp();
+    
     
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')
@@ -115,6 +121,10 @@ export class ConferenceApp {
 
     this.listenToLoginEvents();
   }
+
+  // currentApp(){
+    
+  // }
 
   Switch(app: any){
     if(app == 'Delivery'){
@@ -294,10 +304,14 @@ export class ConferenceApp {
   }
 
   platformReady() {
+
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
       this.splashScreen.hide();
+      
     });
+
+
   }
 
   showLoader(){
