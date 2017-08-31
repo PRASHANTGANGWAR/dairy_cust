@@ -13,31 +13,25 @@
       <div>
         <!-- <ion-list-header>
         </ion-list-header> -->
-        <ion-item teappable ion-item menuClose *ngFor="let p of deliveryPages" (click)="openPage(p)" [hidden]="isCashBoyApp">
+        <ion-item teappable ion-item menuClose *ngFor="let p of deliveryPages" (click)="openPage(p)" [hidden]="isCombinedApp">
+          <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
+          {{p.title}}
+        </ion-item>
+        <ion-item teappable ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" [hidden]="!isCombinedApp">
+          <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
+          {{p.title}}
+        </ion-item>
+
+
+        <!-- <ion-item teappable ion-item menuClose *ngFor="let p of deliveryPages" (click)="openPage(p)" [hidden]="isCashBoyApp">
           <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
           {{p.title}}
         </ion-item>
         <ion-item teappable ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" [hidden]="isDeliveryApp">
           <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
           {{p.title}}
-        </ion-item>
-
-
-
-        <ion-item teappable ion-item menuClose (click)="CashBoyLogin()" [hidden]="isCashBoyLogin || isCashBoyApp">
-          <ion-icon item-start name="log-in" style="color:#DF3796;"></ion-icon>
-          CashBoy Loign
-        </ion-item>
-
-        <ion-item teappable ion-item menuClose (click)="Switch('Delivery')" [hidden]="(!isDeliveryApp && isCashBoyApp) || !isCashBoyLogin">
-          <ion-icon item-start name="switch" style="color:#DF3796;"></ion-icon>
-          Switched to CashBoy
-        </ion-item>
-
-        <ion-item teappable ion-item menuClose [hidden]="isDeliveryApp && !isCashBoyApp" (click)="Switch('CashBoy')">
-          <ion-icon item-start name="switch" style="color:#DF3796;"></ion-icon>
-          Switched to Delivery
-        </ion-item>
+        </ion-item> -->
+        
       </div>
 
     </ion-content>

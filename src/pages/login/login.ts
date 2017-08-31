@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { MenuController, NavController, AlertController, LoadingController } from 'ionic-angular';
 
 import { UserData } from '../../providers/user-data';
-import { CollectionPage } from '../Collections/collection';
+// import { CollectionPage } from '../Collections/collection';
 import { UserOptions } from '../../interfaces/user-options';
 import { Events } from 'ionic-angular';
 import { TabsPage } from '../tabs-page/tabs-page';
@@ -34,15 +34,9 @@ export class LoginPage {
     public menu: MenuController
     ) {
       this.menu.enable(false, 'loggedInMenu');
-      
-      
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));
         if(user){
-          if(window.localStorage.getItem('App') == "CashBoyApp" && window.localStorage.getItem('CashboyLogin')){
-            this.navCtrl.setRoot(CollectionPage);
-          }else{
             this.navCtrl.setRoot(TabsPage);
-          }
         } 
     }
 

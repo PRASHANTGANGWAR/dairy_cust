@@ -48,16 +48,18 @@ export class ConferenceApp {
   // List of pages that can be navigated to from the left menu
   // the left menu only works after login
   // the login page disables the left menu
-
+ 
   deliveryPages: PageInterface[] = [
     { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
     { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
-    // { title: 'LastDelivery', name: 'TabsPage', component: LastDeliveryPage, icon: 'md-checkmark-circle', lastDelivery: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
 
   cashboyPages: PageInterface[] = [
+    { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
+    { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
+    { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-basket', lastDelivery1: true },
     { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-notifications', urgent: true },
     { title: 'Box', name: 'TabsPage', component: BoxPage, icon: 'md-archive', box: true },
@@ -65,10 +67,8 @@ export class ConferenceApp {
   ];
   
   rootPage: any;
-  isDeliveryApp: boolean = false;
-  isCashBoyApp: boolean = false;
+  isCombinedApp: boolean = false;
   appType: string;
-  isCashBoyLogin: boolean = false;
 
   constructor(
     // private navCtrl: NavController,
@@ -82,24 +82,6 @@ export class ConferenceApp {
     public storage: Storage,
     public splashScreen: SplashScreen
   ) {
-    // this.appType = window.localStorage.getItem('App');
-    if(window.localStorage.getItem('App') == "DeliveryApp"){
-      this.isDeliveryApp = true;
-      this.isCashBoyApp = false;
-      // this.isCashBoyLogin = false;
-    }
-    if(window.localStorage.getItem('App') == "CashBoyApp"){
-      this.isDeliveryApp = false;
-      this.isCashBoyApp = true;
-    }
-
-    if(window.localStorage.getItem('CashboyLogin')){
-        this.isCashBoyLogin = true;
-    }
-
-    
-
-    // this.currentApp();
     
     
     // Check if the user has already seen the tutorial
@@ -124,89 +106,14 @@ export class ConferenceApp {
     this.listenToLoginEvents();
   }
 
-  // currentApp(){
-    
-  // }
 
-  Switch(app: any){
-    if(app == 'Delivery'){
-      this.isDeliveryApp = false;
-      this.isCashBoyApp = true;
-      this.isCashBoyLogin = false;
-      // this.appType = "CashBoyApp"
-      window.localStorage.removeItem('App');
-      window.localStorage.setItem('App',"CashBoyApp");
-      this.nav.setRoot(CollectionPage);
-    }
-    if(app == 'CashBoy'){
-      this.isDeliveryApp = true;
-      this.isCashBoyApp = false;
-      // this.appType = "DeliveryApp"
-      window.localStorage.removeItem('App');
-      window.localStorage.setItem('App',"DeliveryApp");
-      this.nav.setRoot(TabsPage);
-    }
-    if(window.localStorage.getItem('CashboyLogin')){
-        this.isCashBoyLogin = true;
-    }
-  }
-
-  CashBoyLogin() {
-    let alert = this._alert.create({
-      title: "Login as Cash Boy",
-      inputs: [ 
-        {
-          type: 'text',
-          name: 'UserPhone',
-          placeholder: 'Enter Phone No'
-        },
-        {
-          type: 'Password',
-          name: 'Password',
-          placeholder: 'Enter Password'
-        }
-      ],
-      buttons: [
-      {
-        text: 'Login',
-        handler: (data) => {
-          this.showLoader();
-          console.log(data.UserPhone);
-          console.log(data.Password);
-          this.userData.CashBoyLogin(data.UserPhone,data.Password).then(results=>{
-          console.log(results);
-          let resultData : any ={};
-           resultData = results;
-           data.UserPhone =  null;
-           data.Password =  null;
-          if(resultData.user && resultData.user.authentication_token){
-            this.hideLoader();
-            this.isDeliveryApp = false;
-            this.isCashBoyApp = true;
-            this.nav.setRoot(CollectionPage);
-          } else{
-            this.hideLoader();
-            this.doAlert('Error','Invalid User Phone or Password');
-          }
-      });
-          // this.showLoader();
-          // this.paynow(id,due,bill,deviceId,Amount);
-        }
-      }
-      ],
-      cssClass: 'custom-alert'
-    });
-    alert.present();
-  }
 
   logout(){
       window.localStorage.removeItem('loginDetails');
       window.localStorage.removeItem('CashboyLogin');
       window.localStorage.removeItem('App');
       this.nav.setRoot(LoginPage);
-      this.isCashBoyLogin = false;
-      this.isDeliveryApp = false;
-      this.isCashBoyApp = false;
+      this.isCombinedApp = false;
   }
 
    logoutConfirm(){
@@ -253,15 +160,6 @@ export class ConferenceApp {
 
     if (page.logsOut === true) {
       this.logoutConfirm();
-      // Give the menu time to close before changing to logged out
-      // window.localStorage.removeItem('loginDetails');
-      // window.localStorage.removeItem('CashboyLogin');
-      // window.localStorage.removeItem('App');
-      // this.nav.setRoot(LoginPage);
-      // this.isCashBoyLogin = false;
-      // this.isDeliveryApp = false;
-      // this.isCashBoyApp = false;
-
     }
     if (page.panding === true) {
       this.nav.setRoot(TabsPage);
@@ -290,8 +188,10 @@ export class ConferenceApp {
 
   listenToLoginEvents() {
     this.events.subscribe('user:login', () => {
+      if(window.localStorage.getItem('App') == "CombinedApp"){
+        this.isCombinedApp = true;
+      }
       this.enableMenu(true);
-      this.isDeliveryApp = true;
       // this.isCashBoyApp = false;
     });
 
