@@ -99,8 +99,18 @@ export class LoginPage {
            resultData = results;
 
           if(resultData.user && resultData.user.authentication_token){
-            //this.navCtrl.setRoot(TabsPage);
-            this.device_deliveries();
+            var preUser = window.localStorage.getItem('userPhone');
+            if(preUser != resultData.user.mobile){
+              this.db.deleteTable()
+                .then(data => {
+                 console.log(data);
+                 window.localStorage.setItem('userPhone',resultData.user.mobile);
+                  this.device_deliveries();
+                })
+              
+            }else{
+              this.device_deliveries();
+            }
           } else{
             this.hideLoader();
             this.doAlert('Error','Invalid User Phone or Password');

@@ -229,10 +229,10 @@ export class TabsPage {
             console.log(results);
             resultData = results;
             if(resultData.status == 200){
-              
               this.deleteAppUser();
             }else{
               this.hideLoader();
+              this.MsgAlert('Error','Deliveries did not uploaded, please try again !');
             }
             
           });
