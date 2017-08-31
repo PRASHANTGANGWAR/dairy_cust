@@ -49,6 +49,7 @@ export class CollectionPage {
   }
 
   paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
+       this.showLoader();
        this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
           let result : any ={};
           result = results;
@@ -91,14 +92,12 @@ export class CollectionPage {
           var max = 100 * Math.ceil( due/ 100);
           if(min != 0){
             if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
-             this.showLoader();
                this.confirmPayment(id,due,bill,deviceId,payment);
            }else{
              this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
            }
           }else{
             if(parseInt(payment.Amount) == max){
-             this.showLoader();
                this.confirmPayment(id,due,bill,deviceId,payment);
            }else{
              this.MsgAlert('Error',"Please enter amount "+max+" !");
