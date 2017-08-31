@@ -232,7 +232,7 @@ export class TabsPage {
               this.deleteAppUser();
             }else{
               this.hideLoader();
-              this.MsgAlert('Error','Deliveries did not uploaded, please try again !');
+              this.MsgAlert('Error','Deliveries did not upload, please try again !');
             }
             
           });
