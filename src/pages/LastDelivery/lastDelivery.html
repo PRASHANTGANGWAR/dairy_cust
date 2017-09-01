@@ -48,18 +48,17 @@
   <ion-item><h2 style="color:#DF3796;padding-top:3px;">Last Deliveries</h2></ion-item>
 <ion-card *ngFor="let user of Deliveries" responsive-sm [hidden]='!Deliveries.length'>
     <ion-item>
-          <h3 text-wrap no-lines style="padding-top:2px;"><b>Date:</b> {{user.date | date}}</h3>
-          <h3 text-wrap no-lines style="padding-top:2px;"><b>Delivery Time:</b> {{user.pickup}}</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;color:#999999"><b>Date:</b> {{user.date | date}}</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;color:#999999"><b>Delivery Time:</b> {{user.time_slot.from_time}} to {{user.time_slot.to_time}}</h3>
         <ion-row responsive-sm>
       <ion-col col-8 style="padding-left:0px;">
-          <h3 text-wrap no-lines style="padding-top:2px;"><b>Delivery Status:</b> {{user.delivery_status}}</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;"><b>Paid:</b> {{user.paid}}</h3>
       </ion-col>
       <ion-col col-4 style="padding-right:0px;">
-          <h3 text-wrap no-lines style="padding-top:2px;"><b>Balance:</b> {{user.box_status}}</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;"><b>Balance:</b> {{user.balance}}</h3>
       </ion-col>
       </ion-row>
-        
-          <h3 text-wrap no-lines style="padding-top:2px;"><b>Total:</b> 180</h3>
+          <h3 text-wrap no-lines style="padding-top:2px;"><b>Total:</b> {{user.total}}</h3>
   </ion-item>
 </ion-card>
 <ion-card responsive-sm [hidden]='Deliveries.length'>
