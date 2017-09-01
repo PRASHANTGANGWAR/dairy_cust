@@ -212,7 +212,7 @@ export class ConferenceApp {
 
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
-      this.statusBar.overlaysWebView(true);
+      // this.statusBar.overlaysWebView(true);
       this.statusBar.backgroundColorByHexString('#a0266b');
       this.splashScreen.hide();
 
