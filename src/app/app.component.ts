@@ -83,6 +83,9 @@ export class ConferenceApp {
     public splashScreen: SplashScreen
   ) {
     
+    if(window.localStorage.getItem('App') == "CombinedApp"){
+      this.isCombinedApp = true;
+    }
     
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')

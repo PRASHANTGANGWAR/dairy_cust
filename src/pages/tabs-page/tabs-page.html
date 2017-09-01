@@ -17,6 +17,27 @@
 <ion-content class="OrganizationsView my-background" padding>
 
 <ion-slides>
+  <ion-slide>
+  <ion-card style="background-color: #a981d3;">
+    <ion-item class="custom-item">
+    <ion-item>
+    <h2 class="pro-heading"><b>Products Quantity</b></h2>
+    </ion-item>
+        
+      <ion-grid *ngFor="let pro of ProductsQuantity"   style="margin-left:20px;">
+        <ion-row>
+          <ion-col col-8 text-wrap no-lines>
+            <b>{{pro.product_name}}</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            :{{pro.quantity}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-card>
+
+  </ion-slide>
   <ion-slide *ngFor="let user of AppUsers;let i=index;" [hidden]="!user.delivery_packages.length" style="overflow:scroll;">
     <ion-card>
     	

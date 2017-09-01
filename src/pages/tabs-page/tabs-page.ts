@@ -18,6 +18,7 @@ export class TabsPage {
   queryText = '';
   AppUsers: any=[];
   Products: any=[];
+  ProductsQuantity: any=[];
   status: any=[];
 
   private loading :any;
@@ -281,6 +282,7 @@ export class TabsPage {
 
 
   public getAllPendings() {
+    this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
     this.Products = [];
     this.AppUsers = [];
     this.TotalPackets = 0;

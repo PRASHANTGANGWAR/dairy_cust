@@ -64,14 +64,7 @@ export class LoginPage {
   }
 
   public insertAppUser(resultData: any) {
-    this.db.insertAppUser(resultData)
-      .then(data => {
-      console.log(data);
-        this.navCtrl.setRoot(TabsPage);
-      })
-      .catch(ex => {
-        console.log(ex);
-      });
+    this.db.insertAppUser(resultData);
       this.navCtrl.setRoot(TabsPage);
   }
 
@@ -126,6 +119,7 @@ export class LoginPage {
           let resultData : any ={};
           let result : any ={};
           let newObj : any ={};
+          let productQuantity : any =[];
           result = results;
             resultData = results;
         
@@ -138,6 +132,8 @@ export class LoginPage {
                     newObj.deliveries.push(resultData.deliveries[i]);
                 }
             }
+            productQuantity = resultData.product_quantities;
+            window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
             this.insertAppUser(newObj);
             
           } else{

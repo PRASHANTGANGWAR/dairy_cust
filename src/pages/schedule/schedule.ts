@@ -27,7 +27,7 @@ export class SchedulePage {
         this.hideLoader();
            let result : any ={};
           result = results;
-          if(result.deliveries.length){
+          if(result.deliveries && result.deliveries.length){
             for(var i=0;i<result.deliveries.length;i++){
               if(result.deliveries[i].delivery_status == 1){
                 this.Deliveries = result.deliveries[i].deliveries;
