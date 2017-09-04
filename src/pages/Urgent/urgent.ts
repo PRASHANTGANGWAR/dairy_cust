@@ -32,7 +32,7 @@ export class UrgentPage {
       this.userData.urgentCollections().then(results=>{
           let result : any ={};
           result = results;
-          if(result.customers.length && result.customers[0].device){
+          if(result.customers && result.customers.length && result.customers[0].device){
             this.AppUsers = result.customers[0].device;
             for(var i=0;i<this.AppUsers.length;i++){
               this.AppUsers[i].address1 = this.AppUsers[i].addresses[0];

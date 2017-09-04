@@ -5,13 +5,13 @@
     </button>
     <ion-title>Box</ion-title>
   </ion-navbar>
-    <ion-toolbar no-border-top>
+    <!-- <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
                    (ionInput)="updateSchedule()"
                    placeholder="Search">
     </ion-searchbar>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content class="OrganizationsView my-background" padding>
@@ -19,18 +19,10 @@
 <ion-card *ngFor="let user of BoxResult" responsive-sm>
 
   <ion-item>
-        <ion-item text-wrap no-lines>
-          <h3 style="padding-top:2px;">Name: {{user.name}}</h3>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <h3 style="padding-top:2px;">Mobile: {{user.mobile}}</h3>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <h3 style="padding-top:2px;">Box Status: {{user.box_status}}</h3>
-        </ion-item>
-        <ion-item text-wrap no-lines>
-          <div style="padding-top:2px;"><h3>Address: {{user.locality_name}}{{ user.area_name}} {{ user.zone_name}} {{ user.state_name}}</h3></div>
-        </ion-item>
+          <h3 class="pendingMar" style="padding-top:2px;" text-wrap no-lines><b>Name:</b> {{user.name}}</h3>
+          <h3 class="pendingMar" style="padding-top:2px;" text-wrap no-lines><b>Mobile:</b> {{user.mobile}}</h3>
+          <h3 class="pendingMar" style="padding-top:2px;" text-wrap no-lines><b>Box Status:</b> {{user.box_status}}</h3>
+          <div class="pendingMar" style="padding-top:2px;" text-wrap no-lines><h3><b>Address:</b> {{user.locality_name}}{{ user.area_name}} {{ user.zone_name}} {{ user.state_name}}</h3></div>
         
   </ion-item>
   <ion-row responsive-sm style="width:100%;">

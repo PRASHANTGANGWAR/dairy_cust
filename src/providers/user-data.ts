@@ -12,8 +12,8 @@ export class UserData {
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  // Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
-  Url = "http://192.168.0.146:3004";
+  Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
+  // Url = "http://192.168.0.146:3004";
 
   constructor(
     public events: Events,
@@ -180,7 +180,7 @@ export class UserData {
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    data.d_boy_mobile = user.mobile;
+    // data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
@@ -212,7 +212,7 @@ export class UserData {
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    data.d_boy_mobile = user.mobile;
+    // data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
@@ -248,7 +248,7 @@ export class UserData {
     console.log(due);
     console.log(bill);
     let data :any = {};
-    data.d_boy_mobile = user.mobile;
+    // data.d_boy_mobile = user.mobile;
     data = {
       customer_id: id,
       cash_paid: a, 
