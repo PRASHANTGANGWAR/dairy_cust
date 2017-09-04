@@ -12,8 +12,8 @@ export class UserData {
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
-  // Url = "http://57291079.ngrok.io";
+  // Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
+  Url = "http://192.168.0.146:3004";
 
   constructor(
     public events: Events,
@@ -83,15 +83,16 @@ export class UserData {
       'Content-Type': 'application/json',
       'Accept':'application/json',
       'X-User-Mobile':user.mobile,
+      // 'X-d_boy_mobile':user.mobile,
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    // data.delivery_status = 0;
+    data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: JSON.stringify(data),
+      params: data,
       url: this.Url+'/payments/customer_payment_status'
     });
     return new Promise(resolve => {
@@ -117,12 +118,12 @@ export class UserData {
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    // data.delivery_status = 0;
+    data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: JSON.stringify(data),
+      params: data,
       url: this.Url+'/payments/cancel_order_payments'
     });
     return new Promise(resolve => {
@@ -148,12 +149,12 @@ export class UserData {
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    // data.delivery_status = 0;
+    data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: JSON.stringify(data),
+      params: data,
       url: this.Url+'/delivery_boxes/recieve_box_customers'
     });
     return new Promise(resolve => {
@@ -179,12 +180,12 @@ export class UserData {
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    // data.delivery_status = 0;
+    data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: null,
+      params: data,
       url: this.Url+'/users/'+cusotmerId+'/customer_deliveries_history'
     });
     return new Promise(resolve => {
@@ -211,12 +212,12 @@ export class UserData {
       'X-User-Token': user.authentication_token
     });
     let data :any = {};
-    // data.delivery_status = 0;
+    data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
       headers: headers,
-      params: null,
+      params: data,
       url: this.Url+'/users/'+cusotmerId+'/customer_payment_history'
     });
     return new Promise(resolve => {
@@ -247,7 +248,7 @@ export class UserData {
     console.log(due);
     console.log(bill);
     let data :any = {};
-    // data.delivery_status = 0;
+    data.d_boy_mobile = user.mobile;
     data = {
       customer_id: id,
       cash_paid: a, 
