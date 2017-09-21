@@ -132,8 +132,10 @@ export class LoginPage {
                     newObj.deliveries.push(resultData.deliveries[i]);
                 }
             }
-            productQuantity = resultData.product_quantities;
-            window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
+            if(resultData.product_quantities){
+              productQuantity = resultData.product_quantities;
+              window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
+            }
             this.insertAppUser(newObj);
             
           } else{

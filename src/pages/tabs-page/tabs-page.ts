@@ -282,7 +282,9 @@ export class TabsPage {
 
 
   public getAllPendings() {
-    this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
+    if(window.localStorage.getItem('productQuantity')){
+      this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
+    }
     this.Products = [];
     this.AppUsers = [];
     this.TotalPackets = 0;
