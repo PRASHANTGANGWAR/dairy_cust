@@ -13,7 +13,7 @@ export class UserData {
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
   Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
-  // Url = "http://192.168.0.146:3004";
+  // Url = "http://app.dairylac.com";
 
   constructor(
     public events: Events,
@@ -99,11 +99,11 @@ export class UserData {
       this.http.request(new Request(options))
       .subscribe(
         res => {
-          resolve(res.json());
+          resolve(res);
           //this.setUsername(res.json());
         },
         err => {
-          resolve(err.json());
+          resolve(err);
         }
       );
     });
@@ -130,11 +130,11 @@ export class UserData {
       this.http.request(new Request(options))
       .subscribe(
         res => {
-          resolve(res.json());
+          resolve(res);
           //this.setUsername(res.json());
         },
         err => {
-          resolve(err.json());
+          resolve(err);
         }
       );
     });

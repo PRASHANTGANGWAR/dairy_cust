@@ -30,14 +30,23 @@ export class CollectionPage {
   collections() {
       this.showLoader();
       this.userData.collections().then(results=>{
+          let res : any ={};
           let result : any ={};
-          result = results;
-          if(result.customers && result.customers.length && result.customers[0].device){
-            this.AppUsers = result.customers[0].device;
-            for(var i=0;i<this.AppUsers.length;i++){
-              this.AppUsers[i].address1 = this.AppUsers[i].addresses[0];
+          res = results;
+          if(res.status && res.status == 200){
+            result = JSON.parse(res._body);
+            if(result.customers && result.customers.length && result.customers[0].device){
+              this.AppUsers = result.customers[0].device;
+              for(var i=0;i<this.AppUsers.length;i++){
+                this.AppUsers[i].address1 = this.AppUsers[i].addresses[0];
+              }
+            }else{
+              this.MsgAlert('Error','No data for this user');
             }
+          }else{
+             this.MsgAlert('Error','Please try again');
           }
+          
 
           this.hideLoader();
       });
