@@ -21,11 +21,11 @@
   <ion-card style="background-color: #a981d3;">
     <ion-item class="custom-item">
     <ion-item>
-    <h2 class="pro-heading"><b>Products Quantity</b></h2>
+    <h2 class="pro-heading" text-wrap no-lines><b>Products Quantity</b></h2>
     </ion-item>
         
       <ion-grid *ngFor="let pro of ProductsQuantity"   style="margin-left:20px;">
-        <ion-row>
+        <ion-row [hidden]="!pro.quantity">
           <ion-col col-8 text-wrap no-lines class="prod">
             <b>{{pro.product_name}}</b>
           </ion-col>
