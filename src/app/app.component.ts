@@ -51,14 +51,14 @@ export class ConferenceApp {
  
   deliveryPages: PageInterface[] = [
     { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
-    { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
+    { title: 'Cancelled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
 
   cashboyPages: PageInterface[] = [
     { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
-    { title: 'Canceled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
+    { title: 'Cancelled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-basket', lastDelivery1: true },
     { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-notifications', urgent: true },

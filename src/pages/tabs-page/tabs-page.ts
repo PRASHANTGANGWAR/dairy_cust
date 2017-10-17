@@ -419,7 +419,7 @@ confirmDelivered(pro: any,deliveryId: any,status: any){
 confirmRejected(pro: any,deliveryId: any,status: any){
   let alert = this._alert.create({
       title: "Confirm",
-      subTitle: "Package is canceled",
+      subTitle: "Package is cancelled",
       buttons: [
       {
         text: 'Yes',
@@ -443,7 +443,7 @@ doAlert(pro: any,deliveryId: any) {
         }
       },
         {
-        text: 'Canceled',
+        text: 'Cancelled',
         handler: () => {
           this.confirmRejected(pro,deliveryId,'2');
         }

@@ -33,7 +33,7 @@ export class SpeakerListPage {
               }
             }
             if(!this.Deliveries.length){
-              this.doAlert('Status','No canceled items');
+              this.doAlert('Status','No cancelled items');
             }         
           } else{
             this.doAlert('Error','Please try again');
