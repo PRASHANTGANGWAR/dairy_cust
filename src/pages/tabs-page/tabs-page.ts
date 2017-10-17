@@ -76,7 +76,7 @@ export class TabsPage {
   }
 
   updateSchedule() {
-    this.db.getAppUsers()
+    this.db.getpending()
       .then(data => {
        this.AppUsers = [];
        for(var z=0;z<data.length;z++){

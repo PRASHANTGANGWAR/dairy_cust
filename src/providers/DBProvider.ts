@@ -68,6 +68,27 @@ export class DBProvider {
         });
     }
 
+        getpending(): Promise<any> {
+        return this.query('SELECT * FROM Deliveries WHERE final_status is NULL').then(data => {
+            if (data.res.rows.length > 0) {
+                console.log('Rows found.');
+                if (this.platform.is('cordova') && win.sqlitePlugin) {
+                    let result = [];
+
+                    for (let i = 0; i < data.res.rows.length; i++) {
+                        var row = data.res.rows.item(i);
+                        result.push(row);
+                    }
+
+                    return result;
+                }
+                else {
+                    return data.res.rows;
+                }
+            }
+        });
+    }
+
     getData(): Promise<any> {
         return this.query('SELECT * FROM Deliveries WHERE final_status = 1').then(data => {
             if (data.res.rows.length > 0) {
