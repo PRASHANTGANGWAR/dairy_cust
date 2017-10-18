@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
 import { UserData } from '../../providers/user-data';
-
+import {Slides} from 'ionic-angular';
+import {TextInput} from 'ionic-angular';
+import {ViewChild} from '@angular/core';
 // import { ModalPage } from '../modal/modal';
 import { DBProvider } from '../../providers/DBProvider';
 import { MenuController, AlertController, LoadingController} from 'ionic-angular';
@@ -15,6 +17,17 @@ export class TabsPage {
   public TotalPackets : number = 0;
   public DeliveredPackets : number = 0;
   public hideButton : boolean = false;
+  /*mySlideOptions = {
+    false: false
+    , initialSlide: 1
+    , loop: true
+    , pager: true
+    , speed: 500
+    // , autoplay: 1000
+  };*/
+   @ViewChild('SlideInput') SlideInput: TextInput;
+   @ViewChild('mySlider') slider: Slides;
+   initialSlide: number;
   queryText = '';
   AppUsers: any=[];
   Products: any=[];
@@ -98,6 +111,7 @@ export class TabsPage {
               }
             }            
           }
+          this.slider.slideTo(this.initialSlide,0);
       })    
   }
 
@@ -284,6 +298,13 @@ export class TabsPage {
   public getAllPendings() {
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
+      if(this.ProductsQuantity.length){
+        this.initialSlide = 1;
+      }else{
+        this.initialSlide = 0;
+      }
+    }else{
+      this.initialSlide = 0;
     }
     this.Products = [];
     this.AppUsers = [];
