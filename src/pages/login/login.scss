@@ -4,15 +4,20 @@
 page-user {
   .logo {
     padding: 20px 0;
-    min-height: 200px;
     text-align: center;
-
-    img {
-      max-width: 150px;
-    }
+    margin-top:50px;
+  }
+  .logo-img{
+    height: 85px;
+    width: 71px;
+    border-radius: 10px;
+  }
+  .app-title{
+    color:#DF3796;
   }
 
   .list {
     margin-bottom: 0;
   }
+  
 }
