@@ -94,6 +94,7 @@ export class LoginPage {
           if(resultData.user && resultData.user.authentication_token){
             var preUser = window.localStorage.getItem('userPhone');
             if(preUser != resultData.user.mobile){
+              window.localStorage.removeItem('productQuantity');
               this.db.deleteTable()
                 .then(data => {
                  console.log(data);
@@ -134,6 +135,7 @@ export class LoginPage {
             }
             if(resultData.product_quantities){
               productQuantity = resultData.product_quantities;
+              window.localStorage.removeItem('productQuantity');
               window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
             }
             this.insertAppUser(newObj);

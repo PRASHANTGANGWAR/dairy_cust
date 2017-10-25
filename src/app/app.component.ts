@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Events, LoadingController, AlertController, MenuController, Nav, Platform } from 'ionic-angular';
+import { Events, LoadingController, ModalController, AlertController, MenuController, Nav, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Storage } from '@ionic/storage';
@@ -13,6 +13,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { BoxPage } from '../pages/Box/box';
 import { UserData } from '../providers/user-data';
+import { Splash } from '../pages/splash/splash';
 declare var window: any;
 export interface PageInterface {
   title: string;
@@ -80,7 +81,8 @@ export class ConferenceApp {
     public menu: MenuController,
     public platform: Platform,
     public storage: Storage,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public modalCtrl: ModalController
   ) {
     
     if(window.localStorage.getItem('App') == "CombinedApp"){
@@ -209,7 +211,8 @@ export class ConferenceApp {
   }
 
   platformReady() {
-
+    let splash = this.modalCtrl.create(Splash);
+    splash.present();
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
       // this.statusBar.overlaysWebView(true);

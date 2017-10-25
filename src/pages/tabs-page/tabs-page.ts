@@ -243,7 +243,7 @@ autoHeight: true
               this.deleteAppUser();
             }else{
               this.hideLoader();
-              this.MsgAlert('Error','Deliveries did not upload, please try again !');
+              this.MsgAlert('Error','Deliveries was not uploaded, please try again !');
             }
             
           });
@@ -259,6 +259,7 @@ autoHeight: true
     this.showLoader();
     this.db.deleteTable()
       .then(data => {
+        window.localStorage.removeItem('productQuantity');
        console.log(data);
          this.userData.device_deliverie().then(results=>{
           let resultData : any ={};

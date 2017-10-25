@@ -20,6 +20,7 @@ import { ModalPage } from '../pages/modal/modal';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { TabsPage } from '../pages/tabs-page/tabs-page';
+import { Splash } from '../pages/splash/splash';
 import { UserData } from '../providers/user-data';
 import { SQLite } from '@ionic-native/sqlite';
 import { DBProvider } from '../providers/DBProvider';
@@ -37,6 +38,7 @@ import { DBProvider } from '../providers/DBProvider';
     SchedulePage,
     SpeakerListPage,
     TabsPage,
+    Splash
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ import { DBProvider } from '../providers/DBProvider';
     SchedulePage,
     SpeakerListPage,
     TabsPage,
-    ModalPage
+    ModalPage,
+    Splash
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
