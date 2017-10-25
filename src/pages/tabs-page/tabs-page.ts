@@ -18,12 +18,8 @@ export class TabsPage {
   public DeliveredPackets : number = 0;
   public hideButton : boolean = false;
   /*mySlideOptions = {
-    false: false
-    , initialSlide: 1
-    , loop: true
-    , pager: true
-    , speed: 500
-    // , autoplay: 1000
+    pager: true,
+autoHeight: true
   };*/
    @ViewChild('SlideInput') SlideInput: TextInput;
    @ViewChild('mySlider') slider: Slides;
@@ -111,7 +107,7 @@ export class TabsPage {
               }
             }            
           }
-          this.slider.slideTo(this.initialSlide,0);
+          // this.slider.slideTo(this.initialSlide,0);
       })    
   }
 
@@ -296,8 +292,13 @@ export class TabsPage {
 
 
   public getAllPendings() {
+    /*let quant:any = {};
+    quant.product_name = "Ghee";
+    quant.quantity = "50";
+    this.ProductsQuantity.push(quant);*/
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
+      
       if(this.ProductsQuantity.length){
         this.initialSlide = 1;
       }else{
@@ -362,6 +363,10 @@ export class TabsPage {
                   
               }
           }
+          /*this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);
+          this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);
+          this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);
+          this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);*/
           this.hideLoader();
         }else{
           this.hideLoader();
