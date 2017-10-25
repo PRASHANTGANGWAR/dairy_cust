@@ -62,7 +62,7 @@ export class CollectionPage {
        this.userData.paynow(id,due,bill,deviceId,payment.Amount).then(results=>{
           let result : any ={};
           result = results;
-          if(result.message == "Payment Successfully Paid"){
+          if(result.message && result.message == "Payment Successfully Paid"){
             for(var i=0;i<this.AppUsers.length;i++){
                 if(this.AppUsers[i].id == id){
                     this.AppUsers.splice(i,1);

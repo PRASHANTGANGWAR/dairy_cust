@@ -33,11 +33,16 @@ export class LastDeliveryPage {
         this.hideLoader();
            let result : any ={};
           result = results;
-          this.Customer = result.customer;
-          this.Deliveries = result.customer.deliveries;
-          if(result.customer.deliveries.length==0){
-            this.doAlert('Status','No past deliveries');
+          if(result.customer){
+            this.Customer = result.customer;
+            this.Deliveries = result.customer.deliveries;
+            if(result.customer.deliveries.length==0){
+              this.doAlert('Status','No past deliveries');
+            }
+          }else{
+             this.doAlert('Status','Please try again');
           }
+          
       });
   }
 

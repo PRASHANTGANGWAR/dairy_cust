@@ -33,11 +33,16 @@ export class PaymentHistoryPage {
         this.hideLoader();
            let result : any ={};
           result = results;
-          this.Customer = result.customer;
-          this.Payments = result.customer.payment_history;
-          if(result.customer.payment_history.length==0){
-            this.doAlert('Status','No payment history');
+          if(result.customer){
+            this.Customer = result.customer;
+            this.Payments = result.customer.payment_history;
+            if(result.customer.payment_history.length==0){
+              this.doAlert('Status','No payment history');
+            }
+          }else{
+            this.doAlert('Status','Please try again');
           }
+          
       });
   }
 
