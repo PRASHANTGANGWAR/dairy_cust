@@ -523,7 +523,7 @@ doAlert(pro: any,deliveryId: any) {
   }
   refreshConfirm(){
       let alert = this._alert.create({
-      subTitle: "Are you realy want to refresh",
+      subTitle: "Do you realy want to refresh",
       buttons: [
       {
         text: 'No',

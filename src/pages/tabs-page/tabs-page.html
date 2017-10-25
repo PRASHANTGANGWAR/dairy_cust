@@ -46,10 +46,10 @@
 		<h3 style="text-align: center;padding-top:10px;">{{i+1}}/{{AppUsers.length}}</h3>
 	</ion-item>
     <div>
-          <h1 text-wrap no-lines class="pendingMar"><b>Name:</b> {{user.customer_name}}</h1>
-          <h1 text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{user.address.mobile}}</h1>
-            <h1 text-wrap no-lines class="pendingMar"><b>Address:</b> {{user.address.name}} {{ user.address.area.name}} {{ user.address.city.name}} {{ user.address.state.name}}</h1>
-          <h1 text-wrap no-lines class="pendingMar"><b>Box Details:</b> {{user.box_status}}</h1>
+          <h2 text-wrap no-lines class="pendingMar"><b>Name:</b> {{user.customer_name}}</h2>
+          <h2 text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{user.address.mobile}}</h2>
+            <h2 text-wrap no-lines class="pendingMar"><b>Address:</b> {{user.address.name}} {{ user.address.area.name}} {{ user.address.city.name}} {{ user.address.state.name}}</h2>
+          <h2 text-wrap no-lines class="pendingMar"><b>Box Details:</b> {{user.box_status}}</h2>
         <ion-row responsive-sm style="width:100%;" [hidden]="user.box_status!='Not Assigned'">
       <ion-col>
       </ion-col>

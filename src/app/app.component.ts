@@ -109,6 +109,15 @@ export class ConferenceApp {
     this.enableMenu(true);
 
     this.listenToLoginEvents();
+    platform.ready().then(() => {
+      platform.registerBackButtonAction(() => {
+        if(this.nav.canGoBack()){
+          this.nav.pop();
+        }else{
+          this.exitApp();
+        }
+      });
+    });
   }
 
 
@@ -261,4 +270,23 @@ export class ConferenceApp {
     }
     return;
   }
+    exitApp(){
+      let alert = this._alert.create({
+      subTitle: "Do you want to exit",
+      buttons: [
+      {
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text: 'Exit',
+        handler: () => {
+          this.platform.exitApp();
+        }
+      }
+      ],
+      cssClass: 'exit-app'
+    });
+    alert.present();
+}
 }

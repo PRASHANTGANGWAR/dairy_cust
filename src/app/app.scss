@@ -144,3 +144,34 @@ modal-wrapper {
   
   
 }
+.exit-app{
+  text-align: center;
+  margin:auto;
+  .alert-button:first-child{
+    margin:auto;
+    background: #a0a5a1;
+    width: 45%;
+    color: #fff;
+    .button-inner{
+    padding-right: 35%;
+  }
+  }
+  .alert-button:nth-child(2){
+    margin:auto;
+    background: #DF3796;
+    width: 45%;
+    color: #fff;
+    .button-inner{
+    padding-right: 28%;
+  }
+  }
+  .alert-title{
+    color: #DF3796;
+    font-weight: bold;
+  }
+  .alert-sub-title{
+    color: #6b6b6b;
+  }
+  
+  
+}
