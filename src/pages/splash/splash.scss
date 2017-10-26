@@ -2,6 +2,9 @@ page-splash {
 .content-ios {
     background-color:#df3796;
 }
+img{
+    max-width:94%;
+}
 ion-content{
     background-color:#df3796!important;
 }
@@ -17,7 +20,7 @@ ion-content{
         }
  
         #bars {
-            height: 80%;
+            height: 50%;
  
             .cls-1 {
                 opacity: 0;

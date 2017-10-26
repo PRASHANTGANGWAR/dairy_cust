@@ -19,5 +19,14 @@ page-user {
   .list {
     margin-bottom: 0;
   }
+  .item-md{
+    padding-right:16px;
+  }
+  .item-inner{
+    padding:0px !important;
+  }
+  ion-input{
+    border-bottom:2px solid #DF3796;
+  }
   
 }

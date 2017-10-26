@@ -84,7 +84,8 @@ export class ConferenceApp {
     public splashScreen: SplashScreen,
     public modalCtrl: ModalController
   ) {
-    
+    let splash = this.modalCtrl.create(Splash);
+    splash.present();
     if(window.localStorage.getItem('App') == "CombinedApp"){
       this.isCombinedApp = true;
     }
@@ -220,8 +221,7 @@ export class ConferenceApp {
   }
 
   platformReady() {
-    let splash = this.modalCtrl.create(Splash);
-    splash.present();
+    
     // Call any initial plugins when ready
     this.platform.ready().then(() => {
       // this.statusBar.overlaysWebView(true);
