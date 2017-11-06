@@ -6,7 +6,7 @@ import {TextInput} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 // import { ModalPage } from '../modal/modal';
 import { DBProvider } from '../../providers/DBProvider';
-import { MenuController, AlertController, LoadingController} from 'ionic-angular';
+import { Events, MenuController, AlertController, LoadingController} from 'ionic-angular';
 declare var window:any;
 //import * as _ from 'underscore';
 @Component({
@@ -32,13 +32,11 @@ autoHeight: true
 
   private loading :any;
 
-  constructor( public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
+  constructor( public events: Events, public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
     this.menu.enable(true, 'loggedInMenu');
     this.checkTime();
   }
   ionViewDidLoad() {
-    //this.deleteAppUser();
-    //this.insertAppUser();
     this.getAllPendings();
   }
   public deleteAppUser() {
@@ -48,6 +46,7 @@ autoHeight: true
           var newDate = new Date();
           window.localStorage.setItem('updateTime',JSON.stringify(newDate));
           this.hideButton = true;
+          this.events.publish('user:disable');
           this.buttonDisable();
           this.hideLoader();
           this.MsgAlert('Success','Deliveries have been uploaded successfully');
@@ -107,7 +106,7 @@ autoHeight: true
               }
             }            
           }
-          // this.slider.slideTo(this.initialSlide,0);
+          this.slider.slideTo(this.initialSlide,0);
       })    
   }
 
@@ -122,8 +121,10 @@ autoHeight: true
           window.localStorage.removeItem('updateTime');
           this.hideButton = false;
           console.log(diff);
+          this.events.publish('user:enable');
         }
         else if(diff < 1000*60*15){
+          this.events.publish('user:disable');
           this.hideButton = true;
           var newdif = 1000*60*15 - diff;
           this.updateTimeout(newdif);
@@ -139,6 +140,7 @@ autoHeight: true
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideButton = false;
+        that.events.publish('user:enable');
     }, diff);
   }
 
@@ -184,11 +186,11 @@ autoHeight: true
   }
 
   buttonDisable() {
-
     let that = this;
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideButton = false;
+        that.events.publish('user:enable');
     }, 1000*60*15);
   }
 

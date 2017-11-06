@@ -13,7 +13,7 @@ import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { BoxPage } from '../pages/Box/box';
 import { UserData } from '../providers/user-data';
-import { Splash } from '../pages/splash/splash';
+// import { Splash } from '../pages/splash/splash';
 declare var window: any;
 export interface PageInterface {
   title: string;
@@ -70,6 +70,7 @@ export class ConferenceApp {
   rootPage: any;
   isCombinedApp: boolean = false;
   appType: string;
+  hideLogout: boolean = false;
 
   constructor(
     // private navCtrl: NavController,
@@ -84,11 +85,13 @@ export class ConferenceApp {
     public splashScreen: SplashScreen,
     public modalCtrl: ModalController
   ) {
-    let splash = this.modalCtrl.create(Splash);
-    splash.present();
+    /*let splash = this.modalCtrl.create(Splash);
+    splash.present();*/
     if(window.localStorage.getItem('App') == "CombinedApp"){
       this.isCombinedApp = true;
     }
+
+
     
     // Check if the user has already seen the tutorial
     this.storage.get('hasSeenTutorial')
@@ -119,6 +122,45 @@ export class ConferenceApp {
         }
       });
     });
+    this.checkTime();
+  }
+
+
+  checkTime() {
+      var updateTime = JSON.parse(window.localStorage.getItem('updateTime'));
+    if(updateTime){
+      var now = new Date();
+      var predate = new Date(updateTime);
+      if(now.valueOf() > predate.valueOf()){
+        var diff = now.valueOf() - predate.valueOf()
+        if(diff >= 1000*60*15){
+          window.localStorage.removeItem('updateTime');
+          this.hideLogout = false;
+          console.log(diff);
+        }
+        else if(diff < 1000*60*15){
+          this.hideLogout = true;
+          var newdif = 1000*60*15 - diff;
+          this.updateTimeout(newdif);
+        }
+      }
+    }
+  }
+
+  updateTimeout(diff: any){
+    let that = this;
+    setTimeout(function () {
+      window.localStorage.removeItem('updateTime');
+        that.hideLogout = false;
+    }, diff);
+  }
+
+  buttonDisable() {
+    let that = this;
+    setTimeout(function () {
+      window.localStorage.removeItem('updateTime');
+        that.hideLogout = false;
+    }, 1000*60*15);
   }
 
 
@@ -208,6 +250,16 @@ export class ConferenceApp {
       }
       this.enableMenu(true);
       // this.isCashBoyApp = false;
+    });
+
+    this.events.subscribe('user:disable', () => {
+      console.log("button is disabled");
+      this.hideLogout = true;
+      this.buttonDisable();
+    });
+    this.events.subscribe('user:enable', () => {
+      console.log("button is enabled");
+      this.hideLogout = false;
     });
 
     this.events.subscribe('user:logout', () => {

@@ -309,7 +309,13 @@ export class UserData {
   };
 
   upload(data: any){
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept':'application/json' });
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      'X-User-Token': user.authentication_token
+       });
     console.log(data);
     // let data2: any = {};
     let main: any = {};
