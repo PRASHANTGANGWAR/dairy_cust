@@ -1,6 +1,6 @@
-##Project Setup instructions:
+#Project Setup instructions:
 
-#Bitbucket account details:
+##Bitbucket account details:
 	account: rtailwal@enbake.com
 	psw: testing123
 	Repo name: Delivery App
@@ -26,7 +26,9 @@ For Combined app to to src/app/app.template.html and comment code between "<!-- 
 >> For previous android builds go to "Home/MyProjects/Delivery app builds"
 
 
-#App functionalities details:
+##App functionalities details:
+
+###Delivery App
 
 Login:
 	-Login
@@ -51,7 +53,7 @@ Logout:
 	-logout from the app but local db data exists
 
 
-Combined App:
+###Combined App:
 
 All the functionalities maintioned above and:
 
