@@ -14,6 +14,11 @@
 	5. npm install -g cordova
 	6. ionic serve (for running on browser)
 
+	For Android build
+	1. cordova platform add android
+	2. import android folder in android studio created inside platform
+	3. build apk
+
 NOTE:
 For just Delivery app go to src/app/app.template.html and comment code between "<!-- For Combined app -->" and uncomment code between "<!-- For Delivery app -->"
 For Combined app to to src/app/app.template.html and comment code between "<!-- For Delivery app -->" and uncomment code between "<!-- For Combined app -->"
