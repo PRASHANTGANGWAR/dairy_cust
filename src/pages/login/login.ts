@@ -118,10 +118,10 @@ export class LoginPage {
       this.userData.device_deliverie().then(results=>{
         this.hideLoader();
           let resultData : any ={};
-          let result : any ={};
+          // let result : any ={};
           let newObj : any ={};
           let productQuantity : any =[];
-          result = results;
+          // result = results;
             resultData = results;
         
           if(resultData.deliveries){

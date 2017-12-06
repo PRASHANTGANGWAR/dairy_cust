@@ -1,208 +1,73 @@
-# Ionic Conference Application
+##Project Setup instructions:
 
-This is purely a demo of Ionic with TypeScript. It is still in development.
-
-
-## Important!
-**There is not an actual Ionic Conference at this time.** This project is just to show off Ionic components in a real-world application. Please go through the steps in [CONTRIBUTING.md](https://github.com/ionic-team/ionic-conference-app/blob/master/.github/CONTRIBUTING.md) before submitting an issue.
-
-
-## Table of Contents
- - [Getting Started](#getting-started)
- - [Contributing](#contributing)
- - [Use Cases](#use-cases)
- - [App Preview](#app-preview)
- - [File Structure of App](#file-structure-of-app)
+#Bitbucket account details:
+	account: rtailwal@enbake.com
+	psw: testing123
+	Repo name: Delivery App
+	latest branch: Combined
 
 
-## Getting Started
+	1. clone Project: https://rtailwal@bitbucket.org/rtailwal/delivery-app.git
+	2. npm install
+	3. npm run build
+	4. npm install -g ionic@3.0.0
+	5. npm install -g cordova
+	6. ionic serve (for running on browser)
 
-* Clone this repository: `git clone https://github.com/ionic-team/ionic-conference-app.git`.
-* Want to use TypeScript? Both the `master` branch and the `typescript` branch now use TypeScript.
-* Run `npm install` from the project root.
-* Install the ionic CLI (`npm install -g ionic`)
-* Run `ionic serve` in a terminal from the project root.
-* Profit
-
-**Note:** Is your build slow? Update `npm` to 3.x: `npm install -g npm`.
-
-
-## Contributing
-See [CONTRIBUTING.md](https://github.com/ionic-team/ionic-conference-app/blob/master/.github/CONTRIBUTING.md) :tada::+1:
+NOTE:
+For just Delivery app go to src/app/app.template.html and comment code between "<!-- For Combined app -->" and uncomment code between "<!-- For Delivery app -->"
+For Combined app to to src/app/app.template.html and comment code between "<!-- For Delivery app -->" and uncomment code between "<!-- For Combined app -->"
 
 
-## Use Cases
+>> To change Base url go to src/providers/user-data.ts and change the url on line number 15
 
-* Action Sheet - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/speaker-list/speaker-list.html) | [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/speaker-list/speaker-list.ts) ]
-* Alert - [ [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.ts) ]
-* Cards - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/speaker-list/speaker-list.html) ]
-* Datetime - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/about/about.html) ]
-* Grid - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/login/login.html) ]
-* Inputs - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/login/login.html) ]
-* Items (Sliding) - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.html) | [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.ts) ]
-* Menu - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/app.template.html) |
-[code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/app.component.ts) ]
-* Modal - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule-filter/schedule-filter.html) | [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.ts) ]
-* Searchbar - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.html) | [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.ts) ]
-* Segment - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.html) | [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.ts) ]
-* Slides - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/tutorial/tutorial.html) |
-* Sticky headers - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.html) ]
-* Tabs - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/tabs/tabs.html) | [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/tabs/tabs.ts) ]
-* Toggle - [ [template](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule-filter/schedule-filter.html) ]
-[code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/tutorial/tutorial.ts) ]
-* Using Angular HTTP for JSON - [ [code](https://github.com/ionic-team/ionic-conference-app/blob/master/src/providers/conference-data.ts) | [usage](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.ts) ]
+>> Project paths in the system: "Home/MyProjects/DeliverApp"
+
+>> For previous android builds go to "Home/MyProjects/Delivery app builds"
 
 
-## App Preview
+#App functionalities details:
 
-[Try it live](https://ionic-team.github.io/ionic-conference-app/www)
+Login:
+	-Login
+	-Getting device_deliveries
+	-Adding device deliveries data to local db
 
-All app preview screenshots were taken by running `ionic serve --lab` on a retina display.
-
-- [Schedule Page](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/schedule/schedule.html)
-
-  <img src="resources/screenshots/SchedulePage.png" alt="Schedule">
-
-
-- [About Page](https://github.com/ionic-team/ionic-conference-app/blob/master/src/pages/about/about.html)
-
-  <img src="resources/screenshots/AboutPage.png" alt="Schedule">
+Pending:
+	-Getting all deliveries from local db
+	-Adding delivered/canceled to local db
+	-Update all(all the deliveries submited as delivered or canceled are updated to our server and deleted from local db)
+	-Refresh: all the data from local db is deleted and fetched from server and then is saved again in local db
 
 
-- To see more images of the app, check out the [screenshots directory](https://github.com/ionic-team/ionic-conference-app/tree/master/resources/screenshots)!
+Delivered:
+	-all the deliveries that have been delivered and uploaded to server
+
+Candeled:
+	-all the deliveries that have been canceled and uploaded to server
 
 
-## Deploying
+Logout:
+	-logout from the app but local db data exists
 
-* PWA - Un-comment [this](https://github.com/ionic-team/ionic2-app-base/blob/master/src/index.html#L17), run `npm run ionic:build --prod` and then push the `www` folder to your favorite hosting service
-* Android - Run `ionic cordova run android --prod`
-* iOS - Run `ionic cordova run ios --prod`
 
-## File Structure of App
+Combined App:
 
-```
-ionic-conference-app/
-├-- .github/                            * GitHub files
-│   ├── CONTRIBUTING.md                 * Documentation on contributing to this repo
-│   └── ISSUE_TEMPLATE.md               * Template used to populate issues in this repo
-|
-|-- resources/
-|
-|-- src/
-|    |-- app/
-|    |    ├── app.component.ts
-|    |    └── app.module.ts
-|    |    └── app.template.html
-|    |    └── main.ts
-|    |
-|    |-- assets/
-|    |    ├── data/
-|    |    |    └── data.json
-|    |    |
-|    |    ├── fonts/
-|    |    |     ├── ionicons.eot
-|    |    |     └── ionicons.svg
-|    |    |     └── ionicons.ttf
-|    |    |     └── ionicons.woff
-|    |    |     └── ionicons.woff2
-|    |    |
-|    |    ├── img/
-|    |
-|    |-- pages/                          * Contains all of our pages
-│    │    ├── about/                     * About tab page
-│    │    │    ├── about.html            * AboutPage template
-│    │    │    └── about.ts              * AboutPage code
-│    │    │    └── about.scss            * AboutPage stylesheet
-│    │    │
-│    │    ├── account/                   * Account page
-│    │    │    ├── account.html          * AccountPage template
-│    │    │    └── account.ts            * AccountPage code
-│    │    │    └── account.scss          * AccountPage stylesheet
-│    │    │
-│    │    │── login/                     * Login page
-│    │    │    ├── login.html            * LoginPage template
-│    │    │    └── login.ts              * LoginPage code
-│    │    │    └── login.scss            * LoginPage stylesheet
-│    │    │
-│    │    │── map/                       * Map tab page
-│    │    │    ├── map.html              * MapPage template
-│    │    │    └── map.ts                * MapPage code
-│    │    │    └── map.scss              * MapPage stylesheet
-│    │    │
-│    │    │── schedule/                  * Schedule tab page
-│    │    │    ├── schedule.html         * SchedulePage template
-│    │    │    └── schedule.ts           * SchedulePage code
-│    │    │    └── schedule.scss         * SchedulePage stylesheet
-│    │    │
-│    │    │── schedule-filter/            * Schedule Filter page
-│    │    │    ├── schedule-filter.html   * ScheduleFilterPage template
-│    │    │    └── schedule-filter.ts     * ScheduleFilterPage code
-│    │    │    └── schedule-filter.scss   * ScheduleFilterPage stylesheet
-│    │    │
-│    │    │── session-detail/            * Session Detail page
-│    │    │    ├── session-detail.html   * SessionDetailPage template
-│    │    │    └── session-detail.ts     * SessionDetailPage code
-│    │    │
-│    │    │── signup/                    * Signup page
-│    │    │    ├── signup.html           * SignupPage template
-│    │    │    └── signup.ts             * SignupPage code
-│    │    │
-│    │    │── speaker-detail/            * Speaker Detail page
-│    │    │    ├── speaker-detail.html   * SpeakerDetailPage template
-│    │    │    └── speaker-detail.ts     * SpeakerDetailPage code
-│    │    │    └── speaker-detail.scss   * SpeakerDetailPage stylesheet
-│    │    │
-│    │    │── speaker-list/              * Speakers tab page
-│    │    │    ├── speaker-list.html     * SpeakerListPage template
-│    │    │    └── speaker-list.ts       * SpeakerListPage code
-│    │    │    └── speaker-list.scss     * SpeakerListPage stylesheet
-|    |    |
-│    │    │── support/                   * Support page
-│    │    │    ├── support.html          * SupportPage template
-│    │    │    └── support.ts            * SupportPage code
-│    │    │    └── support.scss          * SupportPage stylesheet
-│    │    │
-│    │    │── tabs/                      * Tabs page
-│    │    │    ├── tabs.html             * TabsPage template
-│    │    │    └── tabs.ts               * TabsPage code
-│    │    │
-│    │    └── tutorial/                  * Tutorial Intro page
-│    │         ├── tutorial.html         * TutorialPage template
-│    │         └── tutorial.ts           * TutorialPage code
-│    │         └── tutorial.scss         * TutorialPage stylesheet
-|    |
-│    ├── providers/                      * Contains all Injectables
-│    │     ├── conference-data.ts        * ConferenceData code
-│    │     └── user-data.ts              * UserData code
-│    ├── theme/                          * App theme files
-|    |     ├── variables.scss            * App Shared Sass Variables
-|    |
-|    |-- index.html
-|
-|-- www/
-|    ├── assets/
-|    |    ├── data/
-|    |    |    └── data.json
-|    |    |
-|    |    ├── fonts/
-|    |    |     ├── ionicons.eot
-|    |    |     └── ionicons.svg
-|    |    |     └── ionicons.ttf
-|    |    |     └── ionicons.woff
-|    |    |     └── ionicons.woff2
-|    |    |
-|    |    ├── img/
-|    |
-|    └── build/
-|    └── index.html
-|
-├── .editorconfig                       * Defines coding styles between editors
-├── .gitignore                          * Example git ignore file
-├── LICENSE                             * Apache License
-├── README.md                           * This file
-├── config.xml                          * Cordova configuration file
-├── ionic.config.json                   * Ionic configuration file
-├── package.json                        * Defines our JavaScript dependencies
-├── tsconfig.json                       * Defines the root files and the compiler options
-├── tslint.json                         * Defines the rules for the TypeScript linter
-```
+All the functionalities maintioned above and:
+
+Collections:
+	-all the unpaid collections are shown
+	-Payment of the collections
+	-Last deliveries of that user
+	-Last payemtns history of that user
+
+Urgent Collections:
+	-all the unpaid urgent collections are shown
+	-Payment of the collections
+	-Last deliveries of that user
+	-Last payemtns history of that user
+
+Box:
+	-all the deliveries requested to box
+
+
