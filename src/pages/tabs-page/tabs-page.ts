@@ -163,6 +163,10 @@ autoHeight: true
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
                       this.AppUsers.splice(i, 1);
+                      if(!this.AppUsers.length){
+                        this.slider.slideTo(this.initialSlide,0);
+                        break;
+                      }
                       // this.TotalPackets--;
                     }
                 }
@@ -174,8 +178,8 @@ autoHeight: true
           console.log(data);
           })
           .catch(ex => {
-            // console.log(ex);
-            this.MsgAlert('Error',ex);
+            console.log(ex);
+            // this.MsgAlert('Error',ex);
           });
       })
       .catch(ex => {
