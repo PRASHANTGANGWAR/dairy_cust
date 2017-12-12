@@ -29,11 +29,14 @@ autoHeight: true
   Products: any=[];
   ProductsQuantity: any=[];
   status: any=[];
-
+  totalDeiliveryProducts: any;
+  DeiliveredProducts: any;
   private loading :any;
 
   constructor( public events: Events, public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
     this.menu.enable(true, 'loggedInMenu');
+    this.totalDeiliveryProducts = JSON.parse(window.localStorage.getItem('totalPackages'));
+    this.DeiliveredProducts = JSON.parse(window.localStorage.getItem('totalDelivered'));
     this.checkTime();
   }
   ionViewDidLoad() {
@@ -147,6 +150,10 @@ autoHeight: true
   public insertProduct(pro: any,deliveryId: any,status: any) {
     this.db.getDeliveryStatus(deliveryId)
       .then(data => {
+          this.DeiliveredProducts++;
+          window.localStorage.removeItem('totalDelivered');
+          window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
+          console.log(JSON.parse(window.localStorage.getItem('totalDelivered')));
           console.log(data);
           let stts = data;
           this.db.updateAppUser(pro,deliveryId,status,stts)
@@ -157,9 +164,7 @@ autoHeight: true
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
                     this.TotalPackets -= pro.quantity;
-                    if(status == 1){
                       this.DeliveredPackets += pro.quantity;
-                    }
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
                       this.AppUsers.splice(i, 1);
@@ -328,9 +333,7 @@ autoHeight: true
           for(var i=0;i<data.length;i++){
             if(data[i].final_status == 1){
               for(var t=0;t<JSON.parse(data[i].status).length;t++){
-                if(JSON.parse(data[i].status)[t].status == 1){
                     this.DeliveredPackets += JSON.parse(data[i].status)[t].quantity;
-                }
               }
             }else{
               this.AppUsers.push(JSON.parse(data[i].jsondata));
@@ -343,9 +346,7 @@ autoHeight: true
             if(JSON.parse(data[i].status) != null && data[i].final_status != 1){
                   for(var x=0;x<JSON.parse(data[i].status).length;x++){
                       this.Products.push(JSON.parse(data[i].status)[x].id);
-                      if(JSON.parse(data[i].status).status == 1){
                           this.DeliveredPackets += JSON.parse(data[i].status)[x].quantity;
-                      }
                   }
             }
           }
@@ -358,9 +359,7 @@ autoHeight: true
                           this.AppUsers[m].delivery_packages.splice(n, 1);
                           if(this.status[m] != undefined){
                             for(var b=0;b<this.status[m].length;b++){
-                              if(this.status[m][b].status == 1){
                                   this.DeliveredPackets += this.status[m][b].quantity;
-                              }
                             }
                           }
                           

@@ -21,6 +21,8 @@ export class LoginPage {
   public flag : boolean = false;
   login: UserOptions = { username: '', password: '' };
   submitted = false;
+  totalDeiliveryProducts: any;
+  DeiliveredProducts: any;
   private loading :any;
   AppUsers: Array<Object>;
 
@@ -123,7 +125,13 @@ export class LoginPage {
           let productQuantity : any =[];
           // result = results;
             resultData = results;
-        
+            this.totalDeiliveryProducts = 0;
+            this.DeiliveredProducts = 0;
+          for(var m = 0;m<resultData.product_quantities.length;m++){
+              this.totalDeiliveryProducts += resultData.product_quantities[m].quantity;
+          }
+          window.localStorage.setItem('totalPackages',JSON.stringify(this.totalDeiliveryProducts));
+          window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
           if(resultData.deliveries){
             //this.navCtrl.setRoot(TabsPage);
             //this.doAlert('Success','Delivery details have been come !!');
