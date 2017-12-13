@@ -207,8 +207,12 @@ autoHeight: true
   }
 
   upload(){
+    let delv: any;
       //window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
-      window.localStorage.setItem('DeliveredPackets',JSON.stringify(this.DeliveredPackets));
+      if(JSON.parse(window.localStorage.getItem('DeiverdDeliveries'))){
+        delv = this.DeliveredPackets - JSON.parse(window.localStorage.getItem('DeiverdDeliveries'));
+      }
+      window.localStorage.setItem('DeliveredPackets',JSON.stringify(delv));
       this.showLoader();
       this.db.getData()
       .then(data => {
@@ -314,6 +318,7 @@ autoHeight: true
     quant.product_name = "Ghee";
     quant.quantity = "50";
     this.ProductsQuantity.push(quant);*/
+    
     if(JSON.parse(window.localStorage.getItem('DeiverdDeliveries'))){
       this.DeliveredPackets += JSON.parse(window.localStorage.getItem('DeiverdDeliveries'));
     }
