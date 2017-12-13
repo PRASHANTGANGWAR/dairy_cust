@@ -151,9 +151,9 @@ autoHeight: true
     this.db.getDeliveryStatus(deliveryId)
       .then(data => {
           this.DeiliveredProducts++;
-          window.localStorage.removeItem('totalDelivered');
-          window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
-          console.log(JSON.parse(window.localStorage.getItem('totalDelivered')));
+          //window.localStorage.removeItem('totalDelivered');
+          //window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
+          //console.log(JSON.parse(window.localStorage.getItem('totalDelivered')));
           console.log(data);
           let stts = data;
           this.db.updateAppUser(pro,deliveryId,status,stts)
@@ -163,11 +163,14 @@ autoHeight: true
               for(var y=0;y<this.AppUsers[i].delivery_packages.length;y++){
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
-                    this.TotalPackets -= pro.quantity;
+                    // this.TotalPackets -= pro.quantity;
                       this.DeliveredPackets += pro.quantity;
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
                       this.AppUsers.splice(i, 1);
+                      if(i!=0){
+                        this.slider.slideTo(i,0);
+                      }
                       if(!this.AppUsers.length){
                         this.slider.slideTo(this.initialSlide,0);
                         break;
@@ -204,7 +207,7 @@ autoHeight: true
   }
 
   upload(){
-      window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
+      //window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
       window.localStorage.setItem('DeliveredPackets',JSON.stringify(this.DeliveredPackets));
       this.showLoader();
       this.db.getData()
@@ -279,6 +282,7 @@ autoHeight: true
           result = results;
             resultData = results;
         
+            window.localStorage.setItem('productQuantity',JSON.stringify(resultData.product_quantities));
           if(resultData.deliveries){
             newObj.deliveries = [];
             for(var i=0;i<resultData.deliveries.length;i++){
@@ -304,13 +308,20 @@ autoHeight: true
 
 
   public getAllPendings() {
+    this.TotalPackets = 0;
+    this.DeliveredPackets = 0;
     /*let quant:any = {};
     quant.product_name = "Ghee";
     quant.quantity = "50";
     this.ProductsQuantity.push(quant);*/
+    if(window.localStorage.getItem('DeliveredPackets')){
+      this.DeliveredPackets = JSON.parse(window.localStorage.getItem('DeliveredPackets'));
+    }
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
-      
+        for (var y = 0; y < this.ProductsQuantity.length; y++) {
+          this.TotalPackets += this.ProductsQuantity[y].quantity;
+        }
       if(this.ProductsQuantity.length){
         this.initialSlide = 1;
       }else{
@@ -321,16 +332,19 @@ autoHeight: true
     }
     this.Products = [];
     this.AppUsers = [];
-    this.TotalPackets = 0;
-    this.DeliveredPackets = 0;
+    
+    
     this.status = [];
-    this.TotalPackets = 0;
-    this.DeliveredPackets = 0;
+    //this.TotalPackets = 0;
+    
     this.showLoader();
     this.db.getAppUsers()
       .then(data => {
         if(data != undefined && data.length > 0){
           for(var i=0;i<data.length;i++){
+            for(var u=0;u<JSON.parse(data[i].jsondata).delivery_packages.length;u++){
+              //this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
+            }
             if(data[i].final_status == 1){
               for(var t=0;t<JSON.parse(data[i].status).length;t++){
                     this.DeliveredPackets += JSON.parse(data[i].status)[t].quantity;
@@ -338,9 +352,7 @@ autoHeight: true
             }else{
               this.AppUsers.push(JSON.parse(data[i].jsondata));
               this.status.push(JSON.parse(data[i].status));
-              for(var u=0;u<JSON.parse(data[i].jsondata).delivery_packages.length;u++){
-                this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
-              }
+              
             }
             
             if(JSON.parse(data[i].status) != null && data[i].final_status != 1){
@@ -355,7 +367,7 @@ autoHeight: true
               for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
                   for(var o=0;o<this.Products.length;o++){
                       if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
-                          this.TotalPackets -= this.AppUsers[m].delivery_packages[n].quantity;
+                          // this.TotalPackets -= this.AppUsers[m].delivery_packages[n].quantity;
                           this.AppUsers[m].delivery_packages.splice(n, 1);
                           if(this.status[m] != undefined){
                             for(var b=0;b<this.status[m].length;b++){

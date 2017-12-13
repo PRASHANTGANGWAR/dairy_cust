@@ -97,6 +97,7 @@ export class LoginPage {
             var preUser = window.localStorage.getItem('userPhone');
             if(preUser != resultData.user.mobile){
               window.localStorage.removeItem('productQuantity');
+              window.localStorage.removeItem('DeliveredPackets');
               this.db.deleteTable()
                 .then(data => {
                  console.log(data);

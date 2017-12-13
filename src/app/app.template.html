@@ -19,11 +19,11 @@
 <!-- For Delivery app --> 
 
 <!-- For Combined app --> 
-        <ion-item teappable ion-item menuClose *ngFor="let p of deliveryPages" (click)="openPage(p)" [hidden]="isCombinedApp || (p.title=='Logout' && hideLogout)">
+        <!-- <ion-item teappable ion-item menuClose *ngFor="let p of deliveryPages" (click)="openPage(p)" [hidden]="HideDelivery || (p.title=='Logout' && hideLogout)">
           <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
           {{p.title}}
-        </ion-item>
-        <ion-item teappable ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" [hidden]="!isCombinedApp || (p.title=='Logout' && hideLogout)">
+        </ion-item> -->
+        <ion-item teappable ion-item menuClose *ngFor="let p of cashboyPages" (click)="openPage(p)" [hidden]="p.title=='Logout' && hideLogout">
           <ion-icon item-start [name]="p.icon" style="color:#DF3796;"></ion-icon>
           {{p.title}}
         </ion-item>
