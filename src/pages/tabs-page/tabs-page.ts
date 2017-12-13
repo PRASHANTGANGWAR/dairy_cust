@@ -314,8 +314,11 @@ autoHeight: true
     quant.product_name = "Ghee";
     quant.quantity = "50";
     this.ProductsQuantity.push(quant);*/
+    if(JSON.parse(window.localStorage.getItem('DeiverdDeliveries'))){
+      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('DeiverdDeliveries'));
+    }
     if(window.localStorage.getItem('DeliveredPackets')){
-      this.DeliveredPackets = JSON.parse(window.localStorage.getItem('DeliveredPackets'));
+      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('DeliveredPackets'));
     }
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));

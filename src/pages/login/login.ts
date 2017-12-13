@@ -123,6 +123,7 @@ export class LoginPage {
           let resultData : any ={};
           // let result : any ={};
           let newObj : any ={};
+          let updatedDeliveries: any = 0;
           let productQuantity : any =[];
           // result = results;
             resultData = results;
@@ -131,6 +132,7 @@ export class LoginPage {
           for(var m = 0;m<resultData.product_quantities.length;m++){
               this.totalDeiliveryProducts += resultData.product_quantities[m].quantity;
           }
+          window.localStorage.removeItem('DeiverdDeliveries');
           window.localStorage.setItem('totalPackages',JSON.stringify(this.totalDeiliveryProducts));
           window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
           if(resultData.deliveries){
@@ -140,8 +142,13 @@ export class LoginPage {
             for(var i=0;i<resultData.deliveries.length;i++){
                 if(resultData.deliveries[i].delivery_status == "0"){
                     newObj.deliveries.push(resultData.deliveries[i]);
+                }else{
+                  for(var x =0; x<resultData.deliveries[i].delivery_packages.length;x++){
+                    updatedDeliveries += resultData.deliveries[i].delivery_packages[x].quantity;
+                  }
                 }
             }
+            window.localStorage.setItem('DeiverdDeliveries',JSON.stringify(updatedDeliveries));
             if(resultData.product_quantities){
               productQuantity = resultData.product_quantities;
               window.localStorage.removeItem('productQuantity');
