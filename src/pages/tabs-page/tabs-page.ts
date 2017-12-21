@@ -172,7 +172,7 @@ autoHeight: true
                         this.slider.slideTo(i,0);
                       }
                       if(!this.AppUsers.length){
-                        this.slider.slideTo(this.initialSlide,0);
+                        this.slider.slideTo(0,0);
                         break;
                       }
                       // this.TotalPackets--;
@@ -283,17 +283,28 @@ autoHeight: true
           let resultData : any ={};
           let result : any ={};
           let newObj : any ={};
+          let updatedDeliveries: any = 0;
+          // let productQuantity : any =[];
           result = results;
             resultData = results;
-        
+            window.localStorage.removeItem('DeliveredPackets');
             window.localStorage.setItem('productQuantity',JSON.stringify(resultData.product_quantities));
           if(resultData.deliveries){
             newObj.deliveries = [];
             for(var i=0;i<resultData.deliveries.length;i++){
                 if(resultData.deliveries[i].delivery_status == "0"){
                     newObj.deliveries.push(resultData.deliveries[i]);
+                }else{
+                  for(var x =0; x<resultData.deliveries[i].delivery_packages.length;x++){
+                    updatedDeliveries += resultData.deliveries[i].delivery_packages[x].quantity;
+                  }
                 }
             }
+            window.localStorage.setItem('DeiverdDeliveries',JSON.stringify(updatedDeliveries));
+            // if(resultData.product_quantities){
+            //   productQuantity = resultData.product_quantities;
+            //   window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
+            // }
             this.insertAppUser(newObj);
             
           } else{

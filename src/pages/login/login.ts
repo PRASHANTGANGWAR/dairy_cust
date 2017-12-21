@@ -129,9 +129,12 @@ export class LoginPage {
             resultData = results;
             this.totalDeiliveryProducts = 0;
             this.DeiliveredProducts = 0;
-          for(var m = 0;m<resultData.product_quantities.length;m++){
-              this.totalDeiliveryProducts += resultData.product_quantities[m].quantity;
-          }
+            if(resultData.product_quantities){
+                for(var m = 0;m<resultData.product_quantities.length;m++){
+                    this.totalDeiliveryProducts += resultData.product_quantities[m].quantity;
+                }
+            }
+          
           window.localStorage.removeItem('DeiverdDeliveries');
           window.localStorage.setItem('totalPackages',JSON.stringify(this.totalDeiliveryProducts));
           window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
