@@ -123,6 +123,7 @@ export class LoginPage {
         this.hideLoader();
           let resultData : any ={};
           // let result : any ={};
+          let productQuantity: any ={};
           let newObj : any ={};
            resultData = results;
           if(resultData.deliveries){
@@ -132,7 +133,12 @@ export class LoginPage {
                     newObj.deliveries.push(resultData.deliveries[i]);
                 }
             }
-            
+            // window.localStorage.setItem('DeiverdDeliveries',JSON.stringify(updatedDeliveries));
+            if(resultData.product_quantities){
+              productQuantity = resultData.product_quantities;
+              window.localStorage.removeItem('productQuantity');
+              window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
+            }
             this.insertAppUser(newObj);
             
           } else{
