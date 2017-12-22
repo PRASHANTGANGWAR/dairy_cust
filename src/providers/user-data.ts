@@ -13,8 +13,6 @@ export class UserData {
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
   Url = "http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com";
-  // Url = "http://192.168.0.102:3000";
-  // Url = "http://ec2-52-66-32-175.ap-south-1.compute.amazonaws.com";
   // Url = "http://app.dairylac.com";
 
 

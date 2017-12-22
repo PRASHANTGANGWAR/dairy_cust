@@ -98,6 +98,7 @@ export class LoginPage {
             if(preUser != resultData.user.mobile){
               window.localStorage.removeItem('productQuantity');
               window.localStorage.removeItem('DeliveredPackets');
+              window.localStorage.removeItem('deliveredOrder');
               this.db.deleteTable()
                 .then(data => {
                  console.log(data);
@@ -123,40 +124,15 @@ export class LoginPage {
           let resultData : any ={};
           // let result : any ={};
           let newObj : any ={};
-          let updatedDeliveries: any = 0;
-          let productQuantity : any =[];
-          // result = results;
-            resultData = results;
-            this.totalDeiliveryProducts = 0;
-            this.DeiliveredProducts = 0;
-            if(resultData.product_quantities){
-                for(var m = 0;m<resultData.product_quantities.length;m++){
-                    this.totalDeiliveryProducts += resultData.product_quantities[m].quantity;
-                }
-            }
-          
-          window.localStorage.removeItem('DeiverdDeliveries');
-          window.localStorage.setItem('totalPackages',JSON.stringify(this.totalDeiliveryProducts));
-          window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
+           resultData = results;
           if(resultData.deliveries){
-            //this.navCtrl.setRoot(TabsPage);
-            //this.doAlert('Success','Delivery details have been come !!');
             newObj.deliveries = [];
             for(var i=0;i<resultData.deliveries.length;i++){
                 if(resultData.deliveries[i].delivery_status == "0"){
                     newObj.deliveries.push(resultData.deliveries[i]);
-                }else{
-                  for(var x =0; x<resultData.deliveries[i].delivery_packages.length;x++){
-                    updatedDeliveries += resultData.deliveries[i].delivery_packages[x].quantity;
-                  }
                 }
             }
-            window.localStorage.setItem('DeiverdDeliveries',JSON.stringify(updatedDeliveries));
-            if(resultData.product_quantities){
-              productQuantity = resultData.product_quantities;
-              window.localStorage.removeItem('productQuantity');
-              window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
-            }
+            
             this.insertAppUser(newObj);
             
           } else{

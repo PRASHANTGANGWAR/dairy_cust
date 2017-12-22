@@ -151,20 +151,19 @@ autoHeight: true
     this.db.getDeliveryStatus(deliveryId)
       .then(data => {
           this.DeiliveredProducts++;
-          //window.localStorage.removeItem('totalDelivered');
-          //window.localStorage.setItem('totalDelivered',JSON.stringify(this.DeiliveredProducts));
-          //console.log(JSON.parse(window.localStorage.getItem('totalDelivered')));
           console.log(data);
           let stts = data;
           this.db.updateAppUser(pro,deliveryId,status,stts)
           .then(data => {
-          for(var i=0;i<this.AppUsers.length;i++){
+           for(var i=0;i<this.AppUsers.length;i++){
             if(this.AppUsers[i].id==deliveryId){
               for(var y=0;y<this.AppUsers[i].delivery_packages.length;y++){
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
-                    // this.TotalPackets -= pro.quantity;
+                    this.TotalPackets -= pro.quantity;
+                    if(status == 1){
                       this.DeliveredPackets += pro.quantity;
+                    }
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
                       this.AppUsers.splice(i, 1);
@@ -207,12 +206,9 @@ autoHeight: true
   }
 
   upload(){
-    let delv: any;
-      //window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
-      if(JSON.parse(window.localStorage.getItem('DeiverdDeliveries'))){
-        delv = this.DeliveredPackets - JSON.parse(window.localStorage.getItem('DeiverdDeliveries'));
-      }
-      window.localStorage.setItem('DeliveredPackets',JSON.stringify(delv));
+      window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
+      window.localStorage.setItem('DeliveredPackets',JSON.stringify(this.DeliveredPackets));
+      window.localStorage.setItem('deliveredOrder',JSON.stringify(this.DeliveredPackets));
       this.showLoader();
       this.db.getData()
       .then(data => {
@@ -283,30 +279,19 @@ autoHeight: true
           let resultData : any ={};
           let result : any ={};
           let newObj : any ={};
-          let updatedDeliveries: any = 0;
-          // let productQuantity : any =[];
           result = results;
             resultData = results;
-            window.localStorage.removeItem('DeliveredPackets');
+            // window.localStorage.removeItem('DeliveredPackets');
             window.localStorage.setItem('productQuantity',JSON.stringify(resultData.product_quantities));
+            
           if(resultData.deliveries){
             newObj.deliveries = [];
             for(var i=0;i<resultData.deliveries.length;i++){
                 if(resultData.deliveries[i].delivery_status == "0"){
                     newObj.deliveries.push(resultData.deliveries[i]);
-                }else{
-                  for(var x =0; x<resultData.deliveries[i].delivery_packages.length;x++){
-                    updatedDeliveries += resultData.deliveries[i].delivery_packages[x].quantity;
-                  }
                 }
             }
-            window.localStorage.setItem('DeiverdDeliveries',JSON.stringify(updatedDeliveries));
-            // if(resultData.product_quantities){
-            //   productQuantity = resultData.product_quantities;
-            //   window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
-            // }
             this.insertAppUser(newObj);
-            
           } else{
             this.MsgAlert('Error','No pending deliveries');
           }
@@ -325,22 +310,11 @@ autoHeight: true
   public getAllPendings() {
     this.TotalPackets = 0;
     this.DeliveredPackets = 0;
-    /*let quant:any = {};
-    quant.product_name = "Ghee";
-    quant.quantity = "50";
-    this.ProductsQuantity.push(quant);*/
-    
-    if(JSON.parse(window.localStorage.getItem('DeiverdDeliveries'))){
-      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('DeiverdDeliveries'));
-    }
-    if(window.localStorage.getItem('DeliveredPackets')){
-      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('DeliveredPackets'));
+    if(JSON.parse(window.localStorage.getItem('deliveredOrder'))){
+      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('deliveredOrder'));
     }
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
-        for (var y = 0; y < this.ProductsQuantity.length; y++) {
-          this.TotalPackets += this.ProductsQuantity[y].quantity;
-        }
       if(this.ProductsQuantity.length){
         this.initialSlide = 1;
       }else{
@@ -361,36 +335,40 @@ autoHeight: true
       .then(data => {
         if(data != undefined && data.length > 0){
           for(var i=0;i<data.length;i++){
-            for(var u=0;u<JSON.parse(data[i].jsondata).delivery_packages.length;u++){
-              //this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
-            }
             if(data[i].final_status == 1){
               for(var t=0;t<JSON.parse(data[i].status).length;t++){
+                if(JSON.parse(data[i].status)[t].status == 1){
                     this.DeliveredPackets += JSON.parse(data[i].status)[t].quantity;
+                }
               }
             }else{
               this.AppUsers.push(JSON.parse(data[i].jsondata));
               this.status.push(JSON.parse(data[i].status));
-              
+              for(var u=0;u<JSON.parse(data[i].jsondata).delivery_packages.length;u++){
+                this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
+              }
             }
             
             if(JSON.parse(data[i].status) != null && data[i].final_status != 1){
                   for(var x=0;x<JSON.parse(data[i].status).length;x++){
                       this.Products.push(JSON.parse(data[i].status)[x].id);
+                      if(JSON.parse(data[i].status).status == 1){
                           this.DeliveredPackets += JSON.parse(data[i].status)[x].quantity;
+                      }
                   }
             }
           }
-          // this.DeliveredPackets += this.Products.length;
           for(var m=0;m<this.AppUsers.length;m++){
               for(var n=0;n<this.AppUsers[m].delivery_packages.length;n++){
                   for(var o=0;o<this.Products.length;o++){
                       if(this.AppUsers[m].delivery_packages[n].id == this.Products[o]){
-                          // this.TotalPackets -= this.AppUsers[m].delivery_packages[n].quantity;
+                          this.TotalPackets -= this.AppUsers[m].delivery_packages[n].quantity;
                           this.AppUsers[m].delivery_packages.splice(n, 1);
                           if(this.status[m] != undefined){
                             for(var b=0;b<this.status[m].length;b++){
+                              if(this.status[m][b].status == 1){
                                   this.DeliveredPackets += this.status[m][b].quantity;
+                              }
                             }
                           }
                           
@@ -400,10 +378,6 @@ autoHeight: true
                   
               }
           }
-          /*this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);
-          this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);
-          this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);
-          this.AppUsers[0].delivery_packages.push(this.AppUsers[0].delivery_packages[0]);*/
           this.hideLoader();
         }else{
           this.hideLoader();
