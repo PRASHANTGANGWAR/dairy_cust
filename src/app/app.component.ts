@@ -71,6 +71,7 @@ export class ConferenceApp {
   isCombinedApp: boolean = false;
   appType: string;
   hideLogout: boolean = false;
+  userRole : any;
 
   constructor(
     // private navCtrl: NavController,
@@ -133,14 +134,14 @@ export class ConferenceApp {
       var predate = new Date(updateTime);
       if(now.valueOf() > predate.valueOf()){
         var diff = now.valueOf() - predate.valueOf()
-        if(diff >= 1000*60*15){
+        if(diff >= 1000*60*5){
           window.localStorage.removeItem('updateTime');
           this.hideLogout = false;
           console.log(diff);
         }
-        else if(diff < 1000*60*15){
+        else if(diff < 1000*60*5){
           this.hideLogout = true;
-          var newdif = 1000*60*15 - diff;
+          var newdif = 1000*60*5 - diff;
           this.updateTimeout(newdif);
         }
       }
@@ -250,6 +251,9 @@ export class ConferenceApp {
       }
       this.enableMenu(true);
       // this.isCashBoyApp = false;
+      let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+      this.userRole = user.role;
+
     });
 
     this.events.subscribe('user:disable', () => {

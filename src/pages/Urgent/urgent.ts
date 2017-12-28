@@ -97,25 +97,14 @@ export class UrgentPage {
       {
         text: 'Pay',
         handler: (payment) => {
-          
-           var min = 100 * Math.floor( due/ 100);;
-          var max = 100 * Math.ceil( due/ 100);;
-         if(min != 0){
-            if(parseInt(payment.Amount) == min || parseInt(payment.Amount) == max){
+          var min = 100 * Math.floor( due/ 100)+1;
+          var max = 100 * Math.ceil( due/ 100);
+          if(parseInt(payment.Amount) >= min && parseInt(payment.Amount) <= max){
              this.showLoader();
-               this.confirmPayment(id,due,bill,deviceId,payment);
-           }else{
-             this.MsgAlert('Error',"Please enter amount "+min+" or "+max+" !");
-           }
-          }else{
-            if(parseInt(payment.Amount) == max){
-             this.showLoader();
-               this.confirmPayment(id,due,bill,deviceId,payment);
-           }else{
-             this.MsgAlert('Error',"Please enter amount "+max+" !");
-           }
+             this.confirmPayment(id,due,bill,deviceId,payment);
+          } else{
+             this.MsgAlert('Error',"Please enter amount between"+min+" and "+max+" !");
           }
-          
         }
       }
       ],
@@ -127,7 +116,7 @@ export class UrgentPage {
   confirmPayment(id: any,due: any,bill: any,deviceId: any,payment: any){
   let alert = this._alert.create({
       title: "Confirm",
-      subTitle: "Are you realy want to pay for delivery",
+      subTitle: "Do you really want to pay for delivery",
       buttons: [
       {
         text: 'Confirm',

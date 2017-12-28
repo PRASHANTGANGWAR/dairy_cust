@@ -8,6 +8,7 @@ import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { Events } from 'ionic-angular';
 import { TabsPage } from '../tabs-page/tabs-page';
+import { CollectionPage } from '../Collections/collection';
 import { DBProvider } from '../../providers/DBProvider';
 
 declare var window: any;
@@ -67,7 +68,11 @@ export class LoginPage {
 
   public insertAppUser(resultData: any) {
     this.db.insertAppUser(resultData);
-      this.navCtrl.setRoot(TabsPage);
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+            if(user.role == 3)
+              this.navCtrl.setRoot(TabsPage);
+            else
+              this.navCtrl.setRoot(CollectionPage);
   }
 
   public getAllAppUsers() {
@@ -142,7 +147,11 @@ export class LoginPage {
             this.insertAppUser(newObj);
             
           } else{
-            this.navCtrl.setRoot(TabsPage);
+            let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+            if(user.role == 3)
+              this.navCtrl.setRoot(TabsPage);
+            else
+              this.navCtrl.setRoot(CollectionPage);
             this.doAlert('Error','No pending deliveries');
           }
       });
