@@ -16,17 +16,17 @@
 		<ion-list no-lines>
 			<ion-item [hidden]="flag">
 				<!-- <ion-label stacked style="color:#DF3796;">User Phone</ion-label> -->
-				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off" placeholder="Enter Your Mobile No"
-					required>
+				<ion-input [(ngModel)]="login.username" name="username"  #username="ngModel" spellcheck="false" autocapitalize="off" placeholder="Enter Your Mobile No"
+					required type="tel">
 				</ion-input>
 			</ion-item>
-			<p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
+			<p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left >
 				Username is required
 			</p>
 
 			<ion-item [hidden]="flag">
 				<!-- <ion-label stacked style="color:#DF3796;">Password</ion-label> -->
-				<ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" placeholder="Enter your 4 digit pin" required>
+				<ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" placeholder="Enter your 4 digit pin" required >
 				</ion-input>
 			</ion-item>
 			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>

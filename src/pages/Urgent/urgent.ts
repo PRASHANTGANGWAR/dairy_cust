@@ -82,6 +82,7 @@ export class UrgentPage {
   }
 
   paynowBox(id: any,due: any,bill: any,deviceId: any) {
+  debugger;
     let alert = this._alert.create({
       title: "Enter Amount to pay",
       inputs: [ 
@@ -97,8 +98,15 @@ export class UrgentPage {
       {
         text: 'Pay',
         handler: (payment) => {
-          var min = 100 * Math.floor( due/ 100)+1;
-          var max = 100 * Math.ceil( due/ 100);
+        var min;
+        var max;
+        if(due < 100){
+          min = 100 * Math.floor( due/ 100)+1;
+          max=min+99;
+          }else{
+          min = 100 * Math.floor( due/ 100);
+          max=min+100;
+          }
           if(parseInt(payment.Amount) >= min && parseInt(payment.Amount) <= max){
              this.showLoader();
              this.confirmPayment(id,due,bill,deviceId,payment);

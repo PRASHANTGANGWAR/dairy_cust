@@ -39,7 +39,10 @@ export class LoginPage {
       this.menu.enable(false, 'loggedInMenu');
       let user = JSON.parse(window.localStorage.getItem('loginDetails'));
         if(user){
-            this.navCtrl.setRoot(TabsPage);
+             if(user.role == 3)
+              this.navCtrl.setRoot(TabsPage);
+            else
+              this.navCtrl.setRoot(CollectionPage);
         } 
     }
 
@@ -69,7 +72,7 @@ export class LoginPage {
   public insertAppUser(resultData: any) {
     this.db.insertAppUser(resultData);
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-            if(user.role == 3)
+      if(user.role == 3)
               this.navCtrl.setRoot(TabsPage);
             else
               this.navCtrl.setRoot(CollectionPage);
@@ -143,6 +146,8 @@ export class LoginPage {
               productQuantity = resultData.product_quantities;
               window.localStorage.removeItem('productQuantity');
               window.localStorage.setItem('productQuantity',JSON.stringify(productQuantity));
+              window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(productQuantity));
+
             }
             this.insertAppUser(newObj);
             

@@ -28,6 +28,7 @@ autoHeight: true
   AppUsers: any=[];
   Products: any=[];
   ProductsQuantity: any=[];
+  pendingProductsQuantity:any=[];
   status: any=[];
   totalDeiliveryProducts: any;
   DeiliveredProducts: any;
@@ -115,24 +116,42 @@ autoHeight: true
 
   checkTime() {
       var updateTime = JSON.parse(window.localStorage.getItem('updateTime'));
+      var onetime=JSON.parse(window.localStorage.getItem('loginDetails.one_time_device'));
     if(updateTime){
       var now = new Date();
       var predate = new Date(updateTime);
       if(now.valueOf() > predate.valueOf()){
         var diff = now.valueOf() - predate.valueOf()
-        if(diff >= 1000*60*15){
+        if(onetime){
+        if(diff >= 1000*60*2){
           window.localStorage.removeItem('updateTime');
           this.hideButton = false;
           console.log(diff);
           this.events.publish('user:enable');
         }
-        else if(diff < 1000*60*15){
+        else if(diff < 1000*60*2){
           this.events.publish('user:disable');
           this.hideButton = true;
-          var newdif = 1000*60*15 - diff;
+          var newdif = 1000*60*2 - diff;
           this.updateTimeout(newdif);
         }
+      }else{
+       if(diff >= 1000*60*5){
+          window.localStorage.removeItem('updateTime');
+          this.hideButton = false;
+          console.log(diff);
+          this.events.publish('user:enable');
+        }
+        else if(diff < 1000*60*5){
+          this.events.publish('user:disable');
+          this.hideButton = true;
+          var newdif1 = 1000*60*5 - diff;
+          this.updateTimeout(newdif1);
+        }
+
       }
+      }
+     
     }
     
         
@@ -160,7 +179,18 @@ autoHeight: true
               for(var y=0;y<this.AppUsers[i].delivery_packages.length;y++){
                 if(this.AppUsers[i].delivery_packages[y].id==pro.id){
                     this.AppUsers[i].delivery_packages.splice(y, 1);
+                    
+                    if(status == 1){
                     this.TotalPackets -= pro.quantity;
+                      for(var x=0;x<this.pendingProductsQuantity.length;x++){
+                    if(this.pendingProductsQuantity[x].product_name == pro.product.display_name){
+                      this.pendingProductsQuantity[x].quantity-=pro.quantity;
+                    }
+                    }
+
+                  
+                    }
+                   
                     if(status == 1){
                       this.DeliveredPackets += pro.quantity;
                     }
@@ -181,6 +211,7 @@ autoHeight: true
 
             }
           }
+          window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(this.pendingProductsQuantity));
           this.MsgAlert('Success','Delivery status is updated successfully');
           console.log(data);
           })
@@ -198,17 +229,28 @@ autoHeight: true
 
   buttonDisable() {
     let that = this;
+    var onetime=JSON.parse(window.localStorage.getItem('loginDetails.one_time_device'));
+    if(onetime){
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideButton = false;
         that.events.publish('user:enable');
-    }, 1000*60*15);
+    }, 1000*60*2);
+    }else{
+     setTimeout(function () {
+      window.localStorage.removeItem('updateTime');
+        that.hideButton = false;
+        that.events.publish('user:enable');
+    }, 1000*60*5);
+
+    }
   }
 
   upload(){
       window.localStorage.setItem('TotalPackets',JSON.stringify(this.TotalPackets));
       window.localStorage.setItem('DeliveredPackets',JSON.stringify(this.DeliveredPackets));
       window.localStorage.setItem('deliveredOrder',JSON.stringify(this.DeliveredPackets));
+       window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(this.pendingProductsQuantity));
       this.showLoader();
       this.db.getData()
       .then(data => {
@@ -283,6 +325,8 @@ autoHeight: true
             resultData = results;
             // window.localStorage.removeItem('DeliveredPackets');
             window.localStorage.setItem('productQuantity',JSON.stringify(resultData.product_quantities));
+            window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(resultData.product_quantities));
+            this.pendingProductsQuantity = JSON.parse(window.localStorage.getItem('pendingProductsQuantity'));
             
           if(resultData.deliveries){
             newObj.deliveries = [];
@@ -315,6 +359,7 @@ autoHeight: true
     }
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
+      this.pendingProductsQuantity = JSON.parse(window.localStorage.getItem('pendingProductsQuantity'));
       if(this.ProductsQuantity.length){
         this.initialSlide = 1;
       }else{
@@ -416,7 +461,7 @@ boxAssign(deliveryId: any, customerId: any) {
 
 assign(deliveryId: any, customerId: any) {
     let alert = this._alert.create({
-      subTitle: "Do you want to assign box",
+      subTitle: "Do you want to assign box?",
       buttons: [
       {
         text: 'Reject',
@@ -440,6 +485,7 @@ assign(deliveryId: any, customerId: any) {
 confirmDelivered(pro: any,deliveryId: any,status: any){
   let alert = this._alert.create({
       title: "Confirm",
+      subTitle: "Package will be delivered!",
       buttons: [
       {
         text: 'Yes',
@@ -456,7 +502,7 @@ confirmDelivered(pro: any,deliveryId: any,status: any){
 confirmRejected(pro: any,deliveryId: any,status: any){
   let alert = this._alert.create({
       title: "Confirm",
-      subTitle: "Package is cancelled",
+      subTitle: "Package will be cancelled!",
       buttons: [
       {
         text: 'Yes',
@@ -514,7 +560,7 @@ doAlert(pro: any,deliveryId: any) {
 
   updateNowConfirm(){
       let alert = this._alert.create({
-      subTitle: "Are you realy want to update",
+      subTitle: "Do you want to update?",
       buttons: [
       {
         text: 'No',
@@ -533,7 +579,7 @@ doAlert(pro: any,deliveryId: any) {
   }
   refreshConfirm(){
       let alert = this._alert.create({
-      subTitle: "Do you realy want to refresh",
+      subTitle: "Do you want to refresh?",
       buttons: [
       {
         text: 'No',

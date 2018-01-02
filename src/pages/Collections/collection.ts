@@ -124,8 +124,7 @@ export class CollectionPage {
 
   confirmPayment(id: any,due: any,bill: any,deviceId: any,payment: any){
   let alert = this._alert.create({
-      title: "Confirm",
-      subTitle: "Are you realy want to pay for delivery",
+      title: "Do you want to pay for delivery?",
       buttons: [
       {
         text: 'Confirm',

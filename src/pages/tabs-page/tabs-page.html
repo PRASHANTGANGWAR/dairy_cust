@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle="left" style="display: inline-block !important;background:#DF3796">
+    <button ion-button menuToggle="left" style="display: inline-block !important;background:#ecec27">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Pending<span float-right>{{DeliveredPackets}}/{{TotalPackets}}</span></ion-title>
@@ -37,6 +37,24 @@
       </ion-grid>
     </ion-item>
   </ion-card>
+  <ion-card style="background-color: #a981d3;">
+     <ion-item class="custom-item">
+    <ion-item>
+    <h2 class="pro-heading" text-wrap no-lines><b>Pending Products Quantity</b></h2>
+    </ion-item>
+        
+      <ion-grid *ngFor="let pro of pendingProductsQuantity"   style="margin-left:20px;">
+        <ion-row>
+          <ion-col col-8 text-wrap no-lines class="prod">
+            <b>{{pro.product_name}}</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            :{{pro.quantity}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-card>
 
   </ion-slide>
   <ion-slide *ngFor="let user of AppUsers;let i=index;" [hidden]="!user.delivery_packages.length" style="overflow-y:scroll;">
@@ -55,7 +73,7 @@
       <ion-col>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="assign(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;">Box Req.</button>
+        <button ion-button (click)="assign(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;border-radius: 10px;">Box Req.</button>
       </ion-col>
       <ion-col>
       </ion-col>
@@ -65,7 +83,7 @@
 			
   </ion-item>
   <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
-<ion-item style="text-align:center;background:#831cd8">
+<ion-item style="text-align:center;" style.background-color = "{{pack.product.display_name == 'Desi Cow milk' ? '#DF3796' : '#831cd8'}}">
 	 <div class="col" >
 		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>
 		</div>
@@ -84,7 +102,7 @@
         
       </ion-col>
       <ion-col>
-        <button ion-button (click)="updateNowConfirm()" [hidden]="flag" block style="background:#DF3796;">Update Now</button>
+        <button ion-button (click)="updateNowConfirm()" [hidden]="flag" block style="background:#DF3796;border-radius: 20px;font-size: 17px;">UPDATE NOW</button>
       </ion-col>
       <ion-col>
       </ion-col>
@@ -93,7 +111,7 @@
       <ion-col>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="refreshConfirm()" [hidden]="flag" block style="background:#DF3796;">Refresh</button>
+        <button ion-button (click)="refreshConfirm()" [hidden]="flag" block style="background:#DF3796;border-radius: 20px;font-size: 17px;">REFRESH NOW</button>
       </ion-col>
       <ion-col>
         

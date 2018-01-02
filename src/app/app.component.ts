@@ -52,7 +52,7 @@ export class ConferenceApp {
  
   deliveryPages: PageInterface[] = [
     { title: 'Packets', name: 'TabsPage', component: TabsPage, icon: 'information-circle', panding: true },
-    { title: 'Cancelled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
+    { title: 'Cancelled', name: 'SpeakerListPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
@@ -62,8 +62,8 @@ export class ConferenceApp {
     { title: 'Cancelled', name: 'TabsPage', component: SpeakerListPage, icon: 'md-close-circle', canceled: true },
     { title: 'Delivered', name: 'TabsPage', component: SchedulePage, icon: 'md-checkmark-circle', delivered: true },
     { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-basket', lastDelivery1: true },
-    { title: 'Urgent Collection', name: 'TabsPage', component: UrgentPage, icon: 'md-notifications', urgent: true },
-    { title: 'Box', name: 'TabsPage', component: BoxPage, icon: 'md-archive', box: true },
+    { title: 'Urgent Collection', name: 'UrgentPage', component: UrgentPage, icon: 'md-notifications', urgent: true },
+    { title: 'Box', name: 'BoxPage', component: BoxPage, icon: 'md-archive', box: true },
     { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
   ];
   
@@ -129,20 +129,35 @@ export class ConferenceApp {
 
   checkTime() {
       var updateTime = JSON.parse(window.localStorage.getItem('updateTime'));
+      var onetime=JSON.parse(window.localStorage.getItem('loginDetails.one_time_device'));
     if(updateTime){
       var now = new Date();
       var predate = new Date(updateTime);
       if(now.valueOf() > predate.valueOf()){
         var diff = now.valueOf() - predate.valueOf()
-        if(diff >= 1000*60*5){
+        if(onetime){
+        if(diff >= 1000*60*2){
+          window.localStorage.removeItem('updateTime');
+          this.hideLogout = false;
+          console.log(diff);
+        }
+        else if(diff < 1000*60*2){
+          this.hideLogout = true;
+          var newdif = 1000*60*2 - diff;
+          this.updateTimeout(newdif);
+        }
+        }else{
+          if(diff >= 1000*60*5){
           window.localStorage.removeItem('updateTime');
           this.hideLogout = false;
           console.log(diff);
         }
         else if(diff < 1000*60*5){
           this.hideLogout = true;
-          var newdif = 1000*60*5 - diff;
-          this.updateTimeout(newdif);
+          var newdif1 = 1000*60*5 - diff;
+          this.updateTimeout(newdif1);
+        }
+
         }
       }
     }
@@ -158,10 +173,18 @@ export class ConferenceApp {
 
   buttonDisable() {
     let that = this;
+    var onetime=JSON.parse(window.localStorage.getItem('loginDetails.one_time_device'));
+    if(onetime){
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideLogout = false;
-    }, 1000*60*15);
+    }, 1000*60*2);
+    }else{
+    setTimeout(function () {
+      window.localStorage.removeItem('updateTime');
+        that.hideLogout = false;
+    }, 1000*60*5);
+    }
   }
 
 
@@ -176,7 +199,7 @@ export class ConferenceApp {
 
    logoutConfirm(){
   let alert = this._alert.create({
-      subTitle: "Are you realy want to logout",
+      subTitle: "Do you want to logout?",
       buttons: [
       {
         text: 'No',
@@ -203,10 +226,12 @@ export class ConferenceApp {
     if (page.index) {
       params = { tabIndex: page.index };
     }
+    
 
     // If we are already on tabs just change the selected tab
     // don't setRoot again, this maintains the history stack of the
     // tabs even if changing them from the menu
+    if(page.title != "Logout"){
     if (this.nav.getActiveChildNavs().length && page.index != undefined) {
       this.nav.getActiveChildNavs()[0].select(page.index);
     // Set the root of the nav with params if it's a tab index
@@ -214,6 +239,7 @@ export class ConferenceApp {
       this.nav.setRoot(page.name, params).catch((err: any) => {
         console.log(`Didn't set nav root: ${err}`);
       });
+    }
     }
 
     if (page.logsOut === true) {
@@ -255,6 +281,17 @@ export class ConferenceApp {
       this.userRole = user.role;
 
     });
+
+    if(window.localStorage.getItem('loginDetails'))  {
+      if(window.localStorage.getItem('App') == "CombinedApp"){
+        this.isCombinedApp = true;
+      }
+      this.enableMenu(true);
+      // this.isCashBoyApp = false;
+      let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+      this.userRole = user.role;
+
+    };
 
     this.events.subscribe('user:disable', () => {
       console.log("button is disabled");
