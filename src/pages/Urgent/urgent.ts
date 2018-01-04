@@ -141,8 +141,12 @@ export class UrgentPage {
   search(){
     this.AppUsers = [];
     this.userData.urgentCollections().then(results=>{
+          let res : any ={};
           let result : any ={};
-          result = results;
+          res = results;
+          if(res.status && res.status == 200){
+            result = JSON.parse(res._body);
+          }
           if(result.customers.length && result.customers[0].device){
             this.AppUsers = result.customers[0].device;
             for(var z=0;z<this.AppUsers.length;z++){

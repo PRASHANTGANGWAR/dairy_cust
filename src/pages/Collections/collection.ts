@@ -141,9 +141,13 @@ export class CollectionPage {
   search(){
     this.AppUsers = [];
     this.userData.collections().then(results=>{
+          let res : any ={};
           let result : any ={};
-          result = results;
-          if(result.customers.length && result.customers[0].device){
+          res = results;
+          if(res.status && res.status == 200){
+            result = JSON.parse(res._body);
+          }
+          if(result.customers && result.customers.length && result.customers[0].device){
             this.AppUsers = result.customers[0].device;
             for(var k=0;k<this.AppUsers.length;k++){
               this.AppUsers[k].address1 = this.AppUsers[k].addresses[0];
