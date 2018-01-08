@@ -16,6 +16,8 @@ import { PaymentHistoryPage } from '../pages/payment-history/paymentHistory';
 import { LoginPage } from '../pages/login/login';
 import { BoxPage } from '../pages/Box/box';
 import { UrgentPage } from '../pages/Urgent/urgent';
+import { SnoozedPage } from '../pages/snoozed/snoozed';
+import { PendingsnoozedPage } from '../pages/pendingsnoozed/pendingsnoozed';
 import { ModalPage } from '../pages/modal/modal';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
@@ -38,7 +40,9 @@ import { DBProvider } from '../providers/DBProvider';
     SchedulePage,
     SpeakerListPage,
     TabsPage,
-    Splash
+    Splash,
+    SnoozedPage,
+    PendingsnoozedPage
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { DBProvider } from '../providers/DBProvider';
         { component: CollectionPage, name: 'Collections', segment: 'Collections' },
         { component: PaymentHistoryPage, name: 'PaymentHistoryPage', segment: 'PaymentHistoryPage' },
         { component: UrgentPage, name: 'UrgentPage', segment: 'UrgentPage' },
+        { component: SnoozedPage, name: 'SnoozedPage', segment: 'SnoozedPage' },
+        { component: PendingsnoozedPage, name: 'PendingsnoozedPage', segment: 'PendingsnoozedPage' },
         { component: BoxPage, name: 'BoxPage', segment: 'BoxPage' },
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
       ]
@@ -71,7 +77,9 @@ import { DBProvider } from '../providers/DBProvider';
     SpeakerListPage,
     TabsPage,
     ModalPage,
-    Splash
+    Splash,
+    SnoozedPage,
+    PendingsnoozedPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

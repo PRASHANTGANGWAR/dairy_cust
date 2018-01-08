@@ -45,15 +45,28 @@
           {{cashboyPages[4].title}}
         </ion-item>
 
+          <ion-item *ngIf="userRole == 7" teappable ion-item menuClose (click)="openPage(cashboyPages[7])" [hidden]="cashboyPages[5].title=='Logout' && hideLogout">
+          <ion-icon item-start [name]="cashboyPages[7].icon" style="color:#ecec27;"></ion-icon>
+          {{cashboyPages[7].title}}
+        </ion-item>
+
+          <ion-item *ngIf="userRole == 7" teappable ion-item menuClose (click)="openPage(cashboyPages[8])" [hidden]="cashboyPages[8].title=='Logout' && hideLogout">
+          <ion-icon item-start [name]="cashboyPages[7].icon" style="color:#ecec27;"></ion-icon>
+          {{cashboyPages[8].title}}
+        </ion-item>
+
+
          <ion-item *ngIf="userRole == 7" teappable ion-item menuClose (click)="openPage(cashboyPages[5])" [hidden]="cashboyPages[5].title=='Logout' && hideLogout">
           <ion-icon item-start [name]="cashboyPages[5].icon" style="color:#ecec27;"></ion-icon>
           {{cashboyPages[5].title}}
         </ion-item>
 
+       
          <ion-item teappable ion-item menuClose (click)="openPage(cashboyPages[6])" [hidden]="cashboyPages[6].title=='Logout' && hideLogout">
           <ion-icon item-start [name]="cashboyPages[6].icon" style="color:#ecec27;"></ion-icon>
           {{cashboyPages[6].title}}
         </ion-item>
+
 
 
 <!-- For Combined app --> 

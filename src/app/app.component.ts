@@ -9,6 +9,8 @@ import { TabsPage } from '../pages/tabs-page/tabs-page';
 // import { LastDeliveryPage } from '../pages/LastDelivery/lastDelivery';
 import { CollectionPage } from '../pages/Collections/collection';
 import { UrgentPage } from '../pages/Urgent/urgent';
+import { SnoozedPage } from '../pages/snoozed/snoozed';
+import { PendingsnoozedPage } from '../pages/pendingsnoozed/pendingsnoozed';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { BoxPage } from '../pages/Box/box';
@@ -32,6 +34,8 @@ export interface PageInterface {
   lastDelivery1?: boolean;
   urgent?: boolean;
   box?: boolean;
+  snoozed?: boolean;
+  pendingsnoozed?:boolean;
 
 
 }
@@ -64,7 +68,9 @@ export class ConferenceApp {
     { title: 'Collection', name: 'TabsPage', component: CollectionPage, icon: 'md-basket', lastDelivery1: true },
     { title: 'Urgent Collection', name: 'UrgentPage', component: UrgentPage, icon: 'md-notifications', urgent: true },
     { title: 'Box', name: 'BoxPage', component: BoxPage, icon: 'md-archive', box: true },
-    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true }
+    { title: 'Logout', name: 'TabsPage', component: TabsPage, icon: 'log-out', logsOut: true },
+    { title: 'Snoozed Collection', name: 'TabsPage', component: SnoozedPage, icon: 'md-notifications-off', snoozed: true },
+    { title: 'Pending Snoozed Collection', name: 'TabsPage', component: PendingsnoozedPage, icon: 'md-notifications-off', pendingsnoozed: true },
   ];
   
   rootPage: any;
@@ -236,6 +242,13 @@ export class ConferenceApp {
     if (page.logsOut === true) {
       this.logoutConfirm();
     }
+    if (page.snoozed === true) {
+      this.nav.setRoot(SnoozedPage);
+    }
+     if (page.pendingsnoozed === true) {
+      this.nav.setRoot(PendingsnoozedPage);
+    }
+    
     if (page.panding === true) {
       this.nav.setRoot(TabsPage);
     }

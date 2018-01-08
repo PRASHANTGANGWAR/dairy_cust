@@ -12,8 +12,9 @@ export class UserData {
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  //Url = "http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com";
-Url = "http://app.dairylac.com";
+ Url = "http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com";
+//Url = "http://app.dairylac.com";
+//Url= "http://shop.dairylac.com";
 
 
   constructor(
@@ -109,6 +110,74 @@ Url = "http://app.dairylac.com";
       );
     });
   };
+
+
+    snoozed_payments(){
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      // 'X-d_boy_mobile':user.mobile,
+      'X-User-Token': user.authentication_token,
+    });
+    let data :any = {};
+    data.d_boy_mobile = user.mobile;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: data,
+      url: this.Url+'/users/snoozed_customers'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  };
+
+   pendingsnoozed_payments(){
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({ 
+      'Content-Type': 'application/json',
+      'Accept':'application/json',
+      'X-User-Mobile':user.mobile,
+      // 'X-d_boy_mobile':user.mobile,
+      'X-User-Token': user.authentication_token,
+      'pending': true
+    });
+    let data :any = {};
+    data.d_boy_mobile = user.mobile;
+    data.pending =true;
+    console.log(data);
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: headers,
+      params: data,
+      url: this.Url+'/users/snoozed_customers'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res);
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err);
+        }
+      );
+    });
+  };
+
 
   urgentCollections(){
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
@@ -474,3 +543,5 @@ Url = "http://app.dairylac.com";
     });
   };
 }
+
+
