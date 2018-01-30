@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { UserData } from '../../providers/user-data';
 import {Slides} from 'ionic-angular';
 import {TextInput} from 'ionic-angular';
@@ -17,10 +16,8 @@ export class TabsPage {
   public TotalPackets : number = 0;
   public DeliveredPackets : number = 0;
   public hideButton : boolean = false;
-  /*mySlideOptions = {
-    pager: true,
-autoHeight: true
-  };*/
+  private updateButtonDisableTime:number = 1000*60*3;// disable for 3 minute
+  private removeDataFromStorageTime:number = 1000*60*2; // empty local storage time
    @ViewChild('SlideInput') SlideInput: TextInput;
    @ViewChild('mySlider') slider: Slides;
    initialSlide: number;
@@ -123,29 +120,29 @@ autoHeight: true
       if(now.valueOf() > predate.valueOf()){
         var diff = now.valueOf() - predate.valueOf()
         if(onetime){
-        if(diff >= 1000*60*2){
+        if(diff >= this.removeDataFromStorageTime){
           window.localStorage.removeItem('updateTime');
           this.hideButton = false;
           console.log(diff);
           this.events.publish('user:enable');
         }
-        else if(diff < 1000*60*2){
+        else if(diff < this.removeDataFromStorageTime){
           this.events.publish('user:disable');
           this.hideButton = true;
-          var newdif = 1000*60*2 - diff;
+          var newdif = this.removeDataFromStorageTime - diff;
           this.updateTimeout(newdif);
         }
       }else{
-       if(diff >= 1000*60*5){
+       if(diff >= this.updateButtonDisableTime){
           window.localStorage.removeItem('updateTime');
           this.hideButton = false;
           console.log(diff);
           this.events.publish('user:enable');
         }
-        else if(diff < 1000*60*5){
+        else if(diff < this.updateButtonDisableTime){
           this.events.publish('user:disable');
           this.hideButton = true;
-          var newdif1 = 1000*60*5 - diff;
+          var newdif1 = this.updateButtonDisableTime - diff;
           this.updateTimeout(newdif1);
         }
 
@@ -235,13 +232,13 @@ autoHeight: true
       window.localStorage.removeItem('updateTime');
         that.hideButton = false;
         that.events.publish('user:enable');
-    }, 1000*60*2);
+    }, this.removeDataFromStorageTime);
     }else{
      setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideButton = false;
         that.events.publish('user:enable');
-    }, 1000*60*5);
+    }, this.updateButtonDisableTime);
 
     }
   }
@@ -325,8 +322,9 @@ autoHeight: true
             resultData = results;
             // window.localStorage.removeItem('DeliveredPackets');
             window.localStorage.setItem('productQuantity',JSON.stringify(resultData.product_quantities));
-            window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(resultData.product_quantities));
+           // window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(resultData.product_quantities));
             this.pendingProductsQuantity = JSON.parse(window.localStorage.getItem('pendingProductsQuantity'));
+
             
           if(resultData.deliveries){
             newObj.deliveries = [];
@@ -360,6 +358,9 @@ autoHeight: true
     if(window.localStorage.getItem('productQuantity')){
       this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
       this.pendingProductsQuantity = JSON.parse(window.localStorage.getItem('pendingProductsQuantity'));
+        for(var y=0;y<this.pendingProductsQuantity.length;y++){
+             this.pendingProductsQuantity[y].quantity =0;
+           }
       if(this.ProductsQuantity.length){
         this.initialSlide = 1;
       }else{
@@ -391,7 +392,14 @@ autoHeight: true
               this.status.push(JSON.parse(data[i].status));
               for(var u=0;u<JSON.parse(data[i].jsondata).delivery_packages.length;u++){
                 this.TotalPackets += JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
+                for(var z=0;z<this.pendingProductsQuantity.length;z++){
+                  if(this.pendingProductsQuantity[z].product_name == 
+                    JSON.parse(data[i].jsondata).delivery_packages[u].product.display_name){
+                    this.pendingProductsQuantity[z].quantity +=JSON.parse(data[i].jsondata).delivery_packages[u].quantity;
+                  }
+                }
               }
+               window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(this.pendingProductsQuantity));
             }
             
             if(JSON.parse(data[i].status) != null && data[i].final_status != 1){

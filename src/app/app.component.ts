@@ -46,6 +46,9 @@ export interface PageInterface {
 export class ConferenceApp {
 
   private loading :any;
+  private updateButtonDisableTime:number = 1000*60*3;// disable for 3 minute
+  private removeDataFromStorageTime:number = 1000*60*2; // empty local storage time
+  
   // the root nav is a child of the root app component
   // @ViewChild(Nav) gets a reference to the app's root nav
   @ViewChild(Nav) nav: Nav;
@@ -142,25 +145,25 @@ export class ConferenceApp {
       if(now.valueOf() > predate.valueOf()){
         var diff = now.valueOf() - predate.valueOf()
         if(onetime){
-        if(diff >= 1000*60*2){
+        if(diff >= this.removeDataFromStorageTime){
           window.localStorage.removeItem('updateTime');
           this.hideLogout = false;
           console.log(diff);
         }
-        else if(diff < 1000*60*2){
+        else if(diff < this.removeDataFromStorageTime){
           this.hideLogout = true;
-          var newdif = 1000*60*2 - diff;
+          var newdif = this.removeDataFromStorageTime - diff;
           this.updateTimeout(newdif);
         }
         }else{
-          if(diff >= 1000*60*5){
+          if(diff >= this.updateButtonDisableTime){
           window.localStorage.removeItem('updateTime');
           this.hideLogout = false;
           console.log(diff);
         }
-        else if(diff < 1000*60*5){
+        else if(diff < this.updateButtonDisableTime){
           this.hideLogout = true;
-          var newdif1 = 1000*60*5 - diff;
+          var newdif1 = this.updateButtonDisableTime - diff;
           this.updateTimeout(newdif1);
         }
 
@@ -184,12 +187,12 @@ export class ConferenceApp {
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideLogout = false;
-    }, 1000*60*2);
+    }, this.removeDataFromStorageTime);
     }else{
     setTimeout(function () {
       window.localStorage.removeItem('updateTime');
         that.hideLogout = false;
-    }, 1000*60*5);
+    }, this.updateButtonDisableTime);
     }
   }
 
