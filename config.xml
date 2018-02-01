@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.homedelivery" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Home Delivery</name>
+<widget id="io.ionic.shopdelivery" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Shop Delivery</name>
     <description>
         Ordering Dairy Product? Use this app for fast delivery.
   </description>
-    <author email="admin@enbake.com" href="http://app.dairylac.com/">
+    <author email="admin@enbake.com" href="http://shop.dairylac.com/">
   </author>
     <content src="index.html" />
     <access origin="*" />

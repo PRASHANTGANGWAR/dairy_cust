@@ -12,7 +12,7 @@ export class UserData {
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  Url = "http://app.dairylac.com";
+  Url = "http://shop.dairylac.com";
 
   constructor(
     public events: Events,
