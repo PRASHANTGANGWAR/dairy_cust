@@ -532,11 +532,15 @@ doAlert(pro: any,deliveryId: any) {
         handler: () => {
           this.confirmDelivered(pro,deliveryId,'1');
         }
-      },
-        {
+      },{
         text: 'Cancelled',
         handler: () => {
           this.confirmRejected(pro,deliveryId,'2');
+        }
+      },{
+        text: 'Edit',
+        handler: () => {
+          console.log("edit clicked")
         }
       }
       ],
