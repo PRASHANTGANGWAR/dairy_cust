@@ -26,6 +26,7 @@ import { Splash } from '../pages/splash/splash';
 import { UserData } from '../providers/user-data';
 import { SQLite } from '@ionic-native/sqlite';
 import { DBProvider } from '../providers/DBProvider';
+import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DBProvider } from '../providers/DBProvider';
     TabsPage,
     Splash,
     SnoozedPage,
-    PendingsnoozedPage
+    PendingsnoozedPage,
+    EditQuantityModal
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ import { DBProvider } from '../providers/DBProvider';
     ModalPage,
     Splash,
     SnoozedPage,
-    PendingsnoozedPage
+    PendingsnoozedPage,
+    EditQuantityModal
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

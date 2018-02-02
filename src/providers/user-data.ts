@@ -510,6 +510,34 @@ export class UserData {
     });
   };
 
+  editTodayDeliveries(data:any) {
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+       'Accept':'application/json',
+       'X-User-Mobile':user.mobile,
+       'X-User-Token': user.authentication_token
+     });
+    let options = new RequestOptions({
+      method: RequestMethod.Put,
+      headers: headers,
+      body: JSON.stringify(data.package),
+      url: this.Url+'/deliveries/'+data.Id+'/edit_today_delivery'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+
 
   logout(): void {
     this.storage.remove(this.HAS_LOGGED_IN);

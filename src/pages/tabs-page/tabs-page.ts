@@ -3,9 +3,10 @@ import { UserData } from '../../providers/user-data';
 import {Slides} from 'ionic-angular';
 import {TextInput} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
+import { EditQuantityModal } from '../edit-quantity-modal/edit-quantity';
 // import { ModalPage } from '../modal/modal';
 import { DBProvider } from '../../providers/DBProvider';
-import { Events, MenuController, AlertController, LoadingController} from 'ionic-angular';
+import { Events, MenuController, AlertController, LoadingController,ModalController} from 'ionic-angular';
 declare var window:any;
 //import * as _ from 'underscore';
 @Component({
@@ -31,7 +32,13 @@ export class TabsPage {
   DeiliveredProducts: any;
   private loading :any;
 
-  constructor( public events: Events, public menu: MenuController, public userData: UserData, private _loading: LoadingController,public db: DBProvider,private _alert: AlertController) {
+  constructor( public events: Events,
+               public menu: MenuController,
+               public userData: UserData,
+               private _loading: LoadingController,
+               public db: DBProvider,
+               private _alert: AlertController,
+               private modalCtrl: ModalController) {
     this.menu.enable(true, 'loggedInMenu');
     this.totalDeiliveryProducts = JSON.parse(window.localStorage.getItem('totalPackages'));
     this.DeiliveredProducts = JSON.parse(window.localStorage.getItem('totalDelivered'));
@@ -540,7 +547,12 @@ doAlert(pro: any,deliveryId: any) {
       },{
         text: 'Edit',
         handler: () => {
-          console.log("edit clicked")
+          let data:any = {
+            product:pro,
+            delId:deliveryId
+          }
+          let modal = this.modalCtrl.create(EditQuantityModal,{ProductInfo:data});
+          modal.present();          
         }
       }
       ],
