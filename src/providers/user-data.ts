@@ -78,19 +78,12 @@ export class UserData {
 
   collections(){
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      // 'X-d_boy_mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let data :any = {};
     data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: data,
       url: this.Url+'/payments/customer_payment_status'
     });
@@ -111,19 +104,12 @@ export class UserData {
 
     snoozed_payments(){
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      // 'X-d_boy_mobile':user.mobile,
-      'X-User-Token': user.authentication_token,
-    });
     let data :any = {};
     data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: data,
       url: this.Url+'/users/snoozed_customers'
     });
@@ -178,18 +164,12 @@ export class UserData {
 
   urgentCollections(){
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let data :any = {};
     data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: data,
       url: this.Url+'/payments/cancel_order_payments'
     });
@@ -209,18 +189,12 @@ export class UserData {
 
   boxCollections(){
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let data :any = {};
     data.d_boy_mobile = user.mobile;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: data,
       url: this.Url+'/delivery_boxes/recieve_box_customers'
     });
@@ -239,19 +213,10 @@ export class UserData {
   }
 
   lastDeliveries(cusotmerId: any){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let data :any = {};
-    // data.d_boy_mobile = user.mobile;
-    console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: data,
       url: this.Url+'/users/'+cusotmerId+'/customer_deliveries_history'
     });
@@ -270,20 +235,10 @@ export class UserData {
   }
 
   lastPayments(cusotmerId: any) {
-
-     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let data :any = {};
-    // data.d_boy_mobile = user.mobile;
-    console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: data,
       url: this.Url+'/users/'+cusotmerId+'/customer_payment_history'
     });
@@ -303,14 +258,6 @@ export class UserData {
   }
 
   paynow(id: any,due: any,bill: any,deviceId: any,payment: any) {
-
-     let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let a = parseInt(payment);
     console.log(due);
     console.log(bill);
@@ -321,10 +268,9 @@ export class UserData {
       cash_paid: a, 
       device_id: deviceId
     }
-    console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Post,
-      headers: headers,
+      headers: this.getHeader(),
       body: data,
       url: this.Url+'/payments/deposit_due_balance'
     });
@@ -345,19 +291,12 @@ export class UserData {
 
 
   device_deliverie(){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-    });
     let data :any = {};
     data.delivery_status = 0;
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       params: JSON.stringify(data),
       url: this.Url+'/deliveries/device_deliveries'
     });
@@ -375,14 +314,7 @@ export class UserData {
     });
   };
 
-  upload(data: any){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-      'Accept':'application/json',
-      'X-User-Mobile':user.mobile,
-      'X-User-Token': user.authentication_token
-       });
+  upload(data: any) {
     console.log(data);
     // let data2: any = {};
     let main: any = {};
@@ -392,7 +324,7 @@ export class UserData {
     // main._json.push(data2);
     let options = new RequestOptions({ 
       method: RequestMethod.Put,
-      headers: headers,
+      headers: this.getHeader(),
       body: main,
       url: this.Url+'/deliveries/update_now'
     });
@@ -411,19 +343,9 @@ export class UserData {
   };
 
   deliveredItems(){
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-       'Accept':'application/json',
-       'X-User-Mobile':user.mobile,
-       'X-User-Token': user.authentication_token
-        });
-    let data :any = {};
-    data.delivery_status = 1;
-    console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       // params: JSON.stringify(data),
       url: this.Url+'/deliveries/device_deliveries_status?delivery_status=2'
     });
@@ -444,13 +366,6 @@ export class UserData {
 
   boxAssign(deliveryId: any, customerId: any) {
     console.log(deliveryId);
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-       'Accept':'application/json',
-       'X-User-Mobile':user.mobile,
-       'X-User-Token': user.authentication_token
-        });
     let data :any = {};
     data.delivery_box = {
       customer_id: customerId,
@@ -459,7 +374,7 @@ export class UserData {
     console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Post,
-      headers: headers,
+      headers: this.getHeader(),
       body: JSON.stringify(data),
       url: this.Url+'/delivery_boxes/customer_delivery_box/'
     });
@@ -479,20 +394,9 @@ export class UserData {
 
 
     canceledItems(){
-      let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-      console.log(user);
-    let headers = new Headers({ 
-      'Content-Type': 'application/json',
-       'Accept':'application/json',
-       'X-User-Mobile':user.mobile,
-       'X-User-Token': user.authentication_token
-     });
-    //let data :any = {};
-    //data.delivery_status = 2;
-    //console.log(data);
     let options = new RequestOptions({ 
       method: RequestMethod.Get,
-      headers: headers,
+      headers: this.getHeader(),
       //params: JSON.stringify(data),
       url: this.Url+'/deliveries/device_deliveries_status?delivery_status=1'
     });
@@ -511,16 +415,9 @@ export class UserData {
   };
 
   editTodayDeliveries(data:any) {
-    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-       'Accept':'application/json',
-       'X-User-Mobile':user.mobile,
-       'X-User-Token': user.authentication_token
-     });
     let options = new RequestOptions({
       method: RequestMethod.Put,
-      headers: headers,
+      headers: this.getHeader(),
       body: JSON.stringify(data.package),
       url: this.Url+'/deliveries/'+data.Id+'/edit_today_delivery'
     });
@@ -567,6 +464,16 @@ export class UserData {
       return value;
     });
   };
+
+  getHeader() {
+    let user = JSON.parse(window.localStorage.getItem('loginDetails'));
+    return new Headers({
+      'Content-Type': 'application/json',
+       'Accept':'application/json',
+       'X-User-Mobile':user.mobile,
+       'X-User-Token': user.authentication_token
+     });
+  }
 }
 
 

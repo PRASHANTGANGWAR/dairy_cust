@@ -1,9 +1,7 @@
 <ion-content>
 	<ion-card>
-		<ion-card-content>
-			{{productInfo.product.product.display_name}}
-		</ion-card-content>
-		<ion-card-content>
+		<ion-card-content  text-center>
+			<h1>{{productInfo.product.product.display_name}}</h1>
 			<button ion-button icon-only class="op-btn" color="primary" (click)="decrementBuff()">
               <ion-icon name="md-remove" color="light"></ion-icon>
             </button>
