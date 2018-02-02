@@ -7,45 +7,32 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'edit-quantity.html',
 })
 export class EditQuantityModal {
-  private productInfo:any = {};
+  private customerId:number;
   private loading :any;
+  public DeliveryData:any = {};
+  private showData:boolean = false;
   constructor(public viewCtrl: ViewController,
               public navCtrl : NavController,
               private uData: UserData,
               private navParm: NavParams,
               private _loading: LoadingController,
               private toastCtrl: ToastController) {
-    this.productInfo = this.navParm.get('ProductInfo');
+    let self = this;
+    this.customerId = this.navParm.get('id');
+    this.uData.getLastDeliveryInfo(this.customerId).then((data:any)=>{
+      self.showData = true;
+      self.DeliveryData = data;
+    })
   }
  
   closeModal() {
    this.viewCtrl.dismiss();
   }
 
-  changeQuantity() {
-    this.showLoader();
-    let updateData = {"Id": this.productInfo.delId,
-                      "package":{"delivery":
-                                  {"delivery_packages_attributes":
-                                    {"0": {"id": this.productInfo.product.id, "quantity":this.productInfo.product.quantity }}
-                                  }
-                                }
-                      };
-    this.uData.editTodayDeliveries(updateData).then((data:any)=> {
-      this.loading.dismiss();
-      this.presentToast(data.notice);
-      this.viewCtrl.dismiss();
-    })
+  openEditModal() {
   }
 
-  decrementBuff() {
-    if(this.productInfo.product.quantity > 0 )
-    this.productInfo.product.quantity--;
-  }
-
-  incrementBuff() {
-    this.productInfo.product.quantity++;
-  }
+  
 
   showLoader() {
     this.loading = this._loading.create({

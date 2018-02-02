@@ -1,20 +1,33 @@
-<ion-content>
-	<ion-card>
-		<ion-card-content  text-center>
-			<h1>{{productInfo.product.product.display_name}}</h1>
-			<button ion-button icon-only class="op-btn" color="primary" (click)="decrementBuff()">
-              <ion-icon name="md-remove" color="light"></ion-icon>
-            </button>
-            <button ion-button clear class="op-btn mid-btn">
-              {{productInfo.product.quantity}}
-            </button>
-            <button ion-button icon-only class="op-btn" color="primary" (click)="incrementBuff()">
-              <ion-icon name="md-add" color="light"></ion-icon>
-            </button>
-		</ion-card-content>
-		<ion-card-content>
-			<button color="primary" (click)="changeQuantity()" ion-button block round text-uppercase>Save</button>
-			<button (click)="closeModal()" type="button"  color="primary" ion-button block round text-uppercase>CANCEL</button>     
-		</ion-card-content>
-	</ion-card>
+<!-- <ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle="left" style="display: inline-block !important;background:#ecec27">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> Previous Delivery </ion-title>
+  </ion-navbar>
+</ion-header> -->
+<ion-content *ngIf="showData" padding>
+    <h2 text-wrap no-lines class="pendingMar"><b>Name:</b> {{DeliveryData.customer_name}}</h2>
+    <h2 text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{DeliveryData.address.mobile}}</h2>
+    <h2 text-wrap no-lines class="pendingMar"><b>Address:</b> {{DeliveryData.address.name}} {{ DeliveryData.address.area.name}} </h2>
+    <h2 text-wrap no-lines class="pendingMar"><b>Box Details:</b> {{DeliveryData.box_status}}</h2>
+    <ion-card *ngFor="let pack of DeliveryData.delivery_packages" >
+      <ion-item style="text-align:center;" style.background-color = "{{pack.product.display_name == 'Desi Cow milk' ? '#DF3796' : '#831cd8'}}">
+        <div class="col" >
+          <h2 style="color:#fff;">{{pack.product.category.name}}</h2>
+        </div>
+        <div class="col" >
+          <h2 style="color:#fff;">{{pack.product.name}}</h2>
+        </div>
+        <div class="col" >
+          <h2 style="color:#fff;">Quantity: {{pack.quantity}}</h2>
+        </div>
+      </ion-item>
+    </ion-card>
+    <button (click)="openEditModal()">
+      Edit
+    </button>
+    <button (click)="closeModal()">
+      cancel
+    </button>
 </ion-content>

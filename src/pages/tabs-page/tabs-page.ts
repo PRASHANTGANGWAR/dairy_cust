@@ -170,7 +170,7 @@ export class TabsPage {
     }, diff);
   }
 
-  public insertProduct(pro: any,deliveryId: any,status: any) {
+  public insertProduct(pro: any,deliveryId: any,status: any, customerId:number) {
     this.db.getDeliveryStatus(deliveryId)
       .then(data => {
           this.DeiliveredProducts++;
@@ -216,7 +216,7 @@ export class TabsPage {
             }
           }
           window.localStorage.setItem('pendingProductsQuantity',JSON.stringify(this.pendingProductsQuantity));
-          this.MsgAlert('Success','Delivery status is updated successfully');
+          this.MsgAlert('Success','Delivery status is updated successfully', customerId);
           console.log(data);
           })
           .catch(ex => {
@@ -497,7 +497,7 @@ assign(deliveryId: any, customerId: any) {
     alert.present();
   }
 
-confirmDelivered(pro: any,deliveryId: any,status: any){
+confirmDelivered(pro: any,deliveryId: any,status: any,customerId:number){
   let alert = this._alert.create({
       title: "Confirm",
       subTitle: "Package will be delivered!",
@@ -505,7 +505,7 @@ confirmDelivered(pro: any,deliveryId: any,status: any){
       {
         text: 'Yes',
         handler: () => {
-          this.insertProduct(pro,deliveryId,status);
+          this.insertProduct(pro,deliveryId,status,customerId);
         }
       }
       ],
@@ -514,7 +514,7 @@ confirmDelivered(pro: any,deliveryId: any,status: any){
     alert.present();
 }
 
-confirmRejected(pro: any,deliveryId: any,status: any){
+confirmRejected(pro: any,deliveryId: any,status: any,customerId:number){
   let alert = this._alert.create({
       title: "Confirm",
       subTitle: "Package will be cancelled!",
@@ -522,7 +522,7 @@ confirmRejected(pro: any,deliveryId: any,status: any){
       {
         text: 'Yes',
         handler: () => {
-          this.insertProduct(pro,deliveryId,status);
+          this.insertProduct(pro,deliveryId,status,customerId);
         }
       }
       ],
@@ -531,30 +531,31 @@ confirmRejected(pro: any,deliveryId: any,status: any){
     alert.present();
 }
   
-doAlert(pro: any,deliveryId: any) {
+doAlert(pro: any,deliveryId: any,customerId:number) {
     let alert = this._alert.create({
       buttons: [
       {
         text: 'Delivered',
         handler: () => {
-          this.confirmDelivered(pro,deliveryId,'1');
+          this.confirmDelivered(pro,deliveryId,'1',customerId);
         }
       },{
         text: 'Cancelled',
         handler: () => {
-          this.confirmRejected(pro,deliveryId,'2');
-        }
-      },{
-        text: 'Edit',
-        handler: () => {
-          let data:any = {
-            product:pro,
-            delId:deliveryId
-          }
-          let modal = this.modalCtrl.create(EditQuantityModal,{ProductInfo:data});
-          modal.present();          
+          this.confirmRejected(pro,deliveryId,'2',customerId);
         }
       }
+      // ,{
+      //   text: 'Edit',
+      //   handler: () => {
+      //     let data:any = {
+      //       product:pro,
+      //       delId:deliveryId
+      //     }
+      //     let modal = this.modalCtrl.create(EditQuantityModal,{ProductInfo:data});
+      //     modal.present();          
+      //   }
+      // }
       ],
       cssClass: 'custom-alert-delivery'
     });
@@ -572,11 +573,16 @@ doAlert(pro: any,deliveryId: any) {
     this.loading.dismiss();
   }
 
-  MsgAlert(type: string,message: string) {
+  MsgAlert(type: string,message: string,customerId ?:number) {
     console.log(type);
     let alert = this._alert.create({
       subTitle: message,
-      buttons: ['Ok'],
+      buttons: [{
+        text:'Ok',
+        handler: () => {
+          let modal = this.modalCtrl.create(EditQuantityModal,{id:customerId});
+          modal.present(); 
+        }}],
       cssClass: "msgAlrt"
     });
     alert.present();

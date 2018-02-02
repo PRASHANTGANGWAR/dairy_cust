@@ -82,7 +82,7 @@
 			<!-- <button ion-button small>Box Req.</button> -->
 			
   </ion-item>
-  <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id)">
+  <ion-card *ngFor="let pack of user.delivery_packages" (click)="doAlert(pack,user.id,user.customer_id)">
 <ion-item style="text-align:center;" style.background-color = "{{pack.product.display_name == 'Desi Cow milk' ? '#DF3796' : '#831cd8'}}">
 	 <div class="col" >
 		  <h2 style="color:#fff;">{{pack.product.display_name}}</h2>
@@ -98,9 +98,6 @@
 
 </ion-slides>
 <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
-      <ion-col>
-        <button ion-button  block style="background:#DF3796;border-radius: 20px;font-size: 17px;">Previous Deliveries</button> 
-      </ion-col>
       <ion-col>
         <button ion-button (click)="updateNowConfirm()" [hidden]="flag" block style="background:#DF3796;border-radius: 20px;font-size: 17px;">UPDATE NOW</button>
       </ion-col>
