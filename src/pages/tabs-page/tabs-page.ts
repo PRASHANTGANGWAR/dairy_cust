@@ -545,17 +545,18 @@ doAlert(pro: any,deliveryId: any,customerId:number) {
           this.confirmRejected(pro,deliveryId,'2',customerId);
         }
       }
-      // ,{
-      //   text: 'Edit',
-      //   handler: () => {
-      //     let data:any = {
-      //       product:pro,
-      //       delId:deliveryId
-      //     }
-      //     let modal = this.modalCtrl.create(EditQuantityModal,{ProductInfo:data});
-      //     modal.present();          
-      //   }
-      // }
+      ,{
+        text: 'Edit',
+        handler: () => {
+          let data:any = {
+            product:pro,
+            delId:deliveryId
+          }
+          this.editQuantity(data);
+          // let modal = this.modalCtrl.create(EditQuantityModal,{ProductInfo:data});
+          // modal.present();          
+        }
+      }
       ],
       cssClass: 'custom-alert-delivery'
     });
@@ -580,8 +581,10 @@ doAlert(pro: any,deliveryId: any,customerId:number) {
       buttons: [{
         text:'Ok',
         handler: () => {
-          let modal = this.modalCtrl.create(EditQuantityModal,{id:customerId});
-          modal.present(); 
+          if(customerId){
+            let modal = this.modalCtrl.create(EditQuantityModal,{id:customerId});
+            modal.present();            
+          }
         }}],
       cssClass: "msgAlrt"
     });
@@ -623,6 +626,53 @@ doAlert(pro: any,deliveryId: any,customerId:number) {
       }
       ],
       cssClass: 'logout'
+    });
+    alert.present();
+}
+
+editQuantity(packageData:any) {
+      let alert = this._alert.create({
+      title: "Enter Quantity",
+      inputs: [ 
+        {
+          type: 'number',
+          name: 'Amount',
+          placeholder: 'Enter Amount',
+          value: 'quantity',
+          id: 'abc',
+          min:'0'
+        },
+      ],
+      buttons: [
+      {
+        text: 'SAVE',
+        handler: (quantity) => {
+          console.log(quantity,packageData);
+          this.showLoader();
+          let updateData = {"Id": packageData.delId,
+                      "package":{"delivery":
+                                  {"delivery_packages_attributes":
+                                    {"0": {"id": packageData.product.id, "quantity":quantity.Amount }}
+                                  }
+                                }
+                      };
+          this.userData.editTodayDeliveries(updateData).then((data:any)=> {
+             this.loading.dismiss();
+             this.MsgAlert('Success',data.notice);
+             for(let productCount=0;productCount < this.AppUsers.length; productCount++){
+               if(this.AppUsers[productCount].id == packageData.delId) {
+                 for(let packCount = 0;packCount < this.AppUsers[productCount].delivery_packages.length;packCount++) {
+                   if(this.AppUsers[productCount].delivery_packages[packCount].id == packageData.product.id){
+                     this.AppUsers[productCount].delivery_packages[packCount].quantity = quantity.Amount;  
+                   }
+                 }
+               }
+             }
+          })
+        }
+      }
+      ],
+      cssClass: 'custom-alert'
     });
     alert.present();
 }

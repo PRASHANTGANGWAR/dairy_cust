@@ -494,6 +494,27 @@ export class UserData {
        'X-User-Token': user.authentication_token
      });
   }
+
+  editTodayDeliveries(data:any) {
+    let options = new RequestOptions({
+      method: RequestMethod.Put,
+      headers: this.getHeader(),
+      body: JSON.stringify(data.package),
+      url: this.Url+'/deliveries/'+data.Id+'/edit_today_delivery'
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
 }
 
 
