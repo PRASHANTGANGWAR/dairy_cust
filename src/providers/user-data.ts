@@ -414,12 +414,12 @@ export class UserData {
     });
   };
 
-  editTodayDeliveries(data:any) {
+  deleveryRefund(data:any) {
     let options = new RequestOptions({
       method: RequestMethod.Put,
       headers: this.getHeader(),
-      body: JSON.stringify(data.package),
-      url: this.Url+'/deliveries/'+data.Id+'/edit_today_delivery'
+      body: JSON.stringify(data),
+      url: this.Url+'/shop/delivery_refund'
     });
     return new Promise(resolve => {
       this.http.request(new Request(options))
@@ -464,6 +464,26 @@ export class UserData {
       return value;
     });
   };
+
+  getLastDeliveryInfo(id:number) {
+    let options = new RequestOptions({
+      method: RequestMethod.Get,
+      headers: this.getHeader(),
+      url: this.Url+'/shop/previous_delivery?customer_id='+id
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
 
   getHeader() {
     let user = JSON.parse(window.localStorage.getItem('loginDetails'));

@@ -1,16 +1,7 @@
-<!-- <ion-header>
-  <ion-navbar>
-      <button ion-button menuToggle="left" style="display: inline-block !important;background:#ecec27">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title> Previous Delivery </ion-title>
-  </ion-navbar>
-</ion-header> -->
 <ion-content *ngIf="showData" padding>
     <h2 text-wrap no-lines class="pendingMar"><b>Name:</b> {{DeliveryData.customer_name}}</h2>
     <h2 text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{DeliveryData.address.mobile}}</h2>
     <h2 text-wrap no-lines class="pendingMar"><b>Address:</b> {{DeliveryData.address.name}} {{ DeliveryData.address.area.name}} </h2>
-    <h2 text-wrap no-lines class="pendingMar"><b>Box Details:</b> {{DeliveryData.box_status}}</h2>
     <ion-card *ngFor="let pack of DeliveryData.delivery_packages" >
       <ion-item style="text-align:center;" style.background-color = "{{pack.product.display_name == 'Desi Cow milk' ? '#DF3796' : '#831cd8'}}">
         <div class="col" >
@@ -24,10 +15,96 @@
         </div>
       </ion-item>
     </ion-card>
-    <button (click)="openEditModal()">
-      Edit
-    </button>
-    <button (click)="closeModal()">
-      cancel
-    </button>
+    <ion-card>
+      <ion-col>
+        <button ion-btn (click)="openEditModal()" style="background:#DF3796;border-radius: 20px;font-size: 17px;">
+          <h2>EDIT</h2>
+        </button>
+        <button ion-btn (click)="closeModal()" style="background:#DF3796;border-radius: 20px;font-size: 17px;">
+          <h2>SKIP</h2>
+        </button>
+      </ion-col>
+    </ion-card>
+</ion-content>
+
+<!-- edit package quantity -->
+<ion-content *ngIf="showEditData" padding>
+    <ion-card *ngFor="let editPack of DeliveryData.delivery_packages; let i = index">
+        <div class="col" >
+          <h2>{{editPack.product.category.name}}</h2>
+        </div>
+        <div class="col" >
+          {{editPack.product.name}}
+        </div>
+        <div class="col" >
+          <ion-input type="number" min="0" [(ngModel)]="editPack.quantity"  (input)="setQuantity($event.target.value, i)"></ion-input>
+        </div>
+    </ion-card>
+    <button (click)="submitQuntity()"> Submit </button>
+</ion-content>
+
+<!-- payment content -->
+<ion-content *ngIf="paymentData" padding>
+  <ion-card>
+    <ion-item>
+        <ion-grid class="custom-collect-font">
+        <ion-row class="custom-collect-height">
+          <ion-col col-4 text-wrap no-lines>
+            <b>Customer</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Mobile</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Due</b>
+          </ion-col>
+        </ion-row>
+          <ion-row>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Name</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Number</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Balance</b>
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            <b>Amount</b>
+          </ion-col>
+        </ion-row>
+        <ion-row style="font-size: 11px;">
+          <ion-col col-4 text-wrap no-lines>
+            {{user.customer_name}}
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            {{user.address.mobile}}
+          </ion-col>
+          <ion-col col-4 text-wrap no-lines>
+            {{user.due_balance}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div style="height: 31px;">
+        <ion-item text-wrap no-lines class="custom-margin">
+          <h2 class="custom-collect-div"><b>Device:</b> 
+          <!-- missing -->
+          {{user.device_name}}</h2>
+        </ion-item>
+      </div>
+      <div>
+        <ion-item text-wrap no-lines class="custom-margin">
+            <h2 class="custom-collect-div2"><b>Address: </b>{{user.address.name}} {{ user.address.area.name}}</h2>
+        </ion-item>
+      </div>
+
+    <ion-row responsive-sm style="width:100%;">
+      <ion-col>
+        <button ion-button small (click)="paynowBox(user.customer_id,user.due_balance,user.billing_amount,user.device_id)" block>Pay Now</button>
+      </ion-col>
+    </ion-row>
+    </ion-item>
+
+  </ion-card>
 </ion-content>
