@@ -555,7 +555,7 @@ doAlert(pro: any,deliveryId: any,customerId:number) {
           }
           this.editQuantity(data);
         },
-        cssClass: 'custom-alert-delivery'
+        cssClass: 'custom-alert-edit'
       }
       ]
     });
