@@ -1,6 +1,17 @@
-<ion-content *ngIf="showData" padding>
+<ion-header>
+  <ion-navbar>
+        <ion-buttons left>
+            <button ion-button icon-only (click)="viewCtrl.dismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+    <ion-title>Previous Delivery</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="showData" class="previous-delivery" padding>
     <h2 text-wrap no-lines class="pendingMar"><b>Name:</b> {{DeliveryData.customer_name}}</h2>
-    <h2 text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{DeliveryData.address.mobile}}</h2>
+    <h2 *ngIf="DeliveryData.address.mobile" text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{DeliveryData.address.mobile}}</h2>
     <h2 text-wrap no-lines class="pendingMar"><b>Address:</b> {{DeliveryData.address.name}} {{ DeliveryData.address.area.name}} </h2>
     <ion-card *ngFor="let pack of DeliveryData.delivery_packages" >
       <ion-item style="text-align:center;" style.background-color = "{{pack.product.display_name == 'Desi Cow milk' ? '#DF3796' : '#831cd8'}}">
@@ -16,19 +27,25 @@
       </ion-item>
     </ion-card>
     <ion-card>
+    <ion-row responsive-sm style="width:100%;">
       <ion-col>
-        <button ion-btn (click)="openEditModal()" style="background:#DF3796;border-radius: 20px;font-size: 17px;">
-          <h2>EDIT</h2>
-        </button>
-        <button ion-btn (click)="closeModal()" style="background:#DF3796;border-radius: 20px;font-size: 17px;">
-          <h2>SKIP</h2>
+        <button ion-button block (click)="openEditModal()" class="act-btn">
+          EDIT
         </button>
       </ion-col>
+    </ion-row>
+    <ion-row responsive-sm style="width:100%;">
+      <ion-col>
+        <button ion-button block (click)="closeModal()" class="act-btn">
+          SKIP
+        </button>
+      </ion-col>
+    </ion-row>
     </ion-card>
 </ion-content>
 
 <!-- edit package quantity -->
-<ion-content *ngIf="showEditData" padding>
+<ion-content *ngIf="showEditData"  class="previous-delivery"  padding>
     <ion-card *ngFor="let editPack of DeliveryData.delivery_packages; let i = index">
         <div class="col" >
           <h2>{{editPack.product.category.name}}</h2>
@@ -40,11 +57,24 @@
           <ion-input type="number" min="0" [(ngModel)]="editPack.quantity"  (input)="setQuantity($event.target.value, i)"></ion-input>
         </div>
     </ion-card>
-    <button (click)="submitQuntity()"> Submit </button>
+    <ion-row responsive-sm style="width:100%;">
+      <ion-col>
+        <button ion-button block (click)="submitQuntity()" class="act-btn">
+          Submit
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm style="width:100%;">
+      <ion-col>
+        <button ion-button block (click)="closeModal()" class="act-btn">
+          SKIP
+        </button>
+      </ion-col>
+    </ion-row>
 </ion-content>
 
 <!-- payment content -->
-<ion-content *ngIf="paymentData" padding>
+<ion-content *ngIf="paymentData" class="previous-delivery" padding>
   <ion-card>
     <ion-item>
         <ion-grid class="custom-collect-font">

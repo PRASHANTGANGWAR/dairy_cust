@@ -557,7 +557,8 @@ doAlert(pro: any,deliveryId: any,customerId:number) {
         },
         cssClass: 'custom-alert-edit'
       }
-      ]
+      ],
+      cssClass: 'custom_Alert_Design'
     });
     alert.present();
   }
