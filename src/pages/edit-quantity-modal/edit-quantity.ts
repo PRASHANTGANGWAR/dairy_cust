@@ -26,9 +26,14 @@ export class EditQuantityModal {
     let self = this;
     this.customerId = this.navParm.get('id');
     this.uData.getLastDeliveryInfo(this.customerId).then((data:any)=>{
-      self.showData = true;
-      self.DeliveryData = data;
-      self.deliveryPackages = data.delivery_packages;
+      if(data.notice == "No previous delivery present for this customer") {
+        this.presentToast(data.notice);
+        this.closeModal();
+      } else {
+        self.showData = true;
+        self.DeliveryData = data;
+        self.deliveryPackages = data.delivery_packages;
+      }
     })
   }
  

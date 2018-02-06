@@ -23,6 +23,8 @@
 
 .custom-alert-delivery{
   text-align: center;
+  background: #26cc73!important;
+  color: #fff!important;
   margin:auto;
   .alert-button:first-child{
     background: #26cc73;
@@ -46,6 +48,13 @@
   padding: 13px 23px;
   }
 }
+
+.alertDanger {
+  text-align: center;
+  background: #ff0000!important;
+  color: #fff!important;
+}
+
 
 .confirm-action-canceled{
    text-align: center;

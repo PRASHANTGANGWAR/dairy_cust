@@ -535,30 +535,29 @@ doAlert(pro: any,deliveryId: any,customerId:number) {
     let alert = this._alert.create({
       buttons: [
       {
-        text: 'Delivered',
+        text: 'DELIVERED',
         handler: () => {
           this.confirmDelivered(pro,deliveryId,'1',customerId);
-        }
+        },
+        cssClass: 'custom-alert-delivery'
       },{
-        text: 'Cancelled',
+        text: 'CANCELLED',
         handler: () => {
           this.confirmRejected(pro,deliveryId,'2',customerId);
-        }
-      }
-      ,{
-        text: 'Edit',
+        },
+        cssClass: 'alertDanger'
+      },{
+        text: 'EDIT',
         handler: () => {
           let data:any = {
             product:pro,
             delId:deliveryId
           }
           this.editQuantity(data);
-          // let modal = this.modalCtrl.create(EditQuantityModal,{ProductInfo:data});
-          // modal.present();          
-        }
+        },
+        cssClass: 'custom-alert-delivery'
       }
-      ],
-      cssClass: 'custom-alert-delivery'
+      ]
     });
     alert.present();
   }
