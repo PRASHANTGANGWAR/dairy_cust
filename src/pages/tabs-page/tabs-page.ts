@@ -637,7 +637,7 @@ editQuantity(packageData:any) {
         {
           type: 'number',
           name: 'Amount',
-          placeholder: 'Enter Amount',
+          placeholder: 'Enter Quantity',
           value: 'quantity',
           id: 'abc',
           min:'0'
