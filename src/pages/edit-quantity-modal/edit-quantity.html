@@ -10,9 +10,11 @@
 </ion-header>
 
 <ion-content *ngIf="showData" class="previous-delivery" padding>
+    <ion-item>
     <h2 text-wrap no-lines class="pendingMar"><b>Name:</b> {{DeliveryData.customer_name}}</h2>
     <h2 *ngIf="DeliveryData.address.mobile" text-wrap no-lines class="pendingMar"><b>Mobile:</b> {{DeliveryData.address.mobile}}</h2>
     <h2 text-wrap no-lines class="pendingMar"><b>Address:</b> {{DeliveryData.address.name}} {{ DeliveryData.address.area.name}} </h2>
+    </ion-item>
     <ion-card *ngFor="let pack of DeliveryData.delivery_packages" >
       <ion-item style="text-align:center;" style.background-color = "{{pack.product.display_name == 'Desi Cow milk' ? '#DF3796' : '#831cd8'}}">
         <div class="col" >
