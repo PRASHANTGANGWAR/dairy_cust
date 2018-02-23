@@ -25,7 +25,8 @@
   text-align: center!important;
   background: #26cc73!important;
   color: #fff!important;
-  margin:auto;
+  margin:0 2px 0 0!important;
+
   .alert-button:first-child{
     background: #26cc73;
     width: 45%;
@@ -53,12 +54,14 @@
   text-align: center!important;
   background: #bd00e8!important;
   color: #fff!important;
+  margin : 0 2px 0 0!important;
 }
 
 .alertDanger {
   text-align: center!important;
   background: #DF3796!important;
   color: #fff!important;
+  margin: 6px 2px 6px 0px !important;
 }
 
 
