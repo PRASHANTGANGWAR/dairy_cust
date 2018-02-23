@@ -196,7 +196,7 @@ export class TabsPage {
                     }
                    
                     if(status == 1){
-                      this.DeliveredPackets += pro.quantity;
+                      this.DeliveredPackets =  Math.floor(this.DeliveredPackets) +  pro.quantity;
                     }
                     if(this.AppUsers[i].delivery_packages.length == 0){
                       this.db.updateFinalStatus(this.AppUsers[i].id);
