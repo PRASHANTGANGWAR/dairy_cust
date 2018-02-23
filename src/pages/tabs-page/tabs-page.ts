@@ -647,7 +647,16 @@ editQuantity(packageData:any) {
       {
         text: 'SAVE',
         handler: (quantity) => {
-          console.log(quantity,packageData);
+      let alert = this._alert.create({
+      subTitle: "Are you sure to edit quantity?",
+      buttons: [
+       {
+        text: 'No',
+        role: 'cancel'
+      },{
+        text:'Yes',
+        handler: () => {
+           console.log(quantity,packageData);
           this.showLoader();
           let updateData = {"Id": packageData.delId,
                       "package":{"delivery":
@@ -669,6 +678,10 @@ editQuantity(packageData:any) {
                }
              }
           })
+        }}],
+      cssClass: "logout"
+    });
+    alert.present();
         }
       }
       ],
