@@ -27,6 +27,8 @@ import { UserData } from '../providers/user-data';
 import { SQLite } from '@ionic-native/sqlite';
 import { DBProvider } from '../providers/DBProvider';
 import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
+ import { ReturnQuantityPage } from '../pages/return-quantity/return-quantity';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
     Splash,
     SnoozedPage,
     PendingsnoozedPage,
-    EditQuantityModal
+    EditQuantityModal,
+    ReturnQuantityPage
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,8 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
     Splash,
     SnoozedPage,
     PendingsnoozedPage,
-    EditQuantityModal
+    EditQuantityModal,
+    ReturnQuantityPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

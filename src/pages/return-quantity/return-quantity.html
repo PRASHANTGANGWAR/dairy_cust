@@ -1,0 +1,52 @@
+<ion-content>
+	<ion-card class="card-details" >
+       <h1 class="bold"> EDIT RETURN QUANTITY</h1>
+	<ion-card-content>
+      <div class="Qty main" text-center>
+        <h4 class="bold"> Cow milk </h4>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="decrementMain('cow')">
+          <ion-icon name="md-remove" color="light"></ion-icon>
+        </button>
+        <button ion-button clear class="op-btn mid-btn">
+          {{mainNumber_cow}}
+        </button>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="incrementMain('cow')">
+          <ion-icon name="md-add" color="light"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+    <ion-card-content>
+      <div class="Qty main" text-center>
+        <h4 class="bold"> Toned milk </h4>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="decrementMain('toned')">
+          <ion-icon name="md-remove" color="light"></ion-icon>
+        </button>
+        <button ion-button clear class="op-btn mid-btn">
+          {{mainNumber_toned}}
+        </button>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="incrementMain('toned')">
+          <ion-icon name="md-add" color="light"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+    <ion-card-content>
+      <div class="Qty main" text-center>
+        <h4 class="bold"> Buffalo milk </h4>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="decrementMain('buffalo')">
+          <ion-icon name="md-remove" color="light"></ion-icon>
+        </button>
+        <button ion-button clear class="op-btn mid-btn">
+          {{mainNumber_buffalo}}
+        </button>
+        <button ion-button icon-only class="op-btn" color="primary" (click)="incrementMain('buffalo')">
+          <ion-icon name="md-add" color="light"></ion-icon>
+        </button>
+      </div>
+    </ion-card-content>
+
+      <button color="primary" (click)="proceed()" ion-button block round text-uppercase>PROCEED</button>
+	      <button (click)="closeModal()" type="button"  color="secondary" ion-button block round text-uppercase>CANCEL</button>
+			
+
+</ion-card>
+</ion-content>

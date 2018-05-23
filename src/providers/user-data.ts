@@ -12,7 +12,8 @@ export class UserData {
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  Url = "http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com";
+ // Url = "http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com";
+  Url = "http://ec2-13-127-218-92.ap-south-1.compute.amazonaws.com";
 
   constructor(
     public events: Events,

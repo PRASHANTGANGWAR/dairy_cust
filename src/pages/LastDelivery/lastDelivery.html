@@ -59,7 +59,9 @@
       </ion-col>
       </ion-row>
           <h3 text-wrap no-lines style="padding-top:2px;"><b>Total:</b> {{user.total}}</h3>
-  </ion-item>
+  </ion-item> 
+   <!--  <button *ngIf="getdate(user.date)" (click)="orderChoice(orders)" ion-button  round color="primary" text-uppercase no-margin>Update</button>  -->
+   <button  (click)="returnOrder(user.total)" ion-button  round color="primary" text-uppercase no-margin>Return Order</button> 
 </ion-card>
 <ion-card responsive-sm [hidden]='Deliveries.length'>
     <h3>No past deliveries</h3>
