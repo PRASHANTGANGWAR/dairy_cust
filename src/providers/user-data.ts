@@ -14,6 +14,7 @@ export class UserData {
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
  // Url = "http://ec2-13-126-16-236.ap-south-1.compute.amazonaws.com";
   Url = "http://ec2-13-127-218-92.ap-south-1.compute.amazonaws.com";
+   //  Url = "http://app.dairylac.com";
 
   constructor(
     public events: Events,
@@ -21,6 +22,29 @@ export class UserData {
     private http: Http
   ) {}
 
+
+  previousDeliveries(cusotmerId: any){ 
+    let data :any = {};
+    let options = new RequestOptions({ 
+      method: RequestMethod.Get,
+      headers: this.getHeader(),
+      params: data,
+      url: this.Url+'shop/previous_delivery?customer_id='+cusotmerId 
+    });
+    return new Promise(resolve => {
+      this.http.request(new Request(options))
+      .subscribe(
+        res => {
+          resolve(res.json());
+          //this.setUsername(res.json());
+        },
+        err => {
+          resolve(err.json());
+        }
+      );
+    });
+  }
+  
   hasFavorite(sessionName: string): boolean {
     return (this._favorites.indexOf(sessionName) > -1);
   };
