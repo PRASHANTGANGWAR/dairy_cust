@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicPageModule } from 'ionic-angular';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,6 +29,8 @@ import { SQLite } from '@ionic-native/sqlite';
 import { DBProvider } from '../providers/DBProvider';
 import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
  import { ReturnQuantityPage } from '../pages/return-quantity/return-quantity';
+ import { PreviousDeliveryPage } from '../pages/previous-delivery/previous-delivery';
+
 
 
 @NgModule({
@@ -47,7 +50,8 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
     SnoozedPage,
     PendingsnoozedPage,
     EditQuantityModal,
-    ReturnQuantityPage
+    ReturnQuantityPage,
+    PreviousDeliveryPage
   ],
   imports: [
     BrowserModule,
@@ -67,6 +71,8 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
       ]
     }),
+        IonicPageModule.forChild(PreviousDeliveryPage),
+
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -86,7 +92,8 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
     SnoozedPage,
     PendingsnoozedPage,
     EditQuantityModal,
-    ReturnQuantityPage
+    ReturnQuantityPage,
+    PreviousDeliveryPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
