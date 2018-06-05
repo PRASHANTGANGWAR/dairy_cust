@@ -8,7 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { IonicPageModule } from 'ionic-angular';
 import { ConferenceApp } from './app.component';
 import { LastDeliveryPage } from '../pages/LastDelivery/lastDelivery';
 import { CollectionPage } from '../pages/Collections/collection';
@@ -28,6 +28,9 @@ import { SQLite } from '@ionic-native/sqlite';
 import { DBProvider } from '../providers/DBProvider';
 import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
  import { ReturnQuantityPage } from '../pages/return-quantity/return-quantity';
+  import { PreviousDeliveryPage } from '../pages/previous-delivery/previous-delivery';
+
+ 
 
 
 @NgModule({
@@ -47,7 +50,8 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
     SnoozedPage,
     PendingsnoozedPage,
     EditQuantityModal,
-    ReturnQuantityPage
+    ReturnQuantityPage,
+    PreviousDeliveryPage
   ],
   imports: [
     BrowserModule,
@@ -67,6 +71,7 @@ import { EditQuantityModal } from '../pages/edit-quantity-modal/edit-quantity';
         { component: LoginPage, name: 'LoginPage', segment: 'login' },
       ]
     }),
+    IonicPageModule.forChild(PreviousDeliveryPage),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
