@@ -75,7 +75,13 @@
       <ion-col>
         <button ion-button (click)="assign(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;border-radius: 10px;">Box Req.</button>
       </ion-col>
+
       <ion-col>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+       <ion-col>
+        <button ion-button (click)="previousDelivery(user.id,user.customer_id)" [hidden]="flag" block style="background:#bd00e8;border-radius: 10px;">Previous Delivery</button>
       </ion-col>
     </ion-row>
       </div>
@@ -97,7 +103,16 @@
   </ion-slide>
 
 </ion-slides>
-<ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
+<!-- <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
+      <ion-col>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="previousDelivery()" [hidden]="flag" block style="background:#DF3796;border-radius: 20px;font-size: 17px;">Previous Delivery</button>
+      </ion-col>
+      <ion-col>
+      </ion-col>
+    </ion-row> -->
+    <ion-row responsive-sm style="width:100%;" [hidden]="hideButton">
       <ion-col>
       </ion-col>
       <ion-col>

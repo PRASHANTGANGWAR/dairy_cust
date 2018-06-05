@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { UserData } from '../../providers/user-data';
 import {Slides} from 'ionic-angular';
-import {TextInput} from 'ionic-angular';
+import {TextInput,NavController} from 'ionic-angular';
 import {ViewChild} from '@angular/core';
 import { EditQuantityModal } from '../edit-quantity-modal/edit-quantity';
 // import { ModalPage } from '../modal/modal';
 import { DBProvider } from '../../providers/DBProvider';
+import { PreviousDeliveryPage } from '../previous-delivery/previous-delivery';
+
 import { Events, MenuController, AlertController, LoadingController,ModalController} from 'ionic-angular';
 declare var window:any;
 //import * as _ from 'underscore';
@@ -33,6 +35,7 @@ export class TabsPage {
   private loading :any;
 
   constructor( public events: Events,
+               public navCtrl: NavController,
                public menu: MenuController,
                public userData: UserData,
                private _loading: LoadingController,
@@ -47,6 +50,18 @@ export class TabsPage {
   ionViewDidLoad() {
     this.getAllPendings();
   }
+
+
+  public previousDelivery(deliveryId: any, customerId: any) {
+     this.navCtrl.push(PreviousDeliveryPage, {
+      deliveryId: deliveryId,
+      customerId: customerId
+    });
+
+     console.log(customerId);
+     console.log(deliveryId);
+      }
+
   public deleteAppUser() {
     this.db.deleteAppUser()
       .then(data => {
@@ -455,6 +470,7 @@ export class TabsPage {
 boxAssign(deliveryId: any, customerId: any) {
   this.showLoader();
   this.userData.boxAssign(deliveryId,customerId).then(results=>{
+          debugger;
           console.log(results);
           let resultData : any ={};
            resultData = results;

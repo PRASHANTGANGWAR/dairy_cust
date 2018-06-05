@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController , NavParams} from 'ionic-angular';
 import { UserData } from '../../providers/user-data';
 
 import {Slides} from 'ionic-angular';
@@ -32,6 +32,12 @@ declare var window:any;
 
 
 export class PreviousDeliveryPage {
+
+	/*nav params*/
+	 public cust_id:any;
+  public deliveryId:any;
+	/*nav params*/
+
 previousDeliverys: any=[]=[];
  public TotalPackets : number = 0;
  public customerId : number = 98452;
@@ -59,17 +65,85 @@ previousDeliverys: any=[]=[];
                private _loading: LoadingController,
                public db: DBProvider,
                private _alert: AlertController,
-               private modalCtrl: ModalController) {
+               private modalCtrl: ModalController,
+                public navParams: NavParams) {
     this.menu.enable(true, 'loggedInMenu');
     this.totalDeiliveryProducts = JSON.parse(window.localStorage.getItem('totalPackages'));
     this.DeiliveredProducts = JSON.parse(window.localStorage.getItem('totalDelivered'));
     this.checkTime();
+
+
+    /*nav params*/
+    this.cust_id = navParams.get("deliveryId");
+    this.deliveryId = navParams.get("customerId");
+    alert(this.deliveryId);
+        alert(this.cust_id);
+
+    /*nav params*/
   }
   ionViewDidLoad() {
   	this.updateSchedule();
     this.previousDelivery(98452);
+    this.getAllPendings();
     //this.getAllPendings();
   }
+
+
+
+previousDelivery(customerId:number = 98452){ 
+debugger;
+this.TotalPackets = 0;
+    this.DeliveredPackets = 0;
+    if(JSON.parse(window.localStorage.getItem('deliveredOrder'))){
+      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('deliveredOrder'));
+    }
+    if(window.localStorage.getItem('productQuantity')){
+      this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
+      this.pendingProductsQuantity = JSON.parse(window.localStorage.getItem('pendingProductsQuantity'));
+        for(var y=0;y<this.pendingProductsQuantity.length;y++){
+             this.pendingProductsQuantity[y].quantity =0;
+           }
+      if(this.ProductsQuantity.length){
+        this.initialSlide = 1;
+      }else{
+        this.initialSlide = 0;
+      }
+    }else{
+      this.initialSlide = 0;
+    }
+    this.Products = [];
+    this.AppUsers = [];
+    
+    
+    this.status = [];
+    //this.TotalPackets = 0;
+    
+    this.showLoader(); 
+     //this.userData.editTodayDeliveries(updateData).then((data:any)=>
+   this.userData.previousDeliveries(customerId).then((results)=>{
+         // console.log(JSON.parse(results));
+          let result : any ={};
+          //let res :any = {}; 
+           result = JSON.stringify(results);
+           if(result != undefined){
+         
+          this.previousDeliverys = JSON.parse(result);
+         // console.log(this.previousDeliverys.address.mobile);
+           }else{
+             this.hideLoader();
+           }
+           this.hideLoader();
+       });
+              this.hideLoader();
+
+}
+
+
+
+
+
+
+
   public deleteAppUser() {
     this.db.deleteAppUser()
       .then(data => {
@@ -560,51 +634,6 @@ confirmRejected(pro: any,deliveryId: any,status: any,customerId:number){
     alert.present();
 }
 
-previousDelivery(customerId:number = 98452){ 
-
-this.TotalPackets = 0;
-    this.DeliveredPackets = 0;
-    if(JSON.parse(window.localStorage.getItem('deliveredOrder'))){
-      this.DeliveredPackets += JSON.parse(window.localStorage.getItem('deliveredOrder'));
-    }
-    if(window.localStorage.getItem('productQuantity')){
-      this.ProductsQuantity = JSON.parse(window.localStorage.getItem('productQuantity'));
-      this.pendingProductsQuantity = JSON.parse(window.localStorage.getItem('pendingProductsQuantity'));
-        for(var y=0;y<this.pendingProductsQuantity.length;y++){
-             this.pendingProductsQuantity[y].quantity =0;
-           }
-      if(this.ProductsQuantity.length){
-        this.initialSlide = 1;
-      }else{
-        this.initialSlide = 0;
-      }
-    }else{
-      this.initialSlide = 0;
-    }
-    this.Products = [];
-    this.AppUsers = [];
-    
-    
-    this.status = [];
-    //this.TotalPackets = 0;
-    
-    this.showLoader(); 
-     //this.userData.editTodayDeliveries(updateData).then((data:any)=>
-   this.userData.previousDeliveries(customerId).then((results)=>{
-         // console.log(JSON.parse(results));
-          let result : any ={};
-          //let res :any = {}; 
-           result = JSON.stringify(results);
-           if(result != undefined){
-         
-          this.previousDeliverys = JSON.parse(result);
-         // console.log(this.previousDeliverys.address.mobile);
-           }else{
-             this.hideLoader();
-           }
-           this.hideLoader();
-       });
-}
   
 doAlert(pro: any,deliveryId: any,customerId:number) {
  
